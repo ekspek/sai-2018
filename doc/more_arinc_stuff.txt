@@ -1,0 +1,12 @@
+Extract from the book:
+	Total pressure:
+	-label:242
+	-EquipID:006
+
+	Static pressure
+	-label:203
+	-EquipID:10A
+
+
+
+http://www.dropletmeasurement.com/PADS_Help/ARINC_429_Data_Bus_Characteristics.htm?fbclid=IwAR1RnhsiFz1O3uWvCXnCKr-nH-Vp2aE7pfZEXuLb1ovXYJ4DNABrS2mzEj0#MiniTOCBookMark5
