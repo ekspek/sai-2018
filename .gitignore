@@ -1,9 +1,12 @@
+## Ignore files
 src/lab1
-*.*~
 *.aux
 *.log
 *.out
 *.synctex.gz
 *.toc
 doc/report2/*.pdf
-
+_minted*
+## Vim aux files
+*.swp
+*.*~

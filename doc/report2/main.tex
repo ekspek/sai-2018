@@ -1,19 +1,22 @@
 % arara: xelatex: { shell: yes, synctex: yes }
 %\RequirePackage[l2tabu, orthodox]{nag}
-\documentclass{article}
+\documentclass[english,palatino]{ist-report}
 
 \input{preamble}
+\geometry{top=1.5cm}
+
+\title{Integrated Avionic Systems}
 
 \begin{document}
 
 \begin{titlepage}
 
 \includegraphics[viewport=9.5cm 11cm 0cm 0cm,scale=0.29]{IST_A_CMYK_POS}
-	
+
 \begin{center}
 	\vspace{40mm} % --  Espaço em branco
 	\rule{\linewidth}{0.5pt} \\
-    \vspace{2mm}
+	\vspace{2mm}
 	{\Huge \textbf{Aircraft Altitude Control and Fault Processing}} \\
 	\rule{\linewidth}{2pt} \\
 	\vspace{8mm} % -- Espaço em branco
@@ -46,8 +49,30 @@
 
 \part{Altitude Control}
 
+\section{Modeling The Input Data}
+
+The input data was modeled to fit a 3D polynomial function, using voltage in \si{\volt} and temperature in $\degree C$ as inputs.
+\begin{gather*}
+	p(V,T) = 27.21 + 311.6V + 0.05789T + -20.33V^2 + 0.1015VT
+\end{gather*}
+The raw data from the MATLAB output can be found below.  
+\begin{minted}{text}
+     Linear model Poly21:
+     sf(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y
+     Coefficients (with 95% confidence bounds):
+       p00 =       27.21  (24.31, 30.11)
+       p10 =       311.6  (308.7, 314.5)
+       p01 =     0.05789  (0.03087, 0.0849)
+       p20 =      -20.33  (-20.92, -19.74)
+       p11 =      0.1015  (0.09053, 0.1125)
+\end{minted}
+
+\section{ARINC Data Bus Sketching}
+
 ARINC 429 uses 32 bits. Of these 32 bits, 19 bits are used for data storage with the remainder being used for handshake definitions and other assorted packet-related data. Data is encoded in BCD. Knowing that a tenth of a degree of accuracy is needed, we can calculate the amount of bits BCD needs to encode any value within a pre-defined range.
 
 Assuming a maximum of $999.9$ degrees celcius (reasonable working range, as air temperatures will only get lower with altitude and sea-level temperature averages 25 degrees, while negative temperatures cap out at $\num{-273.15}\degree C$), that gives us four decimal slots total. From packed BCD, with four decimal digits required, we can use $4 \times 4 = 16$ bits for the numeric value, and an extra bit for signal. If we use a Kelvin degree notation we can eliminate the need for a signal bit.
+
+\part{Dealing With Faults and Errors}
 
 \end{document}
