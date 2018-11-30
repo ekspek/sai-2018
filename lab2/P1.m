@@ -41,6 +41,7 @@ surf([-45, 25, 125], pressure, [polyval(p_minus45, pressure, 2) polyval(p_25, pr
 
 sf = fit([[out_minus45;out_25;out_125] [-45*ones(size(out_25));25*ones(size(out_25));125*ones(size(out_25))]], [pressure;pressure;pressure], 'poly21');
 plot(sf,[[out_minus45;out_25;out_125] [-45*ones(size(out_25));25*ones(size(out_25));125*ones(size(out_25))]], [pressure;pressure;pressure]);
+xlabel('Voltage [V]'); ylabel('Temperature [C]'); zlabel('Pressure [Pa]');
 
 hold on;
 error_3dfit = [pressure;pressure;pressure] - feval(sf,[out_minus45;out_25;out_125],[-45*ones(size(out_25));25*ones(size(out_25));125*ones(size(out_25))]);
