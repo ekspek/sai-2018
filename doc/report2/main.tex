@@ -9,43 +9,33 @@
 
 \begin{document}
 
-\begin{titlepage}
-
-\includegraphics[viewport=9.5cm 11cm 0cm 0cm,scale=0.29]{IST_A_CMYK_POS}
+\thispagestyle{empty}
 
 \begin{center}
-	\vspace{40mm} % --  Espaço em branco
-	\rule{\linewidth}{0.5pt} \\
-	\vspace{2mm}
-	{\Huge \textbf{Aircraft Altitude Control and Fault Processing}} \\
-	\rule{\linewidth}{2pt} \\
-	\vspace{8mm} % -- Espaço em branco
-	{\Large Control of an aircraft's altitude based on its sensor inputs and processing and mitigation of mid-flight system faults}
+	\includegraphics[scale=0.3, trim = {93.4pt 219.7pt 77pt 221.9pt}]{IST_C_CMYK_POS}
 	
-	\vspace{\fill} % --  Espaço em branco variável
-	
+	\vspace*{3mm}
+	{\huge \textbf{Aircraft Altitude Control\\and Fault Processing}} \\
+	\vspace*{4mm}
+	{\large Control of an aircraft's altitude based on its sensor inputs and processing and mitigation of mid-flight system faults}
+	\vspace*{4mm} \\
 	\begin{tabular}{r l}
 		Pedro \textsc{Afonso} & \textbf{66277} \\
 		João \textsc{Manito} & \textbf{73096} \\
 		Daniel \textsc{de Schiffart} & \textbf{81479}
 	\end{tabular}
 	
-	\vspace{10mm} % --  Espaço em branco
-	{\Large Instituto Superior Técnico} \\
-	{\Large Integrated Master's Degree in Aerospace Engineering} \\
-	\vspace{1mm}
-	{\large Integrated Avionic Systems}
-	
-	\vspace{10mm} % --  Espaço em branco
-	{\Large $2018/2019$}
+	\vspace*{3mm}
+	{\Large \today}
+	\vspace*{4mm} \\
+	\rule{\linewidth}{0.5pt}
 \end{center}
-\end{titlepage}
-
-{\hypersetup{linkcolor = black} \tableofcontents}
 
 \begin{abstract}
 	The objective of the second laboratory for this course was to control an aircraft's altitude and movement based on the input provided by its sensors and the transmission of data throughout the aircraft's onboard systems via its Local Area Network, characterizing the data protocols and preparing data for transmission. The second part of this laboratory had its focus more directed to the possibility of mid-flight faults to various aircraft systems, the handling of these faults and the simulation of data to maintain the control of the aircraft's altitude mentioned in the first part in the presence of faults in any of the crucial systems for this process. The work was to be implemented in C code for the major part of its simulations, with an initial theoretical segment being done with the use of \textsc{MATLAB} to obtain fixed results relevant to the work.
 \end{abstract}
+
+{\hypersetup{linkcolor = black} \tableofcontents}
 
 \part{Altitude Control}
 
@@ -53,7 +43,7 @@
 
 The input data was modeled to fit a 3D polynomial function, using voltage in \si{\volt} and temperature in $\degree C$ as inputs.
 \begin{gather*}
-	p(V,T) = 27.21 + 311.6V + 0.05789T + -20.33V^2 + 0.1015VT
+	p(v,T) = 27.21 + 311.6v + 0.05789T - 20.33v^2 + 0.1015vT
 \end{gather*}
 The raw data from the MATLAB output can be found below.  
 \begin{minted}{text}
