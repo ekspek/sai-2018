@@ -59,10 +59,46 @@ The raw data from the MATLAB output can be found below.
 
 \section{ARINC Data Bus Sketching}
 
-ARINC 429 uses 32 bits. Of these 32 bits, 19 bits are used for data storage with the remainder being used for handshake definitions and other assorted packet-related data. Data is encoded in BCD. Knowing that a tenth of a degree of accuracy is needed, we can calculate the amount of bits BCD needs to encode any value within a pre-defined range.
+%ARINC 429 uses 32 bits. Of these 32 bits, 19 bits are used for data storage with the remainder being used for handshake definitions and other assorted packet-related data. Data is encoded in BCD. Knowing that a tenth of a degree of accuracy is needed, we can calculate the amount of bits BCD needs to encode any value within a pre-defined range.
 
-Assuming a maximum of $999.9$ degrees celcius (reasonable working range, as air temperatures will only get lower with altitude and sea-level temperature averages 25 degrees, while negative temperatures cap out at $\num{-273.15}\degree C$), that gives us four decimal slots total. From packed BCD, with four decimal digits required, we can use $4 \times 4 = 16$ bits for the numeric value, and an extra bit for signal. If we use a Kelvin degree notation we can eliminate the need for a signal bit.
+%Assuming a maximum of $999.9$ degrees celcius (reasonable working range, as air temperatures will only get lower with altitude and sea-level temperature averages 25 degrees, while negative temperatures cap out at $\num{-273.15}\degree C$), that gives us four decimal slots total. From packed BCD, with four decimal digits required, we can use $4 \times 4 = 16$ bits for the numeric value, and an extra bit for signal. If we use a Kelvin degree notation we can eliminate the need for a signal bit.
+
+\subsection{Question 3}
+
+For this question we considered the range of values between $\num{-45}\degree C$ and $\num{125}\degree C$, which leaves us with a total of 170 values of temperature to be transmitted. With an additional request of an accuracy of $\num{0.1}\degree C$, we need ten times as many values. All things considered, we need to transmit any values in a range of 1700 possibilities. Going through the amount of possible values held by a number of binary bits, we look for the amount of bits to meet this requirement.
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{ccc}
+		\vdots		& $=$	& \vdots	\\
+		$2^9$		& $=$	& $512$		\\
+		$2^{10}$	& $=$	& $1024$	\\
+		$2^{11}$	& $=$	& $2048$	\\
+		$2^{12}$	& $=$	& $4096$	\\
+		\vdots		& $=$	& \vdots	\\
+	\end{tabular}
+\end{table}
+
+With this in mind, and considering using an offset of values to eliminate the need for a signal bit (or even converting the temperature to Kelvin), we need at the very least 11 bits to transmit.
+
+\section{Question 4}
+
+\begin{gather*}
+	h(p) = 145366.45\left(1 - \left(\frac{p_s}{1013.25}\right)^{0.190284}\right)
+\end{gather*}
 
 \part{Dealing With Faults and Errors}
+
+\begin{align*}
+	\dot{x} &= v\cos\gamma + at\cos(\gamma + \alpha) \\
+	\dot{h} &= v\sin\gamma + at\cos(\gamma + \alpha) \\
+	x &= \dot{x}t \\
+	h &= \dot{h}t \\
+	\tan\gamma &= \frac{\dot{x}}{\dot{h}}
+\end{align*}
+\begin{gather*}
+	v = at \\
+	a \propto T \\
+\end{gather*}
 
 \end{document}

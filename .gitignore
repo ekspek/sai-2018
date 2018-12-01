@@ -10,3 +10,4 @@ _minted*
 ## Vim aux files
 *.swp
 *.*~
+makefile~
