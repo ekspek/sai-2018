@@ -101,4 +101,33 @@ With this in mind, and considering using an offset of values to eliminate the ne
 	a \propto T \\
 \end{gather*}
 
+\section{Possible Faults}
+
+Within the simple system implemented in this laboratory, several components can fail or behave unexpectedly. The components that can fail and either have a value different than reality or deactivate completely are either one of the variables used for implementation, $x$, $h$, $\dot{x}$, $\dot{h}$, flight path angle $\gamma$, angle-of-attack $\alpha$, or engine power $P$. Depending on the effect of the mismeasurement of either of the mentioned variables, the aircraft may either still be able to fly fine or risk a loss of altitude or even crash.
+
+A good first approach would be to limit the values the control variables have. As mentioned previously, the control variables are the angle-of-attack $\alpha$ and the engine power $P$. Matching up with the expected values for these variables with data from other flights, we can define some limits for both.
+\begin{table}[ht]
+	\begin{tabular}{c|c c} \toprule
+									& Lowest value		& Highest value	\\
+		\midrule
+		Angle-of-attack [$\degree$]	& $-25$				& $25$			\\
+		Engine power [\SI{\watt}]	& $0$				& Maximum power	\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+The maximum power will have to be evaluated separately considering its relation with the aircraft's dynamics.
+
+Another behaviour will be the analysis of the controlled variables $x$, $h$, $\dot{x}$, $\dot{h}$, and flight path angle $\gamma$. While we do not control these variables directly, we can limit the controller to prevent it from outputting dangerous or unexpected values. As an example, we can expect the speed to not surpass $0.7$ times the speed of sound for this particular project, since we will not be considering compressible effects for the behaviour of the aircraft's dynamics, which come into play at around this speed.
+\begin{table}[ht]
+	\begin{tabular}{c|c c} \toprule
+														& Lowest value		& Highest value		\\
+		\midrule
+		Horizontal speed $\dot{x}$ [\SI{\meter\per\second}]	& 					& $340 \times 0.7$	\\
+		Vertical speed $\dot{h}$ [\SI{\meter\per\second}]		& $-30$				& $30$				\\
+		Flight path angle $\gamma$ [\degree]			& $-5$				& $5$				\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+The value for the flight path angle $\gamma$ was chosen taking several constraints into consideration, to prevent too drastic changes in the aircraft's altitude. This $\gamma$ value can be used to determine the vertical speed limit.
+
 \end{document}
