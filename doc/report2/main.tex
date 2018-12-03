@@ -4,6 +4,7 @@
 
 \input{preamble}
 \geometry{top=1.5cm}
+\usepackage{todonotes}
 
 \title{Integrated Avionic Systems}
 
@@ -37,31 +38,72 @@
 
 {\hypersetup{linkcolor = black} \tableofcontents}
 
-\part{Altitude Control}
+\part{Aircraft Altitude Sensor and On-Board Data Bus}
+
+This first part of the report focuses on the gathering of external data, in this case the pressure, through the on-board sensors, modelling of sensor behaviour using gathered data, and the comparison of this theoretical model with the actual data to study the error obtained. This work is followed by the study of the transmission of data through the aircraft's on-board system local network.
 
 \section{Modeling The Input Data}
 
-The input data was modeled to fit a 3D polynomial function, using voltage in \si{\volt} and temperature in $\degree C$ as inputs.
-\begin{gather*}
-	p(v,T) = 27.21 + 311.6v + 0.05789T - 20.33v^2 + 0.1015vT
-\end{gather*}
+For this first section, we were provided a set of gathered voltage data from a sensor at three different temperatures, with each voltage value accompanied by the corresponding static pressure value. In total, a total of 219 lines of data, which means voltage values for 219 different real static pressure values. A sample of the data provided is seen in table \ref{tab:datain}.
+
+\begin{table}[ht]
+	\centering
+	\resizebox{\textwidth}{!}{
+	\begin{tabular}{c|c|c|c}\toprule
+		Pressure [mbar]		& Output [Volt] at $-45\degree C$	& Output [Volt] at $25\degree C$		& Output [Volt] at $125\degree C$	\\
+		\midrule
+		\num{1.0000000e+01}	& \num{9.6891912e-02}				& \num{3.9214138e-02}					& \num{8.0487284e-02}				\\
+		\bottomrule
+	\end{tabular}}
+	\caption{Example of the provided data formatting.}
+	\label{tab:datain}
+\end{table}
+
+The data was to be used to determine a model for the pressure, using the voltage and ambient temperature as model inputs. For this purpose, we used MATLAB's \href{https://www.mathworks.com/help/curvefit/fit.html}{\texttt{fit}} function from the \textit{Curve Fitting Toolbox}, using a linear polynomial curve for the temperature axis and a quadratic polynomial curve for the voltage fitting \todo{Change this to fourth-order polynomial}. This yielded the polynomials found in equation \ref{eq:fitpoly}.
+
+\begin{gather}\label{eq:fitpoly}
+	%p(v,T) = 27.21 + 311.6v + 0.05789T - 20.33v^2 + 0.1015vT
+	\begin{split}
+		p(v,T) = 5.639 + 382.1v - 0.05732T - 69.73v^2 + 0.2646vT + 0.0002634T^2 + 11.53v^3 \\ - 0.05126v^2T - 0.0002063vT^2 - 0.8314v^4 + 0.004329v^3T + 4.644\times10^{-5}v^2T^2
+	\end{split}
+\end{gather}
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[	domain=0:5,y domain=-45:125,view={-30}{25},
+			xlabel=$\si{\volt}$,ylabel=$\degree C$, zlabel=$\si{\pascal}$]
+			\addplot3[surf,samples=25]{5.639 + 382.1 * x - 0.05732 * y - 69.73 * x^2 + 0.2646 * x * y + 0.0002634 * y^2 + 11.53 * x^3 - 0.05126 * x^2 * y - 0.0002063 * x * y^2 - 0.8314 * x^4 + 0.004329 * x^3 * y + 4.644 * 0.00001 * x^2 * y^2};
+			\addplot3[only marks] table [x index = {1}, z index = {0}, y expr = -45, col sep = comma] {inputdata.csv};
+			\addplot3[only marks] table [x index = {2}, z index = {0}, y expr = 25, col sep = comma] {inputdata.csv};
+			\addplot3[only marks] table [x index = {3}, z index = {0}, y expr = 125, col sep = comma] {inputdata.csv};
+		\end{axis}
+	\end{tikzpicture}
+	\label{fig:3dplotmain}
+	\caption{Comparison of the data provided and the modelled polynomial.}
+\end{figure}
+
 The raw data from the MATLAB output can be found below.  
 \begin{minted}{text}
-     Linear model Poly21:
-     sf(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y
+Linear model Poly42:
+     sf(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2 + p30*x^3 + 
+                    p21*x^2*y + p12*x*y^2 + p40*x^4 + p31*x^3*y + p22*x^2*y^2
      Coefficients (with 95% confidence bounds):
-       p00 =       27.21  (24.31, 30.11)
-       p10 =       311.6  (308.7, 314.5)
-       p01 =     0.05789  (0.03087, 0.0849)
-       p20 =      -20.33  (-20.92, -19.74)
-       p11 =      0.1015  (0.09053, 0.1125)
+       p00 =       5.639  (1.566, 9.713)
+       p10 =       382.1  (371.3, 392.9)
+       p01 =    -0.05732  (-0.1234, 0.008728)
+       p20 =      -69.73  (-78.75, -60.72)
+       p11 =      0.2646  (0.166, 0.3632)
+       p02 =   0.0002634  (-0.0003534, 0.0008803)
+       p30 =       11.53  (8.749, 14.31)
+       p21 =    -0.05126  (-0.0942, -0.008322)
+       p12 =  -0.0002063  (-0.0008547, 0.0004422)
+       p40 =     -0.8314  (-1.113, -0.5502)
+       p31 =    0.004329  (-0.001359, 0.01002)
+       p22 =   4.644e-05  (-8.942e-05, 0.0001823)
 \end{minted}
 
 \section{ARINC Data Bus Sketching}
-
-%ARINC 429 uses 32 bits. Of these 32 bits, 19 bits are used for data storage with the remainder being used for handshake definitions and other assorted packet-related data. Data is encoded in BCD. Knowing that a tenth of a degree of accuracy is needed, we can calculate the amount of bits BCD needs to encode any value within a pre-defined range.
-
-%Assuming a maximum of $999.9$ degrees celcius (reasonable working range, as air temperatures will only get lower with altitude and sea-level temperature averages 25 degrees, while negative temperatures cap out at $\num{-273.15}\degree C$), that gives us four decimal slots total. From packed BCD, with four decimal digits required, we can use $4 \times 4 = 16$ bits for the numeric value, and an extra bit for signal. If we use a Kelvin degree notation we can eliminate the need for a signal bit.
 
 \subsection{Question 3}
 
@@ -83,6 +125,14 @@ With this in mind, and considering using an offset of values to eliminate the ne
 
 \section{Question 4}
 
+\begin{tabular}{c c} \toprule
+	&  \\
+	\midrule
+	& \\
+	\bottomrule
+\end{tabular}
+\todo{Add ARINC 429 table}
+
 \begin{gather*}
 	h(p) = 145366.45\left(1 - \left(\frac{p_s}{1013.25}\right)^{0.190284}\right)
 \end{gather*}
@@ -103,31 +153,12 @@ With this in mind, and considering using an offset of values to eliminate the ne
 
 \section{Possible Faults}
 
-Within the simple system implemented in this laboratory, several components can fail or behave unexpectedly. The components that can fail and either have a value different than reality or deactivate completely are either one of the variables used for implementation, $x$, $h$, $\dot{x}$, $\dot{h}$, flight path angle $\gamma$, angle-of-attack $\alpha$, or engine power $P$. Depending on the effect of the mismeasurement of either of the mentioned variables, the aircraft may either still be able to fly fine or risk a loss of altitude or even crash.
+Within the simple system implemented in this laboratory, several components can fail or behave unexpectedly. Whether it's the control system or the sensors used, either one can have a fault at some point and the control system needs to be ready to return the control to the pilot should a fault be detected somewhere.
 
-A good first approach would be to limit the values the control variables have. As mentioned previously, the control variables are the angle-of-attack $\alpha$ and the engine power $P$. Matching up with the expected values for these variables with data from other flights, we can define some limits for both.
-\begin{table}[ht]
-	\begin{tabular}{c|c c} \toprule
-									& Lowest value		& Highest value	\\
-		\midrule
-		Angle-of-attack [$\degree$]	& $-25$				& $25$			\\
-		Engine power [\SI{\watt}]	& $0$				& Maximum power	\\
-		\bottomrule
-	\end{tabular}
-\end{table}
-The maximum power will have to be evaluated separately considering its relation with the aircraft's dynamics.
-
-Another behaviour will be the analysis of the controlled variables $x$, $h$, $\dot{x}$, $\dot{h}$, and flight path angle $\gamma$. While we do not control these variables directly, we can limit the controller to prevent it from outputting dangerous or unexpected values. As an example, we can expect the speed to not surpass $0.7$ times the speed of sound for this particular project, since we will not be considering compressible effects for the behaviour of the aircraft's dynamics, which come into play at around this speed.
-\begin{table}[ht]
-	\begin{tabular}{c|c c} \toprule
-														& Lowest value		& Highest value		\\
-		\midrule
-		Horizontal speed $\dot{x}$ [\SI{\meter\per\second}]	& 					& $340 \times 0.7$	\\
-		Vertical speed $\dot{h}$ [\SI{\meter\per\second}]		& $-30$				& $30$				\\
-		Flight path angle $\gamma$ [\degree]			& $-5$				& $5$				\\
-		\bottomrule
-	\end{tabular}
-\end{table}
-The value for the flight path angle $\gamma$ was chosen taking several constraints into consideration, to prevent too drastic changes in the aircraft's altitude. This $\gamma$ value can be used to determine the vertical speed limit.
-
+This fault detection will be done by monitoring the flight variables and their behaviour throughout the simulation. The first step should then be define what constitutes a fault. By definition,
+\begin{quote} \itshape
+	A fault is a deviation (of a feature) from the acceptable, standard operational condition.
+\end{quote}
+For sensors, we can consider four types of faults, either sensor bias, drift, loss of accuracy or freeze. The sources for these faults come from either the barometric sensor or the temperature A/D conversion and data transmission.
+\listoftodos
 \end{document}
