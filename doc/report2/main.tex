@@ -105,8 +105,6 @@ Linear model Poly42:
 
 \section{ARINC Data Bus Sketching}
 
-\subsection{Question 3}
-
 For this question we considered the range of values between $\num{-45}\degree C$ and $\num{125}\degree C$, which leaves us with a total of 170 values of temperature to be transmitted. With an additional request of an accuracy of $\num{0.1}\degree C$, we need ten times as many values. All things considered, we need to transmit any values in a range of 1700 possibilities. Going through the amount of possible values held by a number of binary bits, we look for the amount of bits to meet this requirement.
 
 \begin{table}[ht]
@@ -123,15 +121,32 @@ For this question we considered the range of values between $\num{-45}\degree C$
 
 With this in mind, and considering using an offset of values to eliminate the need for a signal bit (or even converting the temperature to Kelvin), we need at the very least 11 bits to transmit.
 
-\section{Question 4}
-
-\begin{tabular}{c c} \toprule
-	&  \\
-	\midrule
-	& \\
-	\bottomrule
-\end{tabular}
-\todo{Add ARINC 429 table}
+\begin{figure}[ht]
+	\centering
+	\resizebox{\textwidth}{!}{\begin{tikzpicture}
+		\node (sp1) at (0,0) [rectangle, draw, align=center,minimum width = 4cm, minimum height = 3cm] {Static \\ Pressure \\ Sensor};
+		\node (tx11) at (sp1.north east) [rectangle,draw,anchor = north east] {\texttt{Tx}};
+		\path [draw] (tx11.north west) -- (tx11.north west|-sp1.south);
+		\node (sp2) at (0,-4) [rectangle, draw, align=center,minimum width = 4cm, minimum height = 3cm] {Static \\ Pressure \\ Sensor};
+		\node (tx21) at (sp2.north east) [rectangle,draw,anchor = north east] {\texttt{Tx}};
+		\path [draw] (tx21.north west) -- (tx21.north west|-sp2.south);
+		\node (sp3) at (0,-8) [rectangle, draw, align=center,minimum width = 4cm, minimum height = 3cm] {Static \\ Pressure \\ Sensor};
+		\node (tx31) at (sp3.north east) [rectangle,draw,anchor = north east] {\texttt{Tx}};
+		\path [draw] (tx31.north west) -- (tx31.north west|-sp3.south);
+		\path (sp1.north east) ++(3,0) node (adc) [anchor = north west, rectangle, draw, align=center, minimum width = 5cm, minimum height = 10cm] {Air Data \\ Computer};
+		\node (rxa1) at (adc.north west) [rectangle,draw,anchor = north west] {\texttt{Rx}};
+		\path [draw] (rxa1.north east) -- (rxa1.north east|-adc.south);
+		\node (rxa2) at (rxa1.south west) [rectangle,draw,anchor = north west] {\texttt{Rx}};
+		\node (rxa3) at (rxa2.south west) [rectangle,draw,anchor = north west] {\texttt{Rx}};
+		\node (txa1) at (adc.north east) [rectangle,draw,anchor = north east] {\texttt{Tx}};
+		\path [draw] (txa1.north west) -- (txa1.north west|-adc.south);
+		\path [draw] (tx11) -- (rxa1);
+		\path [draw] (tx21)  -- ++(1,0) coordinate (c1) -- (c1|-rxa2) -- (rxa2);
+		\path [draw] (tx31)  -- ++(2,0) coordinate (c2) -- (c2|-rxa3) -- (rxa3);
+	\end{tikzpicture}}
+	\caption{Air Data Computer.}
+	\label{fig:adc}
+\end{figure}
 
 \begin{gather*}
 	h(p) = 145366.45\left(1 - \left(\frac{p_s}{1013.25}\right)^{0.190284}\right)
