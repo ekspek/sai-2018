@@ -60,7 +60,7 @@ For this first section, we were provided a set of gathered voltage data from a s
 	\label{tab:datain}
 \end{table}
 
-The data was to be used to determine a model for the pressure, using the voltage and ambient temperature as model inputs. For this purpose, we used MATLAB's \href{https://www.mathworks.com/help/curvefit/fit.html}{\texttt{fit}} function from the \textit{Curve Fitting Toolbox}, using a linear polynomial curve for the temperature axis and a quadratic polynomial curve for the voltage fitting \todo{Change this to fourth-order polynomial}. This yielded the polynomials found in equation \ref{eq:fitpoly}.
+The data was to be used to determine a model for the pressure, using the voltage and ambient temperature as model inputs. For this purpose, we used MATLAB's \href{https://www.mathworks.com/help/curvefit/fit.html}{\texttt{fit}} function from the \textit{Curve Fitting Toolbox}, using a second order polynomial for the temperature axis and a fourth-order polynomial curve for the voltage fitting. This yielded the polynomials found in equation \ref{eq:fitpoly}.
 
 \begin{gather}\label{eq:fitpoly}
 	%p(v,T) = 27.21 + 311.6v + 0.05789T - 20.33v^2 + 0.1015vT
