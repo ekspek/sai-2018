@@ -53,6 +53,7 @@ For this first section, we were provided a set of gathered voltage data from a s
 		Pressure [mbar]		& Output [Volt] at $-45\degree C$	& Output [Volt] at $25\degree C$		& Output [Volt] at $125\degree C$	\\
 		\midrule
 		\num{1.0000000e+01}	& \num{9.6891912e-02}				& \num{3.9214138e-02}					& \num{8.0487284e-02}				\\
+		$\vdots$			& $\vdots$							& $\vdots$								& $\vdots$							\\
 		\bottomrule
 	\end{tabular}}
 	\caption{Example of the provided data formatting.}
@@ -68,22 +69,8 @@ The data was to be used to determine a model for the pressure, using the voltage
 	\end{split}
 \end{gather}
 
-\begin{figure}[ht]
-	\centering
-	\begin{tikzpicture}
-		\begin{axis}[	domain=0:5,y domain=-45:125,view={-30}{25},
-			xlabel=$\si{\volt}$,ylabel=$\degree C$, zlabel=$\si{\pascal}$]
-			\addplot3[surf,samples=25]{5.639 + 382.1 * x - 0.05732 * y - 69.73 * x^2 + 0.2646 * x * y + 0.0002634 * y^2 + 11.53 * x^3 - 0.05126 * x^2 * y - 0.0002063 * x * y^2 - 0.8314 * x^4 + 0.004329 * x^3 * y + 4.644 * 0.00001 * x^2 * y^2};
-			\addplot3[only marks] table [x index = {1}, z index = {0}, y expr = -45, col sep = comma] {inputdata.csv};
-			\addplot3[only marks] table [x index = {2}, z index = {0}, y expr = 25, col sep = comma] {inputdata.csv};
-			\addplot3[only marks] table [x index = {3}, z index = {0}, y expr = 125, col sep = comma] {inputdata.csv};
-		\end{axis}
-	\end{tikzpicture}
-	\label{fig:3dplotmain}
-	\caption{Comparison of the data provided and the modelled polynomial.}
-\end{figure}
+The model was plotted against the provided input data and can be found in figure \ref{fig:3dplotmain} in page \pageref{fig:3dplotmain}. The raw data from the MATLAB output can be found below.  
 
-The raw data from the MATLAB output can be found below.  
 \begin{minted}{text}
 Linear model Poly42:
      sf(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2 + p30*x^3 + 
@@ -123,27 +110,29 @@ With this in mind, and considering using an offset of values to eliminate the ne
 
 \begin{figure}[ht]
 	\centering
-	\resizebox{\textwidth}{!}{\begin{tikzpicture}
-		\node (sp1) at (0,0) [rectangle, draw, align=center,minimum width = 4cm, minimum height = 3cm] {Static \\ Pressure \\ Sensor};
+	%\resizebox{\textwidth}{!}{
+	\begin{tikzpicture}[scale=0.7]
+		\node (sp1) at (0,0) [rectangle, draw, align=center,minimum width = 3cm, minimum height = 2cm] {Static \\ Pressure \\ Sensor};
 		\node (tx11) at (sp1.north east) [rectangle,draw,anchor = north east] {\texttt{Tx}};
-		\path [draw] (tx11.north west) -- (tx11.north west|-sp1.south);
-		\node (sp2) at (0,-4) [rectangle, draw, align=center,minimum width = 4cm, minimum height = 3cm] {Static \\ Pressure \\ Sensor};
+		\path [draw,very thin] (tx11.north west) -- (tx11.north west|-sp1.south);
+		\node (sp2) [below=of sp1,rectangle, draw, align=center,minimum width = 3cm, minimum height = 2cm] {Static \\ Pressure \\ Sensor};
 		\node (tx21) at (sp2.north east) [rectangle,draw,anchor = north east] {\texttt{Tx}};
-		\path [draw] (tx21.north west) -- (tx21.north west|-sp2.south);
-		\node (sp3) at (0,-8) [rectangle, draw, align=center,minimum width = 4cm, minimum height = 3cm] {Static \\ Pressure \\ Sensor};
+		\path [draw,very thin] (tx21.north west) -- (tx21.north west|-sp2.south);
+		\node (sp3) [below=of sp2,rectangle, draw, align=center,minimum width = 3cm, minimum height = 2cm] {Static \\ Pressure \\ Sensor};
 		\node (tx31) at (sp3.north east) [rectangle,draw,anchor = north east] {\texttt{Tx}};
-		\path [draw] (tx31.north west) -- (tx31.north west|-sp3.south);
-		\path (sp1.north east) ++(3,0) node (adc) [anchor = north west, rectangle, draw, align=center, minimum width = 5cm, minimum height = 10cm] {Air Data \\ Computer};
+		\path [draw,very thin] (tx31.north west) -- (tx31.north west|-sp3.south);
+		\path (sp1.north east) ++(3,0) node (adc) [anchor = north west, rectangle, draw, align=center, minimum width = 5cm, minimum height = 7cm] {Air Data \\ Computer};
 		\node (rxa1) at (adc.north west) [rectangle,draw,anchor = north west] {\texttt{Rx}};
-		\path [draw] (rxa1.north east) -- (rxa1.north east|-adc.south);
+		\path [draw,very thin] (rxa1.north east) -- (rxa1.north east|-adc.south);
 		\node (rxa2) at (rxa1.south west) [rectangle,draw,anchor = north west] {\texttt{Rx}};
 		\node (rxa3) at (rxa2.south west) [rectangle,draw,anchor = north west] {\texttt{Rx}};
 		\node (txa1) at (adc.north east) [rectangle,draw,anchor = north east] {\texttt{Tx}};
-		\path [draw] (txa1.north west) -- (txa1.north west|-adc.south);
+		\path [draw,very thin] (txa1.north west) -- (txa1.north west|-adc.south);
 		\path [draw] (tx11) -- (rxa1);
 		\path [draw] (tx21)  -- ++(1,0) coordinate (c1) -- (c1|-rxa2) -- (rxa2);
 		\path [draw] (tx31)  -- ++(2,0) coordinate (c2) -- (c2|-rxa3) -- (rxa3);
-	\end{tikzpicture}}
+	\end{tikzpicture}
+	%}
 	\caption{Air Data Computer.}
 	\label{fig:adc}
 \end{figure}
@@ -175,5 +164,42 @@ This fault detection will be done by monitoring the flight variables and their b
 	A fault is a deviation (of a feature) from the acceptable, standard operational condition.
 \end{quote}
 For sensors, we can consider four types of faults, either sensor bias, drift, loss of accuracy or freeze. The sources for these faults come from either the barometric sensor or the temperature A/D conversion and data transmission.
+
 \listoftodos
+
+\pagebreak
+\appendix
+
+\section{Data Plots}
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[domain=0:5,y domain=-45:125,view={-30}{25},xlabel=$\si{\volt}$,ylabel=$\degree C$, zlabel=$\si{\pascal}$,width=0.7\textwidth]
+			\addplot3[surf,samples=05] {5.639 + 382.1 * x - 0.05732 * y - 69.73 * x^2 + 0.2646 * x * y + 0.0002634 * y^2 + 11.53 * x^3 - 0.05126 * x^2 * y - 0.0002063 * x * y^2 - 0.8314 * x^4 + 0.004329 * x^3 * y + 4.644 * 0.00001 * x^2 * y^2};
+			\addplot3[only marks,color=red,mark=o] table [x index = {1}, z index = {0}, y expr = -45, col sep = comma] {inputdata.csv};
+			\addplot3[only marks,color=blue,mark=o] table [x index = {2}, z index = {0}, y expr = 25, col sep = comma] {inputdata.csv};
+			\addplot3[only marks,color=green,mark=o] table [x index = {3}, z index = {0}, y expr = 125, col sep = comma] {inputdata.csv};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Comparison of the data provided and the modelled polynomial.}
+	\label{fig:3dplotmain}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[domain=0:5,xlabel=\si{\volt},ylabel=\si{\pascal},width=0.7\textwidth]
+			\addplot table [col sep = comma, x index = {1}, y index = {0}] {inputdata.csv};
+			\addplot table [col sep = comma, x index = {2}, y index = {0}] {inputdata.csv};
+			\addplot table [col sep = comma, x index = {3}, y index = {0}] {inputdata.csv};
+			\addplot [mark=none,mark size = 1pt] {5.639 + 382.1 * x - 0.05732 * (-45) - 69.73 * x^2 + 0.2646 * x * (-45) + 0.0002634 * (-45)^2 + 11.53 * x^3 - 0.05126 * x^2 * (-45) - 0.0002063 * x * (-45)^2 - 0.8314 * x^4 + 0.004329 * x^3 * (-45) + 4.644 * 0.00001 * x^2 * (-45)^2};
+			\addplot [mark=none, mark size = 1pt] {5.639 + 382.1 * x - 0.05732 * 25 - 69.73 * x^2 + 0.2646 * x * 25 + 0.0002634 * 25^2 + 11.53 * x^3 - 0.05126 * x^2 * 25 - 0.0002063 * x * 25^2 - 0.8314 * x^4 + 0.004329 * x^3 * 25 + 4.644 * 0.00001 * x^2 * 25^2};
+			\addplot [mark=none, mark size = 1pt] {5.639 + 382.1 * x - 0.05732 * 125 - 69.73 * x^2 + 0.2646 * x * 125 + 0.0002634 * 125^2 + 11.53 * x^3 - 0.05126 * x^2 * 125 - 0.0002063 * x * 125^2 - 0.8314 * x^4 + 0.004329 * x^3 * 125 + 4.644 * 0.00001 * x^2 * 125^2};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Side-view of the plots versus the modeled version at the same temperature.}
+	\label{fig:2dplotmain}
+\end{figure}
+
 \end{document}
