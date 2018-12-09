@@ -78,12 +78,14 @@ clf
 %surf([-45, 25, 125], pressure, [polyval(p_minus45, pressure, 2) polyval(p_25, pressure, 2) polyval(p_125, pressure, 2)]);
 
 %Get p(V,T) relationship model
-sf = fit([[out_minus45;out_25;out_125] [-45*ones(size(out_25));25*ones(size(out_25));125*ones(size(out_25))]], [pressure;pressure;pressure], 'poly21');
+sf = fit([[out_minus45;out_25;out_125] [-45*ones(size(out_25));25*ones(size(out_25));125*ones(size(out_25))]], [pressure;pressure;pressure], 'poly42');
 plot(sf,[[out_minus45;out_25;out_125] [-45*ones(size(out_25));25*ones(size(out_25));125*ones(size(out_25))]], [pressure;pressure;pressure]);
 xlabel('Voltage [V]'); ylabel('Temperature [C]'); zlabel('Pressure [Pa]');
 
 
-fprintf("The model for p(V,T) is given by: \n p(V,T) = %f + %f*V + %f*T + %f*V^2 + %f*V*T\n",sf.p00,sf.p10,sf.p01,sf.p20,sf.p11)
+fprintf("The model for p(V,T) is given by: \n p(V,T) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2 + p30*x^3 + p21*x^2*y + p12*x*y^2 + p40*x^4 + p31*x^3*y + p22*x^2*y^2\n")
+fprintf("The polinomial parameters are: \np00=%d\np10=%d\np01=%d\np20=%d\np11=%d\np02=%d\np30=%d\np21=%d\np12=%d\np40=%d\np31=%d\np22=%d\n",...
+    sf.p00, sf.p10, sf.p01, sf.p20, sf.p11, sf.p02, sf.p30, sf.p21, sf.p12, sf.p40, sf.p31, sf.p22);
 %% 4 - Obtain p(V,T) model error
 
 error_3dfit = [pressure;pressure;pressure] - feval(sf,[out_minus45;out_25;out_125],[-45*ones(size(out_25));25*ones(size(out_25));125*ones(size(out_25))]);
@@ -113,9 +115,9 @@ clf
 
 h_real=get_pressure_altitude(pressure);
 
-h_model_minus45=get_pressure_altitude(pressure_model(out_minus45,-45));
-h_model_25=get_pressure_altitude(pressure_model(out_25,25));
-h_model_125=get_pressure_altitude(pressure_model(out_125,125));
+h_model_minus45=get_pressure_altitude(feval(sf,out_minus45,-45));
+h_model_25=get_pressure_altitude(feval(sf,out_25,25));
+h_model_125=get_pressure_altitude(feval(sf,out_125,125));
 
 plot(pressure,h_real/1000,pressure,h_model_minus45/1000,pressure,h_model_25/1000,pressure,h_model_125/1000);
 hold on
@@ -150,3 +152,8 @@ title("Pressure altitude model error for 125ºC");
 %line([x_lim(1) x_lim(2)],[0.25 0.25]);
 %line([x_lim(1) x_lim(2)],[-0.25 -0.25]);
 %legend("Real pressure","Modeled -45","Modeled 25","Modeled 125")
+
+for i=2:size(out_minus45,1)
+    diff(i)=out_minus45(i)-out_minus45(i-1);
+end
+
