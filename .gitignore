@@ -9,6 +9,13 @@ doc/report2/*.pdf
 _minted*
 *.synctex(busy)
 *.tdo
+arara.xml
+*.bbl
+*.bcf
+*.blg
+presentation/report/main.pdf
+*.run.xml
+
 ## Vim aux files
 *.swp
 *.*~

@@ -1,0 +1,64 @@
+% arara: xelatex: { shell: yes, synctex: yes }
+% arara: biber if (missing("bbl") || changed("bib"))
+% arara: xelatex if (missing("bbl") || changed("bbl"))
+% arara: xelatex if (found("log", "Rerun to get cross-references right."))
+\RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[palatino,english]{ist-report}
+
+% ================ BEGIN PREAMBLE ================
+
+\usepackage{siunitx}
+\sisetup{
+	round-mode		= places,
+	round-precision	= 2,
+}
+
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{cancel}
+
+\usepackage{biblatex}
+\addbibresource{main.bib}
+
+\usepackage{fvextra}
+\usepackage{csquotes}
+\usepackage{booktabs}
+
+\graphicspath{{graphics/}}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{arrows.meta,positioning,patterns}
+\pgfplotsset{
+	compat=1.16,
+	table/search path = {data},
+	/pgf/number format/use comma,
+}
+
+\author{Pedro Afonso \\ 66277 \and João Manito \\ 73096 \and Daniel de Schiffart \\ 81479}
+\title{Electronic Warfare Aeronautical Systems}
+\subtitle{Research Report}
+\date{December 2018}
+\subject{Integrated Avionics Systems}
+\course{Integrated Masters in Aerospace Engineering}
+
+% ================= END PREAMBLE =================
+
+\begin{document}
+
+\makecover{}
+
+\begin{abstract}
+	In this research report we will present a general discussion on the topic of electric and electronic aeronautical systems and their presence within the context of war and warfare, beginning with an historical overview of the presence of these systems in aeronautics, their growth and expansion, the detection and exploitation of their vulnerabilities and subsequent and ongoing battle between exploitation and protection of these systems. Following it will be a presentation of the most notable weapons and systems within this topic, both historical and modern, which will culminate in a discussion on the future of electronic aeronautical systems and how relevant their overall protection  can be to modern safety in the aeronautical and aerospace industry.
+\end{abstract}
+
+{\hypersetup{linkcolor={black}} \tableofcontents}
+
+\pagebreak
+
+\section{Introduction}
+
+\end{document}
