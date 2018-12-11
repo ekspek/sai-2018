@@ -145,6 +145,8 @@ xlabel("Pressure (mbar)");
 title("Pressure altitude model error for 125ºC");
 %plot(pressure,(h_real-h_model_125)/1000);
 
+clf
+
 %hold on
 %y_lim=ylim;
 %x_lim=xlim;
@@ -153,7 +155,39 @@ title("Pressure altitude model error for 125ºC");
 %line([x_lim(1) x_lim(2)],[-0.25 -0.25]);
 %legend("Real pressure","Modeled -45","Modeled 25","Modeled 125")
 
-for i=2:size(out_minus45,1)
-    diff(i)=out_minus45(i)-out_minus45(i-1);
+b2=4; %Fractional bits
+
+pressure_test=0:2^-b2/4:1013.25;
+
+%assume 25ºC air temperature
+test_voltage_output = polyval(p_25,pressure_test,2);
+
+%get discretization stepping
+i=2;
+pressure_discrete(1)=0;
+while (pressure_discrete(i-1) < 1013.25)
+    pressure_discrete(i)=pressure_discrete(i-1)+2^-b2; %Step increase
+    i=i+1;
 end
 
+j=1;
+for i=1:size(pressure_test,2)
+    %Check what the pressure ADC value should be, due to discretization
+    if pressure_test(i)>pressure_discrete(j)
+        j=j+1;
+    end
+    
+    %Compute sensor reported pressure altitude from the model
+    sensor_test_voltage_output(i) = polyval(p_25,pressure_discrete(j),2);
+end
+
+plot(pressure_test,test_voltage_output,pressure_test,sensor_test_voltage_output);
+
+h_test=get_pressure_altitude(feval(sf,test_voltage_output,25));
+h_sensor_test=get_pressure_altitude(feval(sf,sensor_test_voltage_output,25));
+
+plot(pressure_test,h_test,pressure_test,h_sensor_test)
+
+plot(get_pressure_altitude(pressure_test),h_test-h_sensor_test)
+x_limits=xlim;
+xlim([10,16000])

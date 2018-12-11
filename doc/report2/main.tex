@@ -141,18 +141,38 @@ With this in mind, and considering using an offset of values to eliminate the ne
 	h(p) = 145366.45\left(1 - \left(\frac{p_s}{1013.25}\right)^{0.190284}\right)
 \end{gather*}
 
+\pagebreak
 \part{Dealing With Faults and Errors}
 
+%\begin{align*}
+%	\dot{x} &= v\cos\gamma + at\cos(\gamma + \alpha) \\
+%	\dot{h} &= v\sin\gamma + at\cos(\gamma + \alpha) \\
+%	x &= \dot{x}t \\
+%	h &= \dot{h}t \\
+%	\tan\gamma &= \frac{\dot{x}}{\dot{h}}
+%\end{align*}
+%\begin{gather*}
+%	v = at \\
+%	a \propto T \\
+%\end{gather*}
 \begin{align*}
-	\dot{x} &= v\cos\gamma + at\cos(\gamma + \alpha) \\
-	\dot{h} &= v\sin\gamma + at\cos(\gamma + \alpha) \\
-	x &= \dot{x}t \\
-	h &= \dot{h}t \\
-	\tan\gamma &= \frac{\dot{x}}{\dot{h}}
+	\dot{h} &= V\sin\gamma \\
+	\dot{x} &= V\cos\gamma \\
+	\dot{V} &= \frac{1}{m}\left[T - D - mg\sin\gamma\right] \\
+	\dot{\gamma} &= \frac{1}{mV}\left[L - mg\cos\gamma\right]
 \end{align*}
+
+Linearização
+\begin{align*}
+	\dot{h} &= V_0 \gamma \\
+	\dot{x} &= V \\
+	\dot{V} &= -g\gamma + \frac{1}{m}T \\
+	\dot{\gamma} &= \frac{2g}{V_0^2}V + \frac{\rho V_0SC_L}{2m}\alpha \\
+\end{align*}
+
 \begin{gather*}
-	v = at \\
-	a \propto T \\
+	e_V = V - R_V \\
+	e_h = h - R_h \\
 \end{gather*}
 
 \section{Possible Faults}
