@@ -144,7 +144,90 @@ With this in mind, and considering using an offset of values to eliminate the ne
 \pagebreak
 \part{Dealing With Faults and Errors}
 
-Math is wrong \verb|>:(|
+For this section of the laboratory project the focus was to analyze and test possible faults within the components of the system and study and implement methods to deal with these problems. For this very purpose, we needed to design a simple aircraft controller and perform any tests and implementations around it.
+
+\section{Modelling The Aircraft's Motion}
+
+Per request of the teacher, the objective was to use a simplified model of an aircraft and its behaviour and design and implement an altitude controller. The considered plant variables were the horizontal position $x$, the altitude $h$, the horizontal and vertical velocities (or rate of change of both previous variables) $\dot{x}$ and $\dot{h}$, and the flight path angle $\gamma$. Also per request, the variables to be controlled were the angle of attack $\alpha$ and the engine power, which we took the liberty of changing to the engine thrust $T$ as a variable of force. The variables were all considered in their correspondent SI units.
+
+The variables and their corresponding units and initial considered values can be found in table \ref{tab:controllervars}.
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{c|c|c}\toprule
+		Variable		& Description			& Unit						\\
+		\midrule
+		$x$				& Horizontal position	& \si{\meter}				\\
+		$h$				& Altitude				& \si{\meter}				\\
+		$\dot{x}$		& Horizontal speed		& \si{\meter\per\second}	\\
+		$\dot{h}$		& Altitude rate			& \si{\meter\per\second}	\\
+		$\gamma$		& Flight path angle		& 							\\
+		$\alpha$		& Angle of attack		& 							\\
+		\bottomrule
+	\end{tabular}
+	\caption{The variables used in the description of the aircraft behaviour and their respective units.}
+	\label{tab:controllervars}
+\end{table}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.3\textwidth]{example-image}
+	\caption{Aircraft body referential and relevant angles used in the description of the aircraft behaviour.}
+	\label{fig:bodyref}
+\end{figure}
+
+The dynamic equations were derived from standard aircraft behaviour obtained from other relevant literature. Using the relations found in figure \ref{fig:bodyref}, we derived the equations for the basic horizontal movement and altitude rates that can be found in equations \ref{eq:x_rate} and \ref{eq:h_rate}.
+\begin{align}\label{eq:x_rate}
+	\frac{dh}{dt} &= V(t)\sin{\gamma(t)} \\
+	\label{eq:h_rate}
+	\frac{dx}{dt} &= V(t)\cos{\gamma(t)}
+\end{align}
+Within these equations we see the first appearance of the $V$ variable, which we will use for the scalar velocity of the aircraft as the Pythagorean sum of both rates of movement referenced in table \ref{tab:controllervars}.
+
+Redirecting our attention back to figure \ref{fig:bodyref} we can obtain a value for the resultant force of the aircraft by considering all the forces acting on it in every moment. By considering all the forces in the direction of the movement, using Newton's first law $\vec{F} = m\vec{a}$, and considering $a = \dot{v}$, we can write down the rate of the aircraft's aforementioned scalar velocity.
+\begin{gather}\label{eq:v_rate}
+	m\dot{V} = m\frac{dV(t)}{dt} = T - D - mg\sin\gamma
+\end{gather}
+Rounding all that up, together with an equation for the rate of change of the flight path angle $\dot{\gamma}$, we obtain the reference equations \ref{eq:v_rate_main} and \ref{eq:gamma_rate}.
+\begin{align}
+	\label{eq:v_rate_main}
+	\frac{dV(t)}{dt} = \frac{1}{m}\left(T - D - mg\sin\gamma\right) \\
+	\label{eq:gamma_rate}
+	\frac{d\gamma}{dt} = \frac{1}{mv}\left(L - mg\cos\gamma\right)
+\end{align}
+Further simplifications were taken into account to raise expedience for the controller design and facilitate its implementation. Since we want to focus on the aircraft and the on-board system's behaviour and response to faults and errors, we could assume that the initial undisturbed condition would be stable level flight. This means we can consider the rates of altitude, horizontal velocity and flight path angle to be zero. So,
+\begin{gather*}
+	\dot{h} = \dot{x} = \dot{\gamma} = 0
+\end{gather*}
+This meant that some components in equations \ref{eq:v_rate_main} and \ref{eq:gamma_rate} could be cut, which leaves us with equations \ref{eq:v_rate_simp} and \ref{eq:gamma_rate_simp}.
+\begin{align}
+	\label{eq:v_rate_simp}
+	\frac{dV(t)}{dt} &= 0 \Rightarrow 0 = \frac{1}{m}\left(T - D - mg\right) \Rightarrow T = D + mg \\
+	\label{eq:gamma_rate_simp}
+	\frac{d\gamma}{dt} &= 0 \Rightarrow 0 = \frac{1}{mv}\left(L - mg\right) \Rightarrow L = mg
+\end{align}
+
+\section{The Controller}
+
+\begin{gather*}
+	\Delta \dot{x} = A\Delta x + B\Delta u
+	\dot{x} = f(x,u) \\
+	\dot{x} = f(x_0,u_0) + \left.\frac{\partial f}{\partial x}\right|_{x_0,u_0}(x - x_0) + \left.\frac{\partial f}{\partial u}\right|_{x_0,u_0}(u - u_0) \\
+	\frac{\dot{x} - \dot{x}_0}{\Delta x} = \left.\frac{\partial f}{\partial x}\right|_{x_0,u_0}\Delta x + \left.\frac{\partial f}{\partial u}\right|_{x_0,u_0}\Delta u
+\end{gather*}
+
+\begin{gather*}
+	\dot{h} = V\sin\gamma = 0 \Rightarrow \left\{\begin{aligned}
+		&\cancel{V = 0} \\
+		&\sin\gamma = 0 \Rightarrow \gamma = 0 \vee \cancel{\gamma = \pi}
+	\end{aligned}\right. \\
+	\left\{\begin{aligned}
+		&T\cos\alpha = D \\
+		&T\sin\alpha + L = mg
+	\end{aligned}\right. \Rightarrow \left\{\begin{aligned}
+		&T_0\cos{\alpha_0} = \frac{C_D\rho V_0^2S}{2} \\
+		&T_0\sin{\alpha_0} + \frac{C_L\rho V_0^2S}{2} = mg
+	\end{aligned}\right.
+\end{gather*}
 
 \section{Possible Faults}
 
