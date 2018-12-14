@@ -146,7 +146,7 @@ With this in mind, and considering using an offset of values to eliminate the ne
 
 For this section of the laboratory project the focus was to analyze and test possible faults within the components of the system and study and implement methods to deal with these problems. For this very purpose, we needed to design a simple aircraft controller and perform any tests and implementations around it.
 
-\section{Modelling The Aircraft's Motion}
+\section{Modelling The Aircraft's Motion}\label{sec:plant}
 
 Per request of the teacher, the objective was to use a simplified model of an aircraft and its behaviour and design and implement an altitude controller. The considered plant variables were the horizontal position $x$, the altitude $h$, the horizontal and vertical velocities (or rate of change of both previous variables) $\dot{x}$ and $\dot{h}$, and the flight path angle $\gamma$. Also per request, the variables to be controlled were the angle of attack $\alpha$ and the engine power, which we took the liberty of changing to the engine thrust $T$ as a variable of force. The variables were all considered in their correspondent SI units.
 
@@ -183,51 +183,92 @@ The dynamic equations were derived from standard aircraft behaviour obtained fro
 \end{align}
 Within these equations we see the first appearance of the $V$ variable, which we will use for the scalar velocity of the aircraft as the Pythagorean sum of both rates of movement referenced in table \ref{tab:controllervars}.
 
-Redirecting our attention back to figure \ref{fig:bodyref} we can obtain a value for the resultant force of the aircraft by considering all the forces acting on it in every moment. By considering all the forces in the direction of the movement, using Newton's first law $\vec{F} = m\vec{a}$, and considering $a = \dot{v}$, we can write down the rate of the aircraft's aforementioned scalar velocity.
+Redirecting our attention back to figure \ref{fig:bodyref} we can obtain a value for the resultant force of the aircraft by considering all the forces acting on it in every moment. By considering all the forces in the direction of the movement, using Newton's first law $\mathbf{F} = m\mathbf{a}$, and considering $a = \dot{v}$, we can write down the rate of the aircraft's aforementioned scalar velocity.
 \begin{gather}\label{eq:v_rate}
 	m\dot{V} = m\frac{dV(t)}{dt} = T - D - mg\sin\gamma
 \end{gather}
 Rounding all that up, together with an equation for the rate of change of the flight path angle $\dot{\gamma}$, we obtain the reference equations \ref{eq:v_rate_main} and \ref{eq:gamma_rate}.
 \begin{align}
 	\label{eq:v_rate_main}
-	\frac{dV(t)}{dt} = \frac{1}{m}\left(T - D - mg\sin\gamma\right) \\
+	\frac{dV(t)}{dt} = \dot{V} &= \frac{1}{m}\left(T - D - mg\sin\gamma\right) \\
 	\label{eq:gamma_rate}
-	\frac{d\gamma}{dt} = \frac{1}{mv}\left(L - mg\cos\gamma\right)
+	\frac{d\gamma}{dt} \dot{\gamma} &= \frac{1}{mv}\left(L - mg\cos\gamma\right)
 \end{align}
 Further simplifications were taken into account to raise expedience for the controller design and facilitate its implementation. Since we want to focus on the aircraft and the on-board system's behaviour and response to faults and errors, we could assume that the initial undisturbed condition would be stable level flight. This means we can consider the rates of altitude, horizontal velocity and flight path angle to be zero. So,
 \begin{gather*}
 	\dot{h} = \dot{x} = \dot{\gamma} = 0
 \end{gather*}
-This meant that some components in equations \ref{eq:v_rate_main} and \ref{eq:gamma_rate} could be cut, which leaves us with equations \ref{eq:v_rate_simp} and \ref{eq:gamma_rate_simp}.
+This meant that some components in equations \ref{eq:v_rate_main} and \ref{eq:gamma_rate} could be cut, which leaves us with equations \ref{eq:h_rate_simp}, \ref{eq:v_rate_simp} and \ref{eq:gamma_rate_simp}.
 \begin{align}
-	\label{eq:v_rate_simp}
-	\frac{dV(t)}{dt} &= 0 \Rightarrow 0 = \frac{1}{m}\left(T - D - mg\right) \Rightarrow T = D + mg \\
-	\label{eq:gamma_rate_simp}
-	\frac{d\gamma}{dt} &= 0 \Rightarrow 0 = \frac{1}{mv}\left(L - mg\right) \Rightarrow L = mg
-\end{align}
-
-\section{The Controller}
-
-\begin{gather*}
-	\Delta \dot{x} = A\Delta x + B\Delta u
-	\dot{x} = f(x,u) \\
-	\dot{x} = f(x_0,u_0) + \left.\frac{\partial f}{\partial x}\right|_{x_0,u_0}(x - x_0) + \left.\frac{\partial f}{\partial u}\right|_{x_0,u_0}(u - u_0) \\
-	\frac{\dot{x} - \dot{x}_0}{\Delta x} = \left.\frac{\partial f}{\partial x}\right|_{x_0,u_0}\Delta x + \left.\frac{\partial f}{\partial u}\right|_{x_0,u_0}\Delta u
-\end{gather*}
-
-\begin{gather*}
-	\dot{h} = V\sin\gamma = 0 \Rightarrow \left\{\begin{aligned}
+	\label{eq:h_rate_simp}
+	\dot{h} = V\sin\gamma = 0 &\Rightarrow \left\{\begin{aligned}
 		&\cancel{V = 0} \\
 		&\sin\gamma = 0 \Rightarrow \gamma = 0 \vee \cancel{\gamma = \pi}
 	\end{aligned}\right. \\
-	\left\{\begin{aligned}
-		&T\cos\alpha = D \\
-		&T\sin\alpha + L = mg
-	\end{aligned}\right. \Rightarrow \left\{\begin{aligned}
-		&T_0\cos{\alpha_0} = \frac{C_D\rho V_0^2S}{2} \\
-		&T_0\sin{\alpha_0} + \frac{C_L\rho V_0^2S}{2} = mg
-	\end{aligned}\right.
+	\label{eq:v_rate_simp}
+	\dot{v} = 0 &\Rightarrow 0 = \frac{1}{m}\left(T - D - mg\right) \Rightarrow T = D + mg \\
+	\label{eq:gamma_rate_simp}
+	\dot{\gamma} = 0 &\Rightarrow 0 = \frac{1}{mv}\left(L - mg\right) \Rightarrow L = mg
+\end{align}
+On the first equation above (\ref{eq:h_rate_simp}) we can assume the null value for $\gamma$ as the other values obtained from the equation have no physical meaning in this simulation.
+
+The aircraft aerodynamic forces for lift and drag can be decomposed into their adimensional equivalents, for which data can be obtained from analogous sources without many adjustments. This way, we can obtain the values for these forces based on current flight status.
+\begin{align}
+	\label{eq:cd} C_D = \frac{D}{\frac{1}{2}\rho V^2S} &\Rightarrow D = \frac{1}{2}\rho V^2SC_D \\
+	\label{eq:cl} C_L = \frac{L}{\frac{1}{2}\rho V^2S} &\Rightarrow L = \frac{1}{2}\rho V^2SC_L
+\end{align}
+Applying this logic to the previous equations we can replace the absolute values of forces with adimensional data.
+\begin{gather*}
+	T\cos\alpha = D \Rightarrow T_0\cos{\alpha_0} = \frac{C_D\rho V_0^2S}{2} \\
+	T\sin\alpha + L = mg \Rightarrow T_0\sin{\alpha_0} + \frac{C_L\rho V_0^2S}{2} = mg
 \end{gather*}
+
+\section{The Controller}
+
+To implement the controller we had to define the inputs and their relations with the outputs and the aircraft dynamics, which were mentioned and described in section \ref{sec:plant}.
+
+For this reason, we define the aircraft's states as the vector $\mathbf{x}$ and the aircraft's inputs as vector $\mathbf{u}$, where a bold typeface represents a non-scalar variable, lowercase for vectors and uppercase for matrices.
+\begin{gather*}
+	\mathbf{x} = \left[\begin{matrix}h & v & \gamma\end{matrix}\right]^T \qquad \mathbf{u} = \left[\begin{matrix}\alpha & T\end{matrix}\right]^T
+\end{gather*}
+With this notation we can define the aircraft's behaviour as defined below.
+\begin{gather*}
+	\dot{\mathbf{x}} = \mathbf{A}\mathbf{x} + \mathbf{B}\mathbf{u}
+\end{gather*}
+Both the matrices referenced here can be defined by the aforementioned variables and inputs.
+\begin{gather*}
+	\mathbf{A} = \left[\begin{matrix}
+			\frac{\partial\dot{h}}{\partial h}		& \frac{\partial\dot{h}}{\partial v}		& \frac{\partial\dot{h}}{\partial \gamma} \\
+			\frac{\partial\dot{v}}{\partial h}		& \frac{\partial\dot{v}}{\partial v}		& \frac{\partial\dot{v}}{\partial \gamma} \\
+			\frac{\partial\dot{\gamma}}{\partial h}	& \frac{\partial\dot{\gamma}}{\partial v}	& \frac{\partial\dot{\gamma}}{\partial \gamma}
+		\end{matrix}\right]
+		\qquad \mathbf{B} = \left[\begin{matrix}
+			\frac{\partial\dot{h}}{\partial \gamma}			& \frac{\partial\dot{h}}{\partial T}		\\
+			\frac{\partial\dot{v}}{\partial \gamma}			& \frac{\partial\dot{v}}{\partial T}		\\
+			\frac{\partial\dot{\gamma}}{\partial \gamma}	& \frac{\partial\dot{\gamma}}{\partial T}
+		\end{matrix}\right]
+\end{gather*}
+Referring to the equations \ref{eq:h_rate_simp}, \ref{eq:v_rate_simp} and \ref{eq:gamma_rate_simp}, we can write down the matrices with the corresponding derivatives applied, simplified to depend only on the control and input variables (making use of the simplifications on equations \ref{eq:h_rate_simp}, \ref{eq:v_rate_simp} and \ref{eq:gamma_rate_simp}, and using the coefficients in equations \ref{eq:cd} and \ref{eq:cl}).
+\begin{gather}
+	\label{eq:a_matrix}
+	\mathbf{A} = \left[\begin{matrix}
+			0	& \sin\gamma_0				& V_0\cos\gamma_0								\\
+			0	& -\frac{C_D\rho V_0S}{m}	& -g\cos\gamma_0								\\
+			0	& \square					& \frac{g\sin\gamma_0}{V_0}
+		\end{matrix}\right],
+		\quad
+		\square = -\frac{T_0\sin\alpha_0}{mV^2} + \frac{C_L\rho S}{2m} + \frac{g\cos\gamma_0}{V_0^2} \\
+	\label{eq:b_matrix}
+	\mathbf{B} = \left[\begin{matrix}
+			0								& 0							\\
+			-\frac{T_0\sin\alpha_0}{m}		& \frac{\cos\alpha_0}{m}	\\
+			\frac{T_0\cos\alpha_0}{mV_0}	& \frac{\sin\alpha_0}{mV_0}
+		\end{matrix}\right]
+\end{gather}
+Finally, we get the state-space equation in short form.
+\begin{gather}\label{eq:statespace}
+	\left[\begin{matrix} \dot{h} \\ \dot{V} \\ \dot{\gamma} \end{matrix}\right] = \mathbf{A}\left[\begin{matrix} h \\ V \\ \gamma \end{matrix}\right] + \mathbf{B}\left[\begin{matrix} \alpha \\ T \end{matrix}\right]
+\end{gather}
 
 \section{Possible Faults}
 
@@ -238,8 +279,6 @@ This fault detection will be done by monitoring the flight variables and their b
 	A fault is a deviation (of a feature) from the acceptable, standard operational condition.
 \end{quote}
 For sensors, we can consider four types of faults, either sensor bias, drift, loss of accuracy or freeze. The sources for these faults come from either the barometric sensor or the temperature A/D conversion and data transmission.
-
-\listoftodos
 
 \pagebreak
 \appendix
@@ -264,12 +303,12 @@ For sensors, we can consider four types of faults, either sensor bias, drift, lo
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[domain=0:5,xlabel=\si{\volt},ylabel=\si{\pascal},width=0.7\textwidth]
-			\addplot table [col sep = comma, x index = {1}, y index = {0}] {inputdata.csv};
-			\addplot table [col sep = comma, x index = {2}, y index = {0}] {inputdata.csv};
-			\addplot table [col sep = comma, x index = {3}, y index = {0}] {inputdata.csv};
-			\addplot [mark=none,mark size = 1pt] {5.639 + 382.1 * x - 0.05732 * (-45) - 69.73 * x^2 + 0.2646 * x * (-45) + 0.0002634 * (-45)^2 + 11.53 * x^3 - 0.05126 * x^2 * (-45) - 0.0002063 * x * (-45)^2 - 0.8314 * x^4 + 0.004329 * x^3 * (-45) + 4.644 * 0.00001 * x^2 * (-45)^2};
-			\addplot [mark=none, mark size = 1pt] {5.639 + 382.1 * x - 0.05732 * 25 - 69.73 * x^2 + 0.2646 * x * 25 + 0.0002634 * 25^2 + 11.53 * x^3 - 0.05126 * x^2 * 25 - 0.0002063 * x * 25^2 - 0.8314 * x^4 + 0.004329 * x^3 * 25 + 4.644 * 0.00001 * x^2 * 25^2};
-			\addplot [mark=none, mark size = 1pt] {5.639 + 382.1 * x - 0.05732 * 125 - 69.73 * x^2 + 0.2646 * x * 125 + 0.0002634 * 125^2 + 11.53 * x^3 - 0.05126 * x^2 * 125 - 0.0002063 * x * 125^2 - 0.8314 * x^4 + 0.004329 * x^3 * 125 + 4.644 * 0.00001 * x^2 * 125^2};
+			\addplot [mark=x,color=red] table [col sep = comma, x index = {1}, y index = {0}] {inputdata.csv};
+			\addplot [mark=x,color=blue] table [col sep = comma, x index = {2}, y index = {0}] {inputdata.csv};
+			\addplot [mark=x,color=green] table [col sep = comma, x index = {3}, y index = {0}] {inputdata.csv};
+			\addplot [mark=none,color=red!50!black] {5.639 + 382.1 * x - 0.05732 * (-45) - 69.73 * x^2 + 0.2646 * x * (-45) + 0.0002634 * (-45)^2 + 11.53 * x^3 - 0.05126 * x^2 * (-45) - 0.0002063 * x * (-45)^2 - 0.8314 * x^4 + 0.004329 * x^3 * (-45) + 4.644 * 0.00001 * x^2 * (-45)^2};
+			\addplot [mark=none,color=blue!50!black] {5.639 + 382.1 * x - 0.05732 * 25 - 69.73 * x^2 + 0.2646 * x * 25 + 0.0002634 * 25^2 + 11.53 * x^3 - 0.05126 * x^2 * 25 - 0.0002063 * x * 25^2 - 0.8314 * x^4 + 0.004329 * x^3 * 25 + 4.644 * 0.00001 * x^2 * 25^2};
+			\addplot [mark=none,color=green!50!black] {5.639 + 382.1 * x - 0.05732 * 125 - 69.73 * x^2 + 0.2646 * x * 125 + 0.0002634 * 125^2 + 11.53 * x^3 - 0.05126 * x^2 * 125 - 0.0002063 * x * 125^2 - 0.8314 * x^4 + 0.004329 * x^3 * 125 + 4.644 * 0.00001 * x^2 * 125^2};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Side-view of the plots versus the modeled version at the same temperature.}
@@ -277,3 +316,10 @@ For sensors, we can consider four types of faults, either sensor bias, drift, lo
 \end{figure}
 
 \end{document}
+
+\begin{gather*}
+	\Delta \dot{x} = A\Delta x + B\Delta u
+	\dot{x} = f(x,u) \\
+	\dot{x} = f(x_0,u_0) + \left.\frac{\partial f}{\partial x}\right|_{x_0,u_0}(x - x_0) + \left.\frac{\partial f}{\partial u}\right|_{x_0,u_0}(u - u_0) \\
+	\frac{\dot{x} - \dot{x}_0}{\Delta x} = \left.\frac{\partial f}{\partial x}\right|_{x_0,u_0}\Delta x + \left.\frac{\partial f}{\partial u}\right|_{x_0,u_0}\Delta u
+\end{gather*}
