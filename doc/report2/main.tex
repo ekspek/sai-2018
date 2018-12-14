@@ -33,7 +33,7 @@
 \end{center}
 
 \begin{abstract}
-	The objective of the second laboratory for this course was to control an aircraft's altitude and movement based on the input provided by its sensors and the transmission of data throughout the aircraft's onboard systems via its Local Area Network, characterizing the data protocols and preparing data for transmission. The second part of this laboratory had its focus more directed to the possibility of mid-flight faults to various aircraft systems, the handling of these faults and the simulation of data to maintain the control of the aircraft's altitude mentioned in the first part in the presence of faults in any of the crucial systems for this process. The work was to be implemented in C code for the major part of its simulations, with an initial theoretical segment being done with the use of \textsc{MATLAB} to obtain fixed results relevant to the work.
+	The objective of the second laboratory for this course was to control an aircraft's altitude and movement based on the input provided by its sensors and the transmission of data throughout the aircraft's onboard systems via its Local Area Network, characterizing the data protocols and preparing data for transmission. The second part of this laboratory had its focus more directed to the possibility of mid-flight faults to various aircraft systems, the handling of these faults and the simulation of data to maintain the control of the aircraft's altitude mentioned in the first part in the presence of faults in any of the crucial systems for this process. The work was to be implemented in MATLAB and its supporting software package \textit{Simulink}.
 \end{abstract}
 
 {\hypersetup{linkcolor = black} \tableofcontents}
@@ -48,14 +48,15 @@ For this first section, we were provided a set of gathered voltage data from a s
 
 \begin{table}[ht]
 	\centering
-	\resizebox{\textwidth}{!}{
+	%\resizebox{\textwidth}{!}{
 	\begin{tabular}{c|c|c|c}\toprule
 		Pressure [mbar]		& Output [Volt] at $-45\degree C$	& Output [Volt] at $25\degree C$		& Output [Volt] at $125\degree C$	\\
 		\midrule
 		\num{1.0000000e+01}	& \num{9.6891912e-02}				& \num{3.9214138e-02}					& \num{8.0487284e-02}				\\
 		$\vdots$			& $\vdots$							& $\vdots$								& $\vdots$							\\
 		\bottomrule
-	\end{tabular}}
+	\end{tabular}
+	%}
 	\caption{Example of the provided data formatting.}
 	\label{tab:datain}
 \end{table}
@@ -69,26 +70,27 @@ The data was to be used to determine a model for the pressure, using the voltage
 	\end{split}
 \end{gather}
 
-The model was plotted against the provided input data and can be found in figure \ref{fig:3dplotmain} in page \pageref{fig:3dplotmain}. The raw data from the MATLAB output can be found below.  
-
-\begin{minted}{text}
-Linear model Poly42:
-     sf(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2 + p30*x^3 + 
-                    p21*x^2*y + p12*x*y^2 + p40*x^4 + p31*x^3*y + p22*x^2*y^2
-     Coefficients (with 95% confidence bounds):
-       p00 =       5.639  (1.566, 9.713)
-       p10 =       382.1  (371.3, 392.9)
-       p01 =    -0.05732  (-0.1234, 0.008728)
-       p20 =      -69.73  (-78.75, -60.72)
-       p11 =      0.2646  (0.166, 0.3632)
-       p02 =   0.0002634  (-0.0003534, 0.0008803)
-       p30 =       11.53  (8.749, 14.31)
-       p21 =    -0.05126  (-0.0942, -0.008322)
-       p12 =  -0.0002063  (-0.0008547, 0.0004422)
-       p40 =     -0.8314  (-1.113, -0.5502)
-       p31 =    0.004329  (-0.001359, 0.01002)
-       p22 =   4.644e-05  (-8.942e-05, 0.0001823)
-\end{minted}
+The model was plotted against the provided input data and can be found in figure \ref{fig:3dplotmain} in page \pageref{fig:3dplotmain}.
+%The raw data from the MATLAB output can be found below.  
+%
+%\begin{minted}{text}
+%Linear model Poly42:
+%     sf(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2 + p30*x^3 + 
+%                    p21*x^2*y + p12*x*y^2 + p40*x^4 + p31*x^3*y + p22*x^2*y^2
+%     Coefficients (with 95% confidence bounds):
+%       p00 =       5.639  (1.566, 9.713)
+%       p10 =       382.1  (371.3, 392.9)
+%       p01 =    -0.05732  (-0.1234, 0.008728)
+%       p20 =      -69.73  (-78.75, -60.72)
+%       p11 =      0.2646  (0.166, 0.3632)
+%       p02 =   0.0002634  (-0.0003534, 0.0008803)
+%       p30 =       11.53  (8.749, 14.31)
+%       p21 =    -0.05126  (-0.0942, -0.008322)
+%       p12 =  -0.0002063  (-0.0008547, 0.0004422)
+%       p40 =     -0.8314  (-1.113, -0.5502)
+%       p31 =    0.004329  (-0.001359, 0.01002)
+%       p22 =   4.644e-05  (-8.942e-05, 0.0001823)
+%\end{minted}
 
 \section{ARINC Data Bus Sketching}
 
@@ -302,7 +304,7 @@ For sensors, we can consider four types of faults, either sensor bias, drift, lo
 \begin{figure}[ht]
 	\centering
 	\begin{tikzpicture}
-		\begin{axis}[domain=0:5,xlabel=\si{\volt},ylabel=\si{\pascal},width=0.7\textwidth]
+		\begin{axis}[domain=0:5,xlabel=Voltage(\si{\volt}),ylabel=Pressure(\si{\pascal}),width=0.7\textwidth,grid=both]
 			\addplot [mark=x,color=red] table [col sep = comma, x index = {1}, y index = {0}] {inputdata.csv};
 			\addplot [mark=x,color=blue] table [col sep = comma, x index = {2}, y index = {0}] {inputdata.csv};
 			\addplot [mark=x,color=green] table [col sep = comma, x index = {3}, y index = {0}] {inputdata.csv};

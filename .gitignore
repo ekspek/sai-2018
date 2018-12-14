@@ -5,7 +5,7 @@ src/lab1
 *.out
 *.synctex.gz
 *.toc
-doc/report2/*.pdf
+#doc/report2/*.pdf
 _minted*
 *.synctex(busy)
 *.tdo
