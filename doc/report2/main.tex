@@ -155,15 +155,15 @@ Per request of the teacher, the objective was to use a simplified model of an ai
 The variables and their corresponding units and initial considered values can be found in table \ref{tab:controllervars}.
 \begin{table}[ht]
 	\centering
-	\begin{tabular}{c|c|c}\toprule
-		Variable		& Description			& Unit						\\
+	\begin{tabular}{c|c|c|c}\toprule
+		Variable		& Description			& Unit						& Initial Values	\\
 		\midrule
-		$x$				& Horizontal position	& \si{\meter}				\\
-		$h$				& Altitude				& \si{\meter}				\\
-		$\dot{x}$		& Horizontal speed		& \si{\meter\per\second}	\\
-		$\dot{h}$		& Altitude rate			& \si{\meter\per\second}	\\
-		$\gamma$		& Flight path angle		& 							\\
-		$\alpha$		& Angle of attack		& 							\\
+		$x$				& Horizontal position	& \si{\meter}				&					\\
+		$h$				& Altitude				& \si{\meter}				&					\\
+		$\dot{x}$		& Horizontal speed		& \si{\meter\per\second}	&					\\
+		$\dot{h}$		& Altitude rate			& \si{\meter\per\second}	&					\\
+		$\gamma$		& Flight path angle		& 							&					\\
+		$\alpha$		& Angle of attack		& 							&					\\
 		\bottomrule
 	\end{tabular}
 	\caption{The variables used in the description of the aircraft behaviour and their respective units.}
@@ -313,7 +313,7 @@ For sensors, we can consider four types of faults, either sensor bias, drift, lo
 			\addplot [mark=none,color=green!50!black] {5.639 + 382.1 * x - 0.05732 * 125 - 69.73 * x^2 + 0.2646 * x * 125 + 0.0002634 * 125^2 + 11.53 * x^3 - 0.05126 * x^2 * 125 - 0.0002063 * x * 125^2 - 0.8314 * x^4 + 0.004329 * x^3 * 125 + 4.644 * 0.00001 * x^2 * 125^2};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{Side-view of the plots versus the modeled version at the same temperature.}
+	\caption{Side-view of the plots versus the modeled version at the same temperature. The modelled plots can be seen behind the data points.}
 	\label{fig:2dplotmain}
 \end{figure}
 

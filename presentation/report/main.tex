@@ -3,7 +3,7 @@
 % arara: xelatex if (missing("bbl") || changed("bbl"))
 % arara: xelatex if (found("log", "Rerun to get cross-references right."))
 \RequirePackage[l2tabu, orthodox]{nag}
-\documentclass[palatino,english]{ist-report}
+\documentclass[palatino,english,purist]{ist-report}
 
 % ================ BEGIN PREAMBLE ================
 
@@ -12,6 +12,11 @@
 	round-mode		= places,
 	round-precision	= 2,
 }
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+\usepackage{FiraMono}
+\usepackage{newtxsf}
 
 \usepackage{amssymb}
 \usepackage{textcomp}
@@ -24,6 +29,8 @@
 \usepackage{fvextra}
 \usepackage{csquotes}
 \usepackage{booktabs}
+\usepackage{enumitem}
+\setlist{noitemsep}
 
 \graphicspath{{graphics/}}
 \usepackage{caption}
@@ -33,10 +40,12 @@
 \usepackage{pgfplots}
 \usetikzlibrary{arrows.meta,positioning,patterns}
 \pgfplotsset{
-	compat=1.16,
+	compat=1.15,
 	table/search path = {data},
 	/pgf/number format/use comma,
 }
+
+\usepackage{todonotes}
 
 \author{Pedro Afonso \\ 66277 \and João Manito \\ 73096 \and Daniel de Schiffart \\ 81479}
 \title{Electronic Warfare Aeronautical Systems}
@@ -44,6 +53,8 @@
 \date{December 2018}
 \subject{Integrated Avionics Systems}
 \course{Integrated Masters in Aerospace Engineering}
+
+\newrobustcmd*{\jamming}{\textit{jamming}}
 
 % ================= END PREAMBLE =================
 
@@ -59,6 +70,224 @@
 
 \pagebreak
 
-\section{Introduction}
+\section{Introduction}\label{sec:introduction}
+Electronic Warfare is defined as a set of measures and actions
+performed by the conflicting sides to detect and electronically attack enemy electronic systems for the control of forces and weapons, including high precision weapons, as well as to electronically defend one's own electronic systems and other targets from technical intelligence (electronic intelligence, ELINT), jamming and non deliberate interference.  
+Electronic attack can be achieved by:
+\begin{itemize}
+    \item Jamming (active, passive, false targets);
+    \item Reduction of radar and thermal detectability;
+    \item Changing the electrical properties of the environment (conditions
+for the propagation of electromagnetic waves). 
+\end{itemize}
+
+Typically, EW methods of operation can be either offensive or
+defensive in nature. When we speak of offensive operations, first and
+foremost we have in mind operations conducted using jamming or employing weapon systems that automatically home in on radiation sources. Both of these offensive operation methods are used not only to attack (or destroy) electronic systems for the control of forces and weapons, but also to defend one's own electronic systems against ELINT and jamming.
+
+In the first instance, the jamming targets are the receivers of radar,
+communications, and radio navigation systems. In the second case, the
+jamming targets are ELINT receivers that form a part of active jamming and ELINT stations, as well as of reconnaissance and strike systems.
+
+Typical defensive EW operations involve protecting the respective
+systems from jamming and ELINT by increasing their equivalent specific
+energy potential, modifying their time, frequency, space and other characteristics, or by making them more secure (masking, deception).
+
+As a rule, the most effective solution to the problem of protecting
+against jamming is achieved by combining both purely defensive and
+offensive operations. More precisely, this is achieved by destroying the jammer or by electronically jamming ELINT systems and active jammers. Thus, it may be said that jamming and ELINT, taken together, by and large comprise the basis of EW. 
+
+When viewing radar and other electronic devices as targets of E\textbackslash x!
+(jamming), we should keep in mind that jamming signals directly affect radio receivers. A priori, as a rule, the jammer or other electronic attack system does not have full information about the target of the attack. In order to eliminate the element of chance for the victim receiver, it should be attempted to orient oneself by assuming that the victim system uses optimum or quasi-optimum processing methods for the signals received and within a certain standard (conditional) electronic environment. Depending on how the radar or other electronic device operates, differing variants of processing optimization may occur, thus resulting in various mathematical models. Let us look at the most typical ones. 
+\part{History}
+
+The nature of warfare and the history of the development of any warfare technology is to develop and implement superior tools of war and deny the opponent the same privilege. With that in mind, the story of the development of electronic warfare can best be described by Newton's third law, which states
+\begin{quote}\itshape
+    For every action, there is an equal and opposite reaction.
+\end{quote}
+The growth of the technologies of war can not only be described by the advances made by either side of a war, but also by the progress made by the opposing sides in denying said advance. Such is the story of the dichotomy of electronic warfare, both in the offensive (attacking) and defensive (protecting) fronts of development.
+
+The appearance of EW was motivated dialectically by the dynamics of
+combat between offensive and defensive systems. In the given case, we mean the battle between English bombers and Nazi German AAD in World WarII (WWII). Before that time, there were individual cases of jamming using available devices, but they were neither massive nor organized in nature, and they did not lead to qualitative changes in the tactics of combat operations.
+
+Massive use of passive jammers by English bombers started on June 24, 1943 during the nighttime bombing raid on Hamburg and continued systematically in subsequent raids. The jamming targets were Wiirzburg gunlaying radar stations, which had an emitted signal wavelength of about \SI{50}{\centi\meter}. In this case, the passive jamming consisted of manually launched tinfoil strips (dipoles) of the order of \SI{25}{\centi\meter} in length (i.e., equal to approximately half the radar wavelength). As a result of this jamming, bomber losses decreased by about half for several months. This first use of jamming was preceded by lengthy reconnaissance of the jamming targets.
+The decision to employ jamming was made after losses reached the
+maximum permissible level.
+
+To a large extent, this jamming was so highly effective due to the
+wavelength selected for the Wiirzburg radar; the absence in it of circuits to protect against passive jamming, which appeared only at the end of the war; and the absence of the possibility to change wavelength. In October 1943, U.S. bombers began employing active jamming against Wiirzburg radar using carpet-type jammers, which turned out to be highly effective because it was not possible to alter the carrier frequency.
+
+The period corresponding to WWII and the first postwar years can be
+considered the initial phase in the development of systems and techniques for electronic warfare.
+Their subsequent development also took place according to the laws of
+dialectics. Moreover, the combat target on one hand was radar, and on the other, EW systems. It is possible to distinguish approximately four basic phases of significant change in the structure and algorithms of both radar and EW systems. The period of the 1950s corresponds to the development of noncoherent radar with rapid alteration of the carrier frequency and antijamming devices built using pulse-to-pulse cancellation. In jammers, electronic frequency alteration was introduced. Special devices for the launching of chaff were developed.
+
+In the 1960s and in the first half of the 1970s, pulse-coherent radar
+appeared, capable of filtering out passive jamming and permitting the
+detection of low-flying aircraft against the background of reflections from the surface of the Earth. Defense from active jamming was ensured in them by increasing the specific energy potential by approximately an order of magnitude and rapidly altering the carrier frequency. EW systems changed accordingly.
+
+During the second half of the 1970s and at the beginning of the 1980s,
+there appeared radar that worked in two modes: pulse-coherent with
+narrowband signals, and with broadband signals having a big base.
+Increasing the base enabled a corresponding increase in the radar energy potential. The use of two modes made it difficult to effectively organize both active and passive jamming. In narrowband mode, the effect of broadband jamming is attenuated, whereas broadband mode enables a reduction in the effectiveness of narrowband jamming. EW systems and techniques were modified accordingly. 
+
+Besides the appearance of high-precision weapons systems, the fourth phase of EW is characterized by the use of radar with phased antenna arrays that can adjust to the jamming environment; a transition to multiposition circuits for signal processing; and the decrease in radar radiation detectability by making the transition to noise-like signals (NLS).
+
+The capabilities of EW systems and techniques are increasing. Massive
+use of these systems has become widespread. After the Gulf War, EW
+became considered not only a type of operations and combat support, but a means of sustaining operations and combat.
+
+
+\section{Early Beginnings} 
+
+\subsection{First known instance}
+
+The story of electronic warfare can have different begins based on what the actual definition of the term entails and is considered to be, regarding both halves of the term. The \emph{electronic} part, where a definition of what constitutes a useful application of electricity and electronic components, and the \emph{warfare} side of the term, where ambiguity can be found on what could be actually considered as deliberate attacking action and protection thereof within the electronic realm.
+
+Ambiguities aside, a good starting point can be traced all the way back to the time of the civil war of the United States of America, where the early developments of the telegraph by Samuel Morse and their uses in the war gave their users (in this case, the Union forces) clear advantage in long distance communication\footnotemark. To counteract this advantage, the Confederate forces rerouted telegraph wires, forged fake communications, or straight up cut the communication channels. This can be traced all the way back to the start of the civil war in 1861 as the first recorded example of signal jamming, and therefore, the \textbf{first known instance of electronic warfare}.
+\footnotetext{As mentioned in \textcite{alican2006}. Most of this section was written using references \textcite{armytechnology} and \textcite{price1977} as well as the aforementioned reference.}
+
+\subsection{Beginning of \textit{modern} electronic warfare}
+
+With the emergence of radio technology, demonstrated by Heinrich Hertz in 1888, the transmission of Morse code became less restricted to physically mounted transmission lines and could be used for long-range communications with much more facility than ever before. Quickly these systems became commonplace, first with a focus on civilian use and not much later for military use.
+
+With these developments, the interest in disrupting these \textit{wireless} communications became bigger. Approaching the more modern definition of electronic warfare, the objective was set at intercepting or blocking these communications entirely. The first recorded instance of radio \jamming{}, as the procedure quickly came to be known as, occurred in 1901 in the United States of America, in a civilian yacht race.
+\begin{quote}\itshape
+    The first recorded instance of deliberate radio jamming took place in
+September 1901, in the U.S. Interestingly, it was aimed at securing
+commercial gain rather than military advantage. As now, there was
+considerable public interest in the America’s Cup yacht races, and the
+newspaper first to reach the stands carrying each result stood to reap a
+large profit. In that year, Marconi obtained a contract from Associated
+Press [...] Another company, [...] Wireless Telegraph Company of America,
+secured a contract [...] A third company, the American Wireless Telephone
+and Telegraph Co., [...] failed to get a sponsor but decided to exploit the
+situation (and)[...] used a transmitter more powerful than its competitors,
+and one of its engineers, John Pickard, worked out a method which
+allowed him to jam signals from the other companies while at the same
+time reporting on the progress of the race from his boat [...] thus only AWT
+\& T was able to pass accurate reports on the races. \cite{alican2006}
+\end{quote}
+This event effectively marked \textbf{the first occasion of offensive \jamming{}} and therefore the \textbf{first occurence of modern electronic warfare}. Although the event didn't accumulate much military attention, radio \jamming{} was becoming widely implemented and experimented with in military exercises, first by the British Navy in 1902 and by the U.S.\ Navy in 1903. This set precedents for western countries and their respective military forces to counteract the ever-increasing use of radio.
+
+In the eastern warfronts, the appearance of \jamming{} came by the Russians in the 1904-1905 Russo-Japanese war, which marked the first known war in which both sides used radio communications.
+
+\subsection{Growth and expansion of radio}
+
+In a period of relative peace and quick scientific progress, this new-found technology was developing rapidly. The beginning of the 20th century saw radio technology improve its transmission ranges, and more channels were being introduced by the narrowing of channel bandwidths. Not only that, but the transmitter and receiver technologies were being continually improved, and as a result, interference was lowering and communications became clearer.
+
+Portability of radio systems was improving as well, which made the pairing with the emergent aeronautical field an obvious choice. Soon enough, aeroplanes were being fitted with radio communications.
+
+\section{World War 1}
+
+The spark of the first major World War, \textit{the war to end all wars}, made the first real testing scenario for a lot of emerging warfare technology in all fields, from weapons to transportation to information to communication, and at the forefront of this last topic lied the radio.
+
+By this point, most countries involved in the war had implemented and exercised with some form of signal \jamming{}, with the remaining countries quickly catching up. But the functionality and importance of this technology and of radio communications wasn't fully understood by their users, and most mid-battle signal \jamming{} occurred between friendly forces, when too many radio communications being attempted within a small space.
+
+Towards the end of World War 1, the use of radio communications was so widespread that its presence could be exploited by either side of the war. A notable example was the detection of German U-boats in the Mediterranean, which started as a major threat to Allied forces in the battle for the sea, but whose detection and persecution became trivialised by the implementation of primitive direction finders that worked based on the communications performed by these underwater vessels.
+
+\section{War Aftermath and Further Developments}\label{sec:betweenwars}
+
+World War 1 was, up to that point, the biggest stage for military use of radio and the then-emerging field of electronic equipment and technology in the military, and the potential was present. With the desire of a lasting peace, the countries involved in the war agreed to organise and prevent similar events from happening again, but the mistrust created meant that while peace looked possible, all the parties involved were preparing themselves should the need arise again.
+
+With the aforementioned potential, this meant that research was going to develop quickly, specially without the pressure of short-term war. In the period after the war, radio-transmitting equipment had its weight and size reduced, its reliability and performance improved, and its implementation for various uses widespread, which raised overall population education with the technology. This meant that communication between land, sea, and air was continually improving.
+
+\subsection{RADAR}
+
+A major breakthrough happened in this period with the appearance of \textbf{RADAR}\footnote{\textbf{RA}dio \textbf{D}etection \textbf{A}nd \textbf{R}anging.} in the early 1930s, which came as a consequence of the developments listed previously. This technology allowed for the detection of incoming traffic and enemy forces from very long distances with a similar technology as radio, and soon enough radar would be implemented in military forces worldwide. By the end of the 1930s, radar technology would develop from detecting aircraft at 30 kilometres to detecting them at 160 kilometres, with the major obstacle becoming the radius of the Earth.
+
+This quickly prompted the emergence of countering technology. With radars being so widespread, a way to approach enemy bases undetected would be a major warfare advantage, so development gained expedience in methods to avoid detection or disabling radars from afar by \jamming{} them in much the same way as it is done with radio communications. Around this time, the first tests with this purpose in mind were done in London using continuous wave transmitters directed at the radar.
+
+Quickly enough, radar \jamming{} became commonplace.
+
+\section{World War 2}
+
+If World War 1 was a showcase of the potential of electronics in the battlefield, World War 2 would meet a much more mature field of the exploitation of the electromagnetic spectrum in tools of war. With the development highlighted in section \ref{sec:betweenwars}, radio communication and navigation and radar would give significant advantages to their respective users. A key in disrupting communication and flow of intelligence in either side would be the effective development and use of methods of \jamming{} and interception, effective tools of electronic warfare.
+
+\subsection{\textit{Battle Of The Beams}}
+
+A notable example of electronic warfare in World War 2 occurred in the beginning of the war, a period in which the Axis forces (namely German forces) increased the use of radar and used the technology for \textit{blind} bombing in the United Kingdom \cite{wizardwar}.
+
+Using diverse radio navigation systems, the Germans had accurate bombing ranges of up to 200 nautical miles from their fronts while completely in visual nighttime darkness.
+\begin{figure}[ht]
+    \centering
+    \missingfigure[figwidth = \textwidth]{Add reference maps for the German radars}
+    \caption{Map of the German radars used for the night bombings of the \textit{Battle Of The Beams.}}
+    \label{fig:botb_map}
+\end{figure}
+
+The British forces were forced to implement counter-measures to the German radars by \jamming{} their signals accordingly. However, the technology used was unknown by the British, so they were forced to adapt depending on what intelligence could be gathered.
+
+The first used radar technology, \textit{Knickebein}, was countered by mimicking the signals sent by German forces to the pilots to force them to drop bombs in safe areas and land wherever the signals guided them to do. Some German pilots even end up landing in British bases believing they were in Germany, as visual darkness prevented them from distinguishing one from the other.
+
+The Germans countered this by implementing different technologies, named \textit{X-Gerät} and later \textit{Y-Gerät}, unknown to the British, which meant new counter-measures had to be found. These technologies were effectively shut down when the Allied forces found intelligence within crashed bombers that allowed them to jam the correct German-used frequencies.
+
+The titled \textit{Battle Of The Beams} period ended when the German air force \textit{Luftwaffe} attention diverted to the Soviet Union front. But this period highlighted the \textbf{measure-counter-measure nature of electronic warfare} in the World War 2, an element of electronic warfare which persists to this day.
+
+\subsection{Further War Development}
+
+The British had learned lessons within the field and moved on from defence to offence, by beginning to implement aircraft-detection \textit{jammers}, namely the airborne \textit{Mandrel} \cite{alican2006}. The \textit{Mandrel} swamped the return echo of the enemy radars, distoring reception sizes and ranges and difficuling accurate detection.
+
+Later on, both sides of the war would see widespread use of \textit{chaff}, called \textit{window} by the British and \textit{düppel} by the Germans, which consisted of materials dispersed in the air to create false radar positives to conceal real threats.
+\begin{figure}[ht]
+    \centering
+    \missingfigure[figwidth = \textwidth]{Add image of radar chaff}
+    \caption{\textit{Chaff}, material used to create false radar echoes.}
+    \label{fig:chaff}
+\end{figure}
+
+In the pacific front, electronic warfare saw widespread use, but little to no development.
+
+\part{Electronic Attack}
+
+Electronic attack can be implemented by jamming, changing the electrical and magnetic characteristics of the environment, or by reducing the radar and thermal detectability of aircraft.
+At the present time, the basic means of electronic attack in the radio
+frequency band is the use of various jamming signals that directly affect electronic systems. These signals are deliberate electromagnetic emissions with the appropriate amplitude, frequency, phase, polarization, space and time characteristics. Practically speaking, jamming signals are·produced by jammers (electronic attack systems). 
+
+In a given electronic environment, jammers are used in particular ways
+depending on the specifics of the targets being jammed and the capabilities of the jammers. 
+
+In the general case, electronic attack systems comprise an information
+support and control system, a subsystem for producing jamming signals,
+high-frequency amplifiers and generators with modulators, and antenna
+devices. ELINT systems, knowledge bases and computer data that enter into the EW complex serve as the basis for the information support and control system. The ELINT subsystem seeks out, receives and processes radio signals from jamming targets. By comparing signals coming in from ELINT and a priori information contained in the knowledge base and computer data: 
+
+\begin{itemize}
+    \item The electronic environment is evaluated; 
+    \item The jamming target is determined, as well as the type and
+parameters of the jamming signal needed; 
+    \item A means of attacking the jamming target is selected and executed. 
+\end{itemize}
+
+Jamming methods are determined by the characteristics of the jamming
+targets and the abilities of jammers to cause information damage to the victim, given specific conditions of the operational and tactical environment. 
+
+Information damage means the quantity of information that the attacked side loses during a specific time interval as a result of the effect of jamming or other EW measures. 
+
+Thus, jamming signals, as well as systems and techniques of jamming,
+can be considered to be the basic elements of electronic attack.
+
+
+\subsection{Tactical level - Jamming}
+
+On a tactical level, the definition of jamming as a battle element can be substantiated using the example of airforce subdivisions conducting military operations against antiaircraft defense (AAD) missile systems on the front line. When aircraft battle formations are screened using jamming, they can strike antiaircraft positions without suffering significant losses. In this case, airborne jamming systems represent an essential battle element. They directly participate in the delivery of material damage, having beforehand caused information damage to the electronic antiaircraft control systems.
+By information damage, we mean the size of the coverage area eliminated from the region where the attacked electronic system was acquiring information while working in normal operating mode during the dynamics of EW. Therefore, jamming is a weapon and not merely a
+means of support. 
+
+
+
+
+\part{Electronic Protection}
+
+\subsection{Operations lever-Jamming}
+On the operations level, the thesis we have mentioned about jamming
+is borne out by the example of military actions taken during a defensive operation to fend off strikes by an enemy who is conducting offensive air and ground operations. In this case, jamming systems may be given the task of thwarting a massive strike using high-precision weapons. By delivering information damage to synthetic aperture radar, ELINT stations within intelligence and strike systems, and high-precision radio navigation systems, jamming significantly decreases the probability that groups of aircraft and
+missiles, AAD systems, and other targets belonging to the defending side will be hit. Thus, their average combat life becomes significantly longer. In this instance, jamming prevents potential material damage by delivering information damage to the enemy's electronic systems for control of forces and weapons, thereby creating conditions for a counterstrike. 
+
+\part{Electronic Warfare Support}
+
+\pagebreak
+
+\printbibliography
 
 \end{document}
