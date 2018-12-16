@@ -3,7 +3,7 @@
 % arara: xelatex if (missing("bbl") || changed("bbl"))
 % arara: xelatex if (found("log", "Rerun to get cross-references right."))
 \RequirePackage[l2tabu, orthodox]{nag}
-\documentclass[palatino,english,purist]{ist-report}
+\documentclass[english,purist]{ist-report}
 
 % ================ BEGIN PREAMBLE ================
 
@@ -35,6 +35,7 @@
 \graphicspath{{graphics/}}
 \usepackage{caption}
 \usepackage{subcaption}
+\captionsetup{width = 0.9\textwidth}
 
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -98,7 +99,8 @@ against jamming is achieved by combining both purely defensive and
 offensive operations. More precisely, this is achieved by destroying the jammer or by electronically jamming ELINT systems and active jammers. Thus, it may be said that jamming and ELINT, taken together, by and large comprise the basis of EW. 
 
 When viewing radar and other electronic devices as targets of E\textbackslash x!
-(jamming), we should keep in mind that jamming signals directly affect radio receivers. A priori, as a rule, the jammer or other electronic attack system does not have full information about the target of the attack. In order to eliminate the element of chance for the victim receiver, it should be attempted to orient oneself by assuming that the victim system uses optimum or quasi-optimum processing methods for the signals received and within a certain standard (conditional) electronic environment. Depending on how the radar or other electronic device operates, differing variants of processing optimization may occur, thus resulting in various mathematical models. Let us look at the most typical ones. 
+(jamming), we should keep in mind that jamming signals directly affect radio receivers. A priori, as a rule, the jammer or other electronic attack system does not have full information about the target of the attack. In order to eliminate the element of chance for the victim receiver, it should be attempted to orient oneself by assuming that the victim system uses optimum or quasi-optimum processing methods for the signals received and within a certain standard (conditional) electronic environment. Depending on how the radar or other electronic device operates, differing variants of processing optimization may occur, thus resulting in various mathematical models.
+
 \part{History}
 
 The nature of warfare and the history of the development of any warfare technology is to develop and implement superior tools of war and deny the opponent the same privilege. With that in mind, the story of the development of electronic warfare can best be described by Newton's third law, which states
@@ -106,37 +108,6 @@ The nature of warfare and the history of the development of any warfare technolo
     For every action, there is an equal and opposite reaction.
 \end{quote}
 The growth of the technologies of war can not only be described by the advances made by either side of a war, but also by the progress made by the opposing sides in denying said advance. Such is the story of the dichotomy of electronic warfare, both in the offensive (attacking) and defensive (protecting) fronts of development.
-
-The appearance of EW was motivated dialectically by the dynamics of
-combat between offensive and defensive systems. In the given case, we mean the battle between English bombers and Nazi German AAD in World WarII (WWII). Before that time, there were individual cases of jamming using available devices, but they were neither massive nor organized in nature, and they did not lead to qualitative changes in the tactics of combat operations.
-
-Massive use of passive jammers by English bombers started on June 24, 1943 during the nighttime bombing raid on Hamburg and continued systematically in subsequent raids. The jamming targets were Wiirzburg gunlaying radar stations, which had an emitted signal wavelength of about \SI{50}{\centi\meter}. In this case, the passive jamming consisted of manually launched tinfoil strips (dipoles) of the order of \SI{25}{\centi\meter} in length (i.e., equal to approximately half the radar wavelength). As a result of this jamming, bomber losses decreased by about half for several months. This first use of jamming was preceded by lengthy reconnaissance of the jamming targets.
-The decision to employ jamming was made after losses reached the
-maximum permissible level.
-
-To a large extent, this jamming was so highly effective due to the
-wavelength selected for the Wiirzburg radar; the absence in it of circuits to protect against passive jamming, which appeared only at the end of the war; and the absence of the possibility to change wavelength. In October 1943, U.S. bombers began employing active jamming against Wiirzburg radar using carpet-type jammers, which turned out to be highly effective because it was not possible to alter the carrier frequency.
-
-The period corresponding to WWII and the first postwar years can be
-considered the initial phase in the development of systems and techniques for electronic warfare.
-Their subsequent development also took place according to the laws of
-dialectics. Moreover, the combat target on one hand was radar, and on the other, EW systems. It is possible to distinguish approximately four basic phases of significant change in the structure and algorithms of both radar and EW systems. The period of the 1950s corresponds to the development of noncoherent radar with rapid alteration of the carrier frequency and antijamming devices built using pulse-to-pulse cancellation. In jammers, electronic frequency alteration was introduced. Special devices for the launching of chaff were developed.
-
-In the 1960s and in the first half of the 1970s, pulse-coherent radar
-appeared, capable of filtering out passive jamming and permitting the
-detection of low-flying aircraft against the background of reflections from the surface of the Earth. Defense from active jamming was ensured in them by increasing the specific energy potential by approximately an order of magnitude and rapidly altering the carrier frequency. EW systems changed accordingly.
-
-During the second half of the 1970s and at the beginning of the 1980s,
-there appeared radar that worked in two modes: pulse-coherent with
-narrowband signals, and with broadband signals having a big base.
-Increasing the base enabled a corresponding increase in the radar energy potential. The use of two modes made it difficult to effectively organize both active and passive jamming. In narrowband mode, the effect of broadband jamming is attenuated, whereas broadband mode enables a reduction in the effectiveness of narrowband jamming. EW systems and techniques were modified accordingly. 
-
-Besides the appearance of high-precision weapons systems, the fourth phase of EW is characterized by the use of radar with phased antenna arrays that can adjust to the jamming environment; a transition to multiposition circuits for signal processing; and the decrease in radar radiation detectability by making the transition to noise-like signals (NLS).
-
-The capabilities of EW systems and techniques are increasing. Massive
-use of these systems has become widespread. After the Gulf War, EW
-became considered not only a type of operations and combat support, but a means of sustaining operations and combat.
-
 
 \section{Early Beginnings} 
 
@@ -236,9 +207,87 @@ Later on, both sides of the war would see widespread use of \textit{chaff}, call
     \label{fig:chaff}
 \end{figure}
 
-In the pacific front, electronic warfare saw widespread use, but little to no development.
+Massive use of passive \textit{jammers} by English bombers started on June 24, 1943 during the nighttime bombing raid on Hamburg and continued systematically in subsequent raids. The \jamming{} targets were \textit{Wiirzburg} gunlaying radar stations, which had an emitted signal wavelength of about \SI{50}{\centi\meter}. In this case, the passive jamming consisted of manually launched tinfoil strips (dipoles) of the order of \SI{25}{\centi\meter} in length (i.e., equal to approximately half the radar wavelength). As a result of this jamming, bomber losses decreased by about half for several months. This use of \jamming{} was preceded by lengthy reconnaissance of the \jamming{} targets. The decision to employ \jamming{} was made after losses reached the maximum permissible level.
+
+To a large extent, this \jamming{} was so highly effective due to the
+wavelength selected for the \textit{Wiirzburg} radar. The absence in it of circuits to protect against passive \jamming{}, which appeared only at the end of the war; and the absence of the possibility to change wavelength. In October 1943, U.S. bombers began employing active jamming against \textit{Wiirzburg} radar using carpet-type \textit{jammers}, which turned out to be highly effective because it was not possible to alter the carrier frequency.
+
+In the pacific front, \jamming{} saw widespread use, but little to no development.
+
+\section{Post-War Development and Other Trials}
+
+The biggest stage for electronic warfare had just passed and with it came several advancements in relevant warfare technology, in which numerous resources and man-hours were invested due to the urgency and necessity for these technologies in the middle of all-out war between many developed countries. The arrival of peace allowed for more experimentation with the advancements of wartime, but warfare trials for any developed tools would not arrive in the same scale as the one that just passed. Still, the years that followed World War 2 would still see scattered warfare with numerous chances for implementation of new technology.
+
+With the standardisation of electronic warfare, other aspects of each armed forces were starting to take notes. Air tactics now had to consider heavily the presence of enemy radars and develop manoeuvres and procedures to avoid detection, and the emergence of \textbf{stealth} technology meant a whole new field of engineering which would see a lot of investment. This period would also see the first appointment of Electronic Warfare Officers.
+
+It is possible to distinguish approximately four basic phases of significant change in the structure and algorithms of both radar and electronic warfare systems. The period of the 1950s corresponds to the development of non-coherent radar with rapid alteration of the carrier frequency and anti-\jamming{} devices built using pulse-to-pulse cancellation. In \textit{jammers}, electronic frequency alteration was introduced. Special devices for the launching of chaff were developed.
+
+This period also saw the invention of the first functional surface-to-air missile system, which saw the deployment of radar-guided missiles controlled from the ground to meet and annihilate airborne targets. This soon prompted the beginning of development of counter-\jamming{} of these systems.
+
+\section{Two Global Superpowers}
+
+The Cold War that covered most of the second half of the 20th century was heavily reliant on intelligence and the protection thereof, as both sides of the war, the U.S.A. and the ever-growing U.S.S.R., wanted to develop as many tools of war as possible while hiding their information from the opponent. Thus gathering opposing force intelligence was, at the time, of major importance, but was also a major risk, as both parties were not officially at war with each other, and either side being caught stealing technology from the other could risk starting war, or \textit{setting off the keg}, as was commonly referred.
+
+This meant that electronic warfare came to the forefront of intelligence gathering missions. Aircraft were being developed with more complex and advanced electronic warfare devices on-board, such as \textit{jammers}, radio, and computers. These aircraft were being steadily employed by the United States on Electronic Intelligence missions, now commonly referred to as ELINT missions.
+
+At the time, the \textit{Lockheed U-2} was at the forefront of these developments. The aircraft was often used in these ELINT missions for gathering visuals of Soviet military and industrial installations and intelligence on Soviet radars and signals with the technology it carried on-board. With the widespread use of radar by both parties of the war, the aircraft was designed to gather a number of data from the enemy, including (but not limited to):
+\begin{itemize}
+    \item The rate of scanning of a radar beam, including direction and speed;
+    \item Time width of radar pulses;
+    \item Rate of radar pulses;
+    \item Frequency of opponent emitters;
+    \item Signals and emitter locations.
+\end{itemize}
+\begin{figure}[ht]
+    \centering
+    \missingfigure[figwidth = \textwidth]{Add image of the Lockheed U-2}
+    \caption{The \textit{Lockheed U-2} aircraft, used by the United States of America for ELINT missions during the Cold War.}
+    \label{fig:u-2}
+\end{figure}
+
+While remaining on \textit{friendly} terms with the Soviet Union, the United States performed several reconnaissance missions with this and several similar aircraft, until some were shot down by advancing anti-aircraft and anti-\textit{jamming} technology.
+
+\section{The Vietnam War}
+
+The late 50s and early 60s saw the United States joining the war in Vietnam. Fighting a war on foreign soil meant several problems for the joining forces, as they were entering the enemy's battlefield and would have to face the enemy's setup as opposed to preparing their own ground. Early in the war, the invading forces suffered numerous airborne casualties due to Vietnamese radars, surface-to-air missile systems and anti-aircraft units installed on their grounds, which could detect and intercept invading aircraft.
+
+This saw the development of counter-measures to fight this type of tracking and detection, and new models of codenamed \textit{Wild Weasel} aircraft were shipping out equipped with Radar Homing and Warning systems, developed to shut down the aforementioned threats. These aircraft carried numbers of radar-seeking missiles, which would hone in on radar signals emitted by enemy forces to destroy them and provide cover for more ground-oriented bombers and other aircraft.
+\begin{figure}[ht]
+    \centering
+    \missingfigure[figwidth = \textwidth]{Add image of a Wild Weasel}
+    \caption{A \textit{Wild Weasel} aircraft, equipped with radar-seeking missiles and anti-SAM equipment.}
+    \label{fig:wildweasel}
+\end{figure}
+
+This greatly facilitated the invasion and made the attack of heavily fortified areas possible without heavy casualties using a coordination of ground, sea, and air forces, but also reconnaissance and intelligence, as the anti-aircraft weaponry relied greatly on radar detection to remove airborne threats.
+
+The Vietnam War very much highlighted the importance of correct knowledge and use of electronic warfare in the modern war landscape and its position as a key factor in the outcome of modern warfare.
+
+\section{The First Gulf War -- Operation Storm and The Beginning of The Modern Age}
+
+The first Gulf War at the beginning of the 1990s once again put the current status of electronic warfare and its importance to the test. Both sides and their arsenal were put to the test, and as proven time and time again, intelligence would play a major role in the final outcome.
+\begin{figure}[ht]
+    \centering
+    \missingfigure[figwidth = \textwidth]{Add something relevant to the first gulf war}
+    \caption{Something about the gulf war}
+    \label{fig:gulfwar}
+\end{figure}
+
+The Iraqi military were setting up with massive amounts of anti-aircraft artillery and surface-to-air missile systems to contain the invasion of the coalition forces, and an imposing airborne arsenal comprised of a mix of old and new Soviet-developed aircraft.
+
+Unlike previous war, despite the Iraqi communication, transportation, military and power infrastructure being well-run and providing their forces with the necessary power for battle, the coalition forces aimed for disabling their command and control system to turn the outcome of the airborne warfare in their favour.
+
+This meant that the coalition would favour targets such as command posts, communication systems, anti-aircraft radars and electrical generation networks to debilitate the electronic warfare capabilities of the Iraqi forces.
+
+A combination of radar decoys, \jamming{} aircraft and land-attack missiles were used to swiftly destroy air command and communications centres. Following these eliminations, technology developed from the radar-seeking missiles used in the Vietnam War was used to eliminate the Iraqi's radar-powered anti-aircraft capabilities. Decoys simulating larger aircraft were escorted by bombers to disperse Iraqi attention and distract them from the real targets, while providing cover for those bombers to infiltrate and reach advantageous positions for attack.
+
+A host of targets in Iraq were also destroyed by stealth aircraft, which possess a very low radar signature and could fly in surveyed areas relatively undetected as long as it remained out of visual and audible detection. This meant that the overall airborne casualty count remained very low for the dimension of the battles fought.
+
+Combined with a host of other technology unavailable to the Iraqi forces meant that the war quickly and swiftly swung in favour of the coalition forces. The first Gulf War marked the turning point of modern warfare, with electronic warfare securing its central position as deciding factor in the outcome of modern warfare.
 
 \part{Electronic Attack}
+
+\section{Introduction}
 
 Electronic attack can be implemented by jamming, changing the electrical and magnetic characteristics of the environment, or by reducing the radar and thermal detectability of aircraft.
 At the present time, the basic means of electronic attack in the radio
@@ -250,7 +299,7 @@ depending on the specifics of the targets being jammed and the capabilities of t
 In the general case, electronic attack systems comprise an information
 support and control system, a subsystem for producing jamming signals,
 high-frequency amplifiers and generators with modulators, and antenna
-devices. ELINT systems, knowledge bases and computer data that enter into the EW complex serve as the basis for the information support and control system. The ELINT subsystem seeks out, receives and processes radio signals from jamming targets. By comparing signals coming in from ELINT and a priori information contained in the knowledge base and computer data: 
+devices. \textit{ELINT} systems, knowledge bases and computer data that enter into the \textit{EW} complex serve as the basis for the information support and control system. The \textit{ELINT} subsystem seeks out, receives and processes radio signals from jamming targets. By comparing signals coming in from \textit{ELINT} and a priori information contained in the knowledge base and computer data: 
 
 \begin{itemize}
     \item The electronic environment is evaluated; 
@@ -262,10 +311,105 @@ parameters of the jamming signal needed;
 Jamming methods are determined by the characteristics of the jamming
 targets and the abilities of jammers to cause information damage to the victim, given specific conditions of the operational and tactical environment. 
 
-Information damage means the quantity of information that the attacked side loses during a specific time interval as a result of the effect of jamming or other EW measures. 
+Information damage means the quantity of information that the attacked side loses during a specific time interval as a result of the effect of jamming or other \textit{EW} measures. 
 
 Thus, jamming signals, as well as systems and techniques of jamming,
 can be considered to be the basic elements of electronic attack.
+
+Three types of jamming signals have been defined to date: destructive,
+masking and deception. They also occur in combinations. As a rule, masking and deception jamming signals are additive. 
+
+The basic targets for jamming using airplane and helicopter based jamming systems are \textit{AAD - Army Air Defense -} radar systems of various types (for control of \textit{AAD} forces and weapons etc...).
+Besides these jammers, passive jamming is widely used, as well as optoelectronic jamming systems.
+
+The determining element in a modern airborne jamming system is
+automatic active jammers with an information support system permitting the control both of active and passive jamming systems and optoelectronic jamming systems in the dynamics of \textit{EW}.
+
+A block diagram for an automatic jammer is given by the figure \ref{jam1}, which is the logical result of the analysis of a smoothed radar environment, occurring at the current time in the dynamics of \textit{EEW}. The structure of a jammer permits the
+formation of jamming signals both for the jamming of radar systems for
+control of \textit{AAD}forces and weapons. The information support system of the jammer and the jamming system as a whole are represented as an \textit{ELINT} station, with its processor, knowledge and databases, a receiver, and the processor of the jammer itself. Besides this, the information support system also contains onboard information systems: the central onboard computer with its knowledge- and databases, the onboard radar system, the onboard optoelectronic intelligence system, the navigation and data interchange (radio communications) systems, and, possibly, an automated control system for EW systems. 
+
+A stream of signals from radar stations, which are the operations targets, arrive at the receiving antennas of the \textit{ELINT} devices and jammers. 
+
+As a rule, while transmitting, \textit{ELINT} receivers are not able to detect signals from a radar irradiating the aircraft in the corresponding frequency band. 
+
+After the radar signal has been detected, an analysis of the electronic environment is conducted and the operations target identified. Then, a jamming signal is generated. Depending on its type, either direct radiofrequency (RF) jamming (direct noise interference) is generated or jamming modulation of RF radiation is performed. Jamming signals are emitted in the appropriate direction by the jammer transmitter antennas. 
+
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{jam1.png}
+\caption{Block diagram for an automatic jammer}
+\label{jam1}
+\end{figure} 
+
+We can include methods of concealing airplanes (helicopters) and other targets from stationary areas, figure \ref{jam2}, using jamming; methods of screening helicopter or airplanes in battle formation, figure \ref{jam3}, using jamming; the mutual screening of airplanes
+using electronic jamming systems; the self-screening of airplanes (helicopters) using electronic jamming systems; and the combination of electronic jamming with the destruction of electronic targets using firepower. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{jam2.png}
+\caption{Methods of concealing airplanes (helicopters) and other targets from fixed areas using jamming.}
+\label{jam2}
+\end{figure} 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{jam3.png}
+\caption{Methods of screening airplanes in battle formation using jamming.}
+\label{jam3}
+\end{figure} 
+
+\subsection{Destructive Jamming}
+Destructive jamming signals are implemented using deliberate high-energy electromagnetic radiation. The effect of destructive jamming signals is to cause irreversible damage to input components in the receivers of the targets being jammed. This damage remains even after the jamming operation has finished. In order to restore the receiver or other device, it is necessary to replace (or repair) the damaged component. 
+
+Destructive jamming effects, independent of the frequency band of radio emissions, can be implemented using radiation sources of sufficiently high-energy.  In the optical band of emissions, destructive effects can be attained with the assistance of high-energy lasers. The direct target of such radiation is the
+semiconductor devices comprising the input components of receivers
+(mixers, detectors, parametric amplifiers). The heat effect or the rupturing of the field of a p-n junction results in irreversible changes in the electrical properties of the input components, due to which mixers, envelope detectors and other modern electronic equipment can no longer function. We consider these radiation sources to be electronic destruction systems and not jamming systems. For this reason, sometimes we do not speak of the destruction effect, but of functional destruction.
+
+In order to evaluate the required effective radiated power for a source of destructive jamming signals in the radio band, it is necessary to determine the power of the jamming emission $P_{rec}$ that is acting on the semiconductor component and compare it with its threshold value $P_{thresh}$. Assuming that the radiation is moving in free space and the maximums for the antenna radiation patterns of the target and the jamming system correspond, we obtain:
+
+\begin{equation*}
+P_{rec}= \frac{P_j G_j}{4 \pi D_j ^2} A_{rec} \gamma_j \eta_j    
+\end{equation*}
+
+$P_j G_j$ is the effective radiated power of the jamming system; $P_j$ is its power and $G_j$ is the gain of the antenna; $A_{rec}$ is the effective area of the receiving antenna of the target being jammed; $\gamma_{j}$ is a coefficient allowing for the difference in polarization of the antennas of the target and the jamming system; and $\eta_j$ is the attenuation coefficient for the jamming emission in the waveguide transmission line. This number also takes into consideration the attenuation in safeguard devices against destructive effects; $D_j$ is the distance from the source of destructive radiation to the target being jammed. 
+
+By the other side, jamming actions that cause reversible destructive effects and result basically from the limited dynamic range of receivers $K_{drr}$. The latter may be defined as the ratio of the maximum and minimum values of the input signal powers, where information losses in the receiver during processing do not exceed a certain permissible value:
+
+\begin{equation*}
+K_{drr}= \frac{P_{rec max}}{P_{rec min}}    
+\end{equation*}
+
+Depending on the sensitivity limit $P_{rec min}$, the dynamic range of the receiver $K_{drr}$ and the distance $D_j$ from the jammer to the target being jammed, the value of the required effective radiated power causing a dynamic overload in the receiver varies over a wide range of values. When the sensitivity of the receiver is degraded, the minimum effective radiated power increases accordingly.
+
+Passive jamming is understood to be signals formed at the input to the
+victim receivers as a result of the scattering of electromagnetic waves by objects employed in significant quantities. As a rule, the electromagnetic waves scattered are those emitted by victim antennas.
+Normally jamming is generated by scatterers such as chaff that is
+employed on a massive scale. However, as a rule, the chaff cloud does not change the electrical properties of the environment, since the distance between the chaff dipoles in the cloud is many tens or hundreds of times greater than the wavelength.
+Therefore, the effect of passive jamming is to form a masking background analogous to noise jamming. At the present time passive jamming is generated basically with anti radar chaff, dispersed in large quantities in the atmosphere.
+Chaff is made from paper, glass fiber, or kapron, covered with a
+conductive layer.
+
+
+\subsubsection{Masking Jamming}
+Masking jamming signals, acting on the receiver in combination with
+the useful signal, exclude or, to a significant extent, hinder the decision about detection and recognition (classification) of useful signals at the input to the receiver. In this case, the effects of jamming are reversible. After jamming operations end, the properties of the receiver are restored. 
+
+One of the special features of attack using masking and deception
+jamming is its increased sensitivity when compared to other types of armed warfare and to countermeasures by the target being jammed. The latter is due to the fact that the jamming radiation being considered does not cause irreversible destructive effects in the jamming target. This permits the latter to take defensive countermeasures directly during the period of the jamming action, attenuating it or totally removing it. 
+
+What has been said justifies the necessity of developing mathematical models of jamming techniques reflecting the conflict aspect of the problem and permitting us to find the optimum course of action, taking into consideration countermeasures by the jamming target.
+
+At the present time, such problems are being analyzed in the theory of
+games and statistical solutions. 
+
+
+
+\subsubsection{Deception jamming signals}
+The basic parameters of deception jamming signals are intentionally
+made to appear like the signal parameters of the targets being simulated, which can result, for example, in the victim systems for control of forces and weapons being redirected from the real targets to false ones. Just as with masking jamming, deception jamming signals do not directly cause irreversible changes in the targets being jammed. The latter circumstance permits the side being jammed to exclude or attenuate the jamming effect by using the differences between the jamming and useful signals that result from specific circuits in the jamming devices generating them, and also the way they are used in the dynamics of \textit{EW}.
 
 
 \subsection{Tactical level - Jamming}
@@ -279,7 +423,7 @@ means of support.
 
 \part{Electronic Protection}
 
-\subsection{Operations lever-Jamming}
+\section{Operations lever-Jamming}
 On the operations level, the thesis we have mentioned about jamming
 is borne out by the example of military actions taken during a defensive operation to fend off strikes by an enemy who is conducting offensive air and ground operations. In this case, jamming systems may be given the task of thwarting a massive strike using high-precision weapons. By delivering information damage to synthetic aperture radar, ELINT stations within intelligence and strike systems, and high-precision radio navigation systems, jamming significantly decreases the probability that groups of aircraft and
 missiles, AAD systems, and other targets belonging to the defending side will be hit. Thus, their average combat life becomes significantly longer. In this instance, jamming prevents potential material damage by delivering information damage to the enemy's electronic systems for control of forces and weapons, thereby creating conditions for a counterstrike. 
