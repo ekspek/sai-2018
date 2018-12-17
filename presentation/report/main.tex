@@ -35,7 +35,14 @@
 \graphicspath{{graphics/}}
 \usepackage{caption}
 \usepackage{subcaption}
-\captionsetup{width = 0.9\textwidth}
+\captionsetup{
+    width = 0.9\textwidth,
+    labelfont=sc,
+    textfont=it,
+}
+
+\usepackage{svg}
+\svgpath{{graphics/}}
 
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -64,7 +71,7 @@
 \makecover{}
 
 \begin{abstract}
-	In this research report we will present a general discussion on the topic of electric and electronic aeronautical systems and their presence within the context of war and warfare, beginning with an historical overview of the presence of these systems in aeronautics, their growth and expansion, the detection and exploitation of their vulnerabilities and subsequent and ongoing battle between exploitation and protection of these systems. Following it will be a presentation of the most notable weapons and systems within this topic, both historical and modern, which will culminate in a discussion on the future of electronic aeronautical systems and how relevant their overall protection  can be to modern safety in the aeronautical and aerospace industry.
+	In this research report we will present a general discussion on the topic of electric and electronic aeronautical systems and their presence within the context of war and warfare, beginning with an historical overview of the presence of these systems in aeronautics, their growth and expansion, the detection and exploitation of their vulnerabilities and subsequent and ongoing battle between exploitation and protection of these systems. Following it will be a presentation of the most notable weapons and systems within this topic, both historical and modern, which will culminate in a discussion on the future of electronic aeronautical systems and how relevant their overall protection can be to modern safety in the aeronautical and aerospace industry.
 \end{abstract}
 
 {\hypersetup{linkcolor={black}} \tableofcontents}
@@ -73,7 +80,7 @@
 
 \section{Introduction}\label{sec:introduction}
 Electronic Warfare is defined as a set of measures and actions
-performed by the conflicting sides to detect and electronically attack enemy electronic systems for the control of forces and weapons, including high precision weapons, as well as to electronically defend one's own electronic systems and other targets from technical intelligence (electronic intelligence, ELINT), jamming and non deliberate interference.  
+performed by the conflicting sides to detect and electronically attack enemy electronic systems for the control of forces and weapons, including high precision weapons, as well as to electronically defend one's own electronic systems and other targets from technical intelligence (electronic intelligence, ELINT), \jamming{} and non deliberate interference.  
 Electronic attack can be achieved by:
 \begin{itemize}
     \item Jamming (active, passive, false targets);
@@ -84,22 +91,22 @@ for the propagation of electromagnetic waves).
 
 Typically, EW methods of operation can be either offensive or
 defensive in nature. When we speak of offensive operations, first and
-foremost we have in mind operations conducted using jamming or employing weapon systems that automatically home in on radiation sources. Both of these offensive operation methods are used not only to attack (or destroy) electronic systems for the control of forces and weapons, but also to defend one's own electronic systems against ELINT and jamming.
+foremost we have in mind operations conducted using \jamming{} or employing weapon systems that automatically home in on radiation sources. Both of these offensive operation methods are used not only to attack (or destroy) electronic systems for the control of forces and weapons, but also to defend one's own electronic systems against ELINT and \jamming{}.
 
-In the first instance, the jamming targets are the receivers of radar,
+In the first instance, the \jamming{} targets are the receivers of radar,
 communications, and radio navigation systems. In the second case, the
 jamming targets are ELINT receivers that form a part of active jamming and ELINT stations, as well as of reconnaissance and strike systems.
 
 Typical defensive EW operations involve protecting the respective
-systems from jamming and ELINT by increasing their equivalent specific
+systems from \jamming{} and ELINT by increasing their equivalent specific
 energy potential, modifying their time, frequency, space and other characteristics, or by making them more secure (masking, deception).
 
 As a rule, the most effective solution to the problem of protecting
-against jamming is achieved by combining both purely defensive and
+against \jamming{} is achieved by combining both purely defensive and
 offensive operations. More precisely, this is achieved by destroying the jammer or by electronically jamming ELINT systems and active jammers. Thus, it may be said that jamming and ELINT, taken together, by and large comprise the basis of EW. 
 
 When viewing radar and other electronic devices as targets of E\textbackslash x!
-(jamming), we should keep in mind that jamming signals directly affect radio receivers. A priori, as a rule, the jammer or other electronic attack system does not have full information about the target of the attack. In order to eliminate the element of chance for the victim receiver, it should be attempted to orient oneself by assuming that the victim system uses optimum or quasi-optimum processing methods for the signals received and within a certain standard (conditional) electronic environment. Depending on how the radar or other electronic device operates, differing variants of processing optimization may occur, thus resulting in various mathematical models.
+(\jamming{}), we should keep in mind that jamming signals directly affect radio receivers. A priori, as a rule, the jammer or other electronic attack system does not have full information about the target of the attack. In order to eliminate the element of chance for the victim receiver, it should be attempted to orient oneself by assuming that the victim system uses optimum or quasi-optimum processing methods for the signals received and within a certain standard (conditional) electronic environment. Depending on how the radar or other electronic device operates, differing variants of processing optimization may occur, thus resulting in various mathematical models.
 
 \part{History}
 
@@ -124,22 +131,9 @@ With the emergence of radio technology, demonstrated by Heinrich Hertz in 1888, 
 
 With these developments, the interest in disrupting these \textit{wireless} communications became bigger. Approaching the more modern definition of electronic warfare, the objective was set at intercepting or blocking these communications entirely. The first recorded instance of radio \jamming{}, as the procedure quickly came to be known as, occurred in 1901 in the United States of America, in a civilian yacht race.
 \begin{quote}\itshape
-    The first recorded instance of deliberate radio jamming took place in
-September 1901, in the U.S. Interestingly, it was aimed at securing
-commercial gain rather than military advantage. As now, there was
-considerable public interest in the America’s Cup yacht races, and the
-newspaper first to reach the stands carrying each result stood to reap a
-large profit. In that year, Marconi obtained a contract from Associated
-Press [...] Another company, [...] Wireless Telegraph Company of America,
-secured a contract [...] A third company, the American Wireless Telephone
-and Telegraph Co., [...] failed to get a sponsor but decided to exploit the
-situation (and)[...] used a transmitter more powerful than its competitors,
-and one of its engineers, John Pickard, worked out a method which
-allowed him to jam signals from the other companies while at the same
-time reporting on the progress of the race from his boat [...] thus only AWT
-\& T was able to pass accurate reports on the races. \cite{alican2006}
+    The first recorded instance of deliberate radio jamming took place in September 1901, in the U.S. Interestingly, it was aimed at securing commercial gain rather than military advantage. As now, there was considerable public interest in the America’s Cup yacht races, and the newspaper first to reach the stands carrying each result stood to reap a large profit. In that year, Marconi obtained a contract from Associated Press [...] Another company, [...] Wireless Telegraph Company of America, secured a contract [...] A third company, the American Wireless Telephone and Telegraph Co., [...] failed to get a sponsor but decided to exploit the situation (and)[...] used a transmitter more powerful than its competitors, and one of its engineers, John Pickard, worked out a method which allowed him to jam signals from the other companies while at the same time reporting on the progress of the race from his boat [...] thus only AWT \& T was able to pass accurate reports on the races. \cite{alican2006}
 \end{quote}
-This event effectively marked \textbf{the first occasion of offensive \jamming{}} and therefore the \textbf{first occurence of modern electronic warfare}. Although the event didn't accumulate much military attention, radio \jamming{} was becoming widely implemented and experimented with in military exercises, first by the British Navy in 1902 and by the U.S.\ Navy in 1903. This set precedents for western countries and their respective military forces to counteract the ever-increasing use of radio.
+This event effectively marked \textbf{the first occasion of offensive \jamming{}} and therefore the \textbf{first occurrence of modern electronic warfare}. Although the event didn't accumulate much military attention, radio \jamming{} was becoming widely implemented and experimented with in military exercises, first by the British Navy in 1902 and by the U.S.\ Navy in 1903. This set precedents for western countries and their respective military forces to counteract the ever-increasing use of radio.
 
 In the eastern warfronts, the appearance of \jamming{} came by the Russians in the 1904-1905 Russo-Japanese war, which marked the first known war in which both sides used radio communications.
 
@@ -180,16 +174,30 @@ If World War 1 was a showcase of the potential of electronics in the battlefield
 A notable example of electronic warfare in World War 2 occurred in the beginning of the war, a period in which the Axis forces (namely German forces) increased the use of radar and used the technology for \textit{blind} bombing in the United Kingdom \cite{wizardwar}.
 
 Using diverse radio navigation systems, the Germans had accurate bombing ranges of up to 200 nautical miles from their fronts while completely in visual nighttime darkness.
-\begin{figure}[ht]
-    \centering
-    \missingfigure[figwidth = \textwidth]{Add reference maps for the German radars}
-    \caption{Map of the German radars used for the night bombings of the \textit{Battle Of The Beams.}}
-    \label{fig:botb_map}
-\end{figure}
 
 The British forces were forced to implement counter-measures to the German radars by \jamming{} their signals accordingly. However, the technology used was unknown by the British, so they were forced to adapt depending on what intelligence could be gathered.
 
-The first used radar technology, \textit{Knickebein}, was countered by mimicking the signals sent by German forces to the pilots to force them to drop bombs in safe areas and land wherever the signals guided them to do. Some German pilots even end up landing in British bases believing they were in Germany, as visual darkness prevented them from distinguishing one from the other.
+\subsubsection{The \textit{Knickebein}}
+
+The first used radar technology, \textit{Knickebein}, relied on the German-developed Lorentz \cite{pentagonknickebein}. This radar, used for approach and landing procedures in German soil, used two radio beams transmitting Morse dots and dashes respectively, to allow for a pilot to centre their trajectory with the two emitters by measuring the proportion of either signal, as seen in figure \ref{fig:lorenz}.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width = 0.8\textwidth,trim = {0 8mm 0 0}, clip]{lorenz}
+    \caption{The functioning of the German \textit{Lorenz} radar.}
+    \label{fig:lorenz}
+\end{figure}
+
+This radar was adapted to orient the bombers towards targets in the United Kingdom by separating the beams far from each other to define the latitude and longitude of the dropping point, as can be seen in figure \ref{fig:botb_map}. This allowed the pilots to fly blind and accurately find the bombing point in a pre-radio navigation era.
+\begin{figure}[ht]
+    \centering
+    {\tiny \includesvg[width = 0.5\textwidth]{Knickebein}}
+    \caption{Map of the German \textit{Knickebein} radar beams used for the night bombings of the \textit{Battle Of The Beams.}}
+    \label{fig:botb_map}
+\end{figure}
+
+The technology was countered by mimicking the signals sent by German forces to the pilots to force them to drop bombs in safe areas and land wherever the signals guided them to do. Some German pilots even end up landing in British bases believing they were in Germany, as visual darkness prevented them from distinguishing one from the other.
+
+\subsubsection{German counter-countering}
 
 The Germans countered this by implementing different technologies, named \textit{X-Gerät} and later \textit{Y-Gerät}, unknown to the British, which meant new counter-measures had to be found. These technologies were effectively shut down when the Allied forces found intelligence within crashed bombers that allowed them to jam the correct German-used frequencies.
 
@@ -202,8 +210,8 @@ The British had learned lessons within the field and moved on from defence to of
 Later on, both sides of the war would see widespread use of \textit{chaff}, called \textit{window} by the British and \textit{düppel} by the Germans, which consisted of materials dispersed in the air to create false radar positives to conceal real threats.
 \begin{figure}[ht]
     \centering
-    \missingfigure[figwidth = \textwidth]{Add image of radar chaff}
-    \caption{\textit{Chaff}, material used to create false radar echoes.}
+    \includegraphics[width = 0.5\textwidth]{chaff}
+    \caption{Effect of \textit{chaff} in a radar display. On the right, the display is clear and a target is visible, while on the left the \textit{chaff} scattered around distorts the input signal.}
     \label{fig:chaff}
 \end{figure}
 
@@ -240,7 +248,7 @@ At the time, the \textit{Lockheed U-2} was at the forefront of these development
 \end{itemize}
 \begin{figure}[ht]
     \centering
-    \missingfigure[figwidth = \textwidth]{Add image of the Lockheed U-2}
+    \includegraphics[width = 0.7\textwidth]{lockheedu2}
     \caption{The \textit{Lockheed U-2} aircraft, used by the United States of America for ELINT missions during the Cold War.}
     \label{fig:u-2}
 \end{figure}
@@ -254,8 +262,8 @@ The late 50s and early 60s saw the United States joining the war in Vietnam. Fig
 This saw the development of counter-measures to fight this type of tracking and detection, and new models of codenamed \textit{Wild Weasel} aircraft were shipping out equipped with Radar Homing and Warning systems, developed to shut down the aforementioned threats. These aircraft carried numbers of radar-seeking missiles, which would hone in on radar signals emitted by enemy forces to destroy them and provide cover for more ground-oriented bombers and other aircraft.
 \begin{figure}[ht]
     \centering
-    \missingfigure[figwidth = \textwidth]{Add image of a Wild Weasel}
-    \caption{A \textit{Wild Weasel} aircraft, equipped with radar-seeking missiles and anti-SAM equipment.}
+    \includegraphics[width=0.5\textwidth]{wildweasel}
+    \caption{An F-16 \textit{Wild Weasel} aircraft.}
     \label{fig:wildweasel}
 \end{figure}
 
@@ -263,13 +271,13 @@ This greatly facilitated the invasion and made the attack of heavily fortified a
 
 The Vietnam War very much highlighted the importance of correct knowledge and use of electronic warfare in the modern war landscape and its position as a key factor in the outcome of modern warfare.
 
-\section{The First Gulf War -- Operation Storm and The Beginning of The Modern Age}
+\section{The First Gulf War -- Operation Desert Storm and The Beginning of The Modern Age}
 
 The first Gulf War at the beginning of the 1990s once again put the current status of electronic warfare and its importance to the test. Both sides and their arsenal were put to the test, and as proven time and time again, intelligence would play a major role in the final outcome.
 \begin{figure}[ht]
     \centering
-    \missingfigure[figwidth = \textwidth]{Add something relevant to the first gulf war}
-    \caption{Something about the gulf war}
+    \includegraphics[width = 0.7\textwidth]{f117}
+    \caption{A \textit{Lockheed F-117 Nighthawk} aircraft taking off during \textit{Operation Desert Storm}, one of the first aircraft to be designed with stealth technology in mind.}
     \label{fig:gulfwar}
 \end{figure}
 
@@ -285,6 +293,7 @@ A host of targets in Iraq were also destroyed by stealth aircraft, which possess
 
 Combined with a host of other technology unavailable to the Iraqi forces meant that the war quickly and swiftly swung in favour of the coalition forces. The first Gulf War marked the turning point of modern warfare, with electronic warfare securing its central position as deciding factor in the outcome of modern warfare.
 
+\pagebreak
 \part{Electronic Attack}
 
 \section{Introduction}
@@ -339,7 +348,7 @@ After the radar signal has been detected, an analysis of the electronic environm
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=70mm]{jam1.png}
+\includegraphics[width=0.6\textwidth]{jam1.png}
 \caption{Block diagram for an automatic jammer}
 \label{jam1}
 \end{figure} 
@@ -414,24 +423,298 @@ made to appear like the signal parameters of the targets being simulated, which 
 
 \subsection{Tactical level - Jamming}
 
-On a tactical level, the definition of jamming as a battle element can be substantiated using the example of airforce subdivisions conducting military operations against antiaircraft defense (AAD) missile systems on the front line. When aircraft battle formations are screened using jamming, they can strike antiaircraft positions without suffering significant losses. In this case, airborne jamming systems represent an essential battle element. They directly participate in the delivery of material damage, having beforehand caused information damage to the electronic antiaircraft control systems.
+On a tactical level, the definition of jamming as a battle element can be substantiated using the example of airforce subdivisions conducting military operations against antiaircraft defense missile systems on the front line. When aircraft battle formations are screened using jamming, they can strike antiaircraft positions without suffering significant losses. In this case, airborne jamming systems represent an essential battle element. They directly participate in the delivery of material damage, having beforehand caused information damage to the electronic antiaircraft control systems.
 By information damage, we mean the size of the coverage area eliminated from the region where the attacked electronic system was acquiring information while working in normal operating mode during the dynamics of EW. Therefore, jamming is a weapon and not merely a
 means of support. 
 
-
-
-
-\part{Electronic Protection}
-
-\section{Operations lever-Jamming}
+\section{Operations level-Jamming}
 On the operations level, the thesis we have mentioned about jamming
-is borne out by the example of military actions taken during a defensive operation to fend off strikes by an enemy who is conducting offensive air and ground operations. In this case, jamming systems may be given the task of thwarting a massive strike using high-precision weapons. By delivering information damage to synthetic aperture radar, ELINT stations within intelligence and strike systems, and high-precision radio navigation systems, jamming significantly decreases the probability that groups of aircraft and
-missiles, AAD systems, and other targets belonging to the defending side will be hit. Thus, their average combat life becomes significantly longer. In this instance, jamming prevents potential material damage by delivering information damage to the enemy's electronic systems for control of forces and weapons, thereby creating conditions for a counterstrike. 
-
-\part{Electronic Warfare Support}
+is borne out by the example of military actions taken during a defensive operation to fend off strikes by an enemy who is conducting offensive air and ground operations. In this case, jamming systems may be given the task of thwarting a massive strike using high-precision weapons. By delivering information damage to synthetic aperture radar, \textit{ELINT} stations within intelligence and strike systems, and high-precision radio navigation systems, jamming significantly decreases the probability that groups of aircraft and
+missiles, \textit{AAD} systems, and other targets belonging to the defending side will be hit. Thus, their average combat life becomes significantly longer. In this instance, jamming prevents potential material damage by delivering information damage to the enemy's electronic systems for control of forces and weapons, thereby creating conditions for a counter-strike. 
 
 \pagebreak
+\part{Electronic Protection}
+\section{Introduction}
 
+As previously seen, jamming and other Electronic Attack methods are incredibly useful tools in the modern battlefield, especially in the air theatre. However, these methods present a significant drawback: the adversary might also possess sophisticated jamming systems, which can render radar, communications and weapons completely useless in the battlefield. As such, even on the early days of Electronic Warfare, special attention is given to systems and methods that are designed to counter jamming, so that one side can have and advantage over the enemy. These systems and methods are collectively called Electronic Protection (EP) measures (or by their old acronym Electronic Counter Counter-Measures, ECCM). 
+
+Throughout the years, several Electronic Protection methods where devised and implemented. There are also surely several EP methods currently in use that we aren't aware, due to military secrets. For the present report, we shall only focus on methods that are currently in active use. Of those we will explore a few:
+\begin{itemize}
+    \item Pulse compression
+    \item Frequency hopping
+    \item Sidelobe blanking
+    \item Polarization
+    \item Radiation homing
+\end{itemize}
+
+
+\section{Electronic Attack detection}
+
+\section{Pulse compression}
+
+A pulse radar system is based around the concept of transmitting a signal, listening to it's reflection and measure the time delay to obtain a range. For such a radar, and assuming a simple sinusoidal pulse, we have a signal-to-noise ratio given by 
+
+$$
+SNR = \frac{K^2 A^2 T}{\sigma^2}
+$$
+where $K$ is the received signal attenuation factor, $A$ is the amplitude of the pulse, $T$ the pulse duration and $\sigma$ is the standard deviation of the noise. As we can see, if we increase the pulse duration we can directly increase the SNR of the received signal, which is useful in defeating radar jamming. However, this also increases the transmitted signal power, while also reducing the range resolution of the radar, which is given by
+$$
+\Delta R = \frac{1}{2} c \Delta T
+$$
+
+One method to avoid these problems and increase SNR at the radar receiver is by modulating the pulse using linear frequency modulation, also called chirping. By modulating the transmitted signal linearly across a frequency band $\Delta f$ centered on the carrier frequency, we obtain a signal whose correlation between transmitted and received signal is centered at $t = 0$, which behaves as a sinc function at that point. The -3dB temporal width of that function gives us the pulse duration of the modulation signal, which is
+
+$$
+T' = \frac{1}{\Delta f}
+$$
+
+By using suitable values of $\Delta f$, we can obtain a value of $T'$ that is smaller than the unmodulated pulse duration $T$, hence the name pulse compression.
+
+Comparing two signals, one unmodulated and the other "chirped", and considering that the energy of the signal does not change during the modulation, the relationship between the power of the unmodulated signal ($P$) and the modulated signal ($P'$) is
+$$
+P' = P \times \frac{T}{T'}
+$$
+Since $T'$ is smaller than $T$, we have an increase in the received signal power after the modulation, without increasing the transmitted wave's energy and also increasing the range resolution of the radar.
+
+
+%However, this method carries a steep price: the range resolution for a sinusoidal signal of a pulse radar is given by 
+%$$
+%\Delta R = \frac{1}{2} c \Delta T
+%$$
+%so any increase in the pulse duration also reduces the range resolution of the radar. In an aerial combat situation, this can mean incorrect identification of the number of threats, treating a large air wing in close formation as a single entity. To avoid this problem, 
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=70mm]{Range+resolution.jpg}
+%\caption{Range resolution of a pulse radar}
+%\label{radar_resolution}
+%\end{figure} 
+
+\section{Frequency hopping}
+
+In aerial warfare, transmitter-receiver links are of paramount importance; as such, it is natural that a great deal of research is done to both jam and prevent jamming those links. One way to mitigate the effects of jamming on those systems is based on the concept of frequency hopping.
+
+Let us have a transmitter-receiver pair, operating on a fixed frequency. If a high-power jamming system is present on the theater of operations and operating on the same frequency, the pair is innoperable. However, if both systems change their frequency mid-operation, the jamming system would be rendered ineffective. This is the concept behind frequency hopping: by varying the transmitter-receiver operating frequency during operation, jamming on a specific frequency can be avoided. This is possible by using a previously coordinated set of frequencies, generated by a pseudorandom code.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=90mm]{frequency_hopping.PNG}
+\caption{Example of frequency hopping}
+\label{frequency_hopping}
+\end{figure} 
+
+Since the transmission is spread over a wider frequency range, the jamming source must spread it's jamming over a wider range of frequencies, reducing the effective noise on each specific frequency and making it easier to reconstruct the transmitted message.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=90mm]{frequency_hopping_jamming.png}
+\caption{Spectrum of a frequency hopping signal, in the presence of a jamming source}
+\label{frequency_hopping_jamming}
+\end{figure} 
+
+\section{Sidelobe blanking}
+
+A directional antenna always has sidelobes, sections of it's radiation pattern that are not aligned with the antenna direction. For a receiving antenna, this allows it to receive s
+
+\pagebreak
+\part{Electronic Warfare Support}
+
+One of the main functions of communication electronic warfare (EW) systems is determining the location of an emmitting target. 
+It is useful to know the location of targets by three different reasons:
+
+\begin{itemize}
+    \item knowing the location of targets indicates the disposition of forces;
+    \item precision location of targets allows for use of global positioning system (GPS)-enabled fire-and-forget munitions for negation of the target;
+    \item can give an indication of the type of entity at a particular location by clustering different types of emmiters. 
+\end{itemize}
+
+A frequently used parameter for point fixed computation is the azimuth angle of arrival (\textit{AOA}) of a signal, or its line of bearing (\textit{LOB}). Two or more \textit{LOBs}, assumed to be measured from sensors at known locations on the same target at more or less the same time, may intersect as in figure \ref{target1}. The technique name is triangulation and it is used for point fix determination. 
+Noise, measurement errors, and multipath reflections typically limit the point fix accuracy. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{target1.png}
+\caption{Intersection of measured LOBs}
+\label{target1}
+\end{figure} 
+
+Triangulation can be implemented on all varieties of platforms, including aircraft, ships and ground vehicles. Triangulation requires an array of antennas, if signal phase is used as the parameter for computing the \textit{LOBs} with a baseline shorter than half a wavelength to avoid ambiguities in phase angle measurement.
+Impinging on the antenna array at an intercept site provide us several methods to estimate the azimuth angle of arrival of signals, based on measuring the time difference of arrival or phase difference of the signals at two antennas that are spaced half a wavelength or less apart. Relative amplitude and other parameters, can also be used as the angle indicator. Most methods require the antenna array. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{target4.png}
+\caption{Geometric relationships for Point Fixed by triangulation}
+\label{target4}
+\end{figure} 
+
+
+Available algorithms for optimum point fixed calculation are based on the least-square error \textit{(LSE)} estimation technique.
+
+Considering just two dimensions, there are two sensors, $S_1$ and $S_2$, separated by distance $d$ and a single target, illustrated inf figure \ref{target4}. Instead of using two sensors it could be used the same sensor moved distance $d$. Each of the sensors computes an \textit{LOB} relative to some reference, which is the same for both sensors. Using trigonometry: 
+
+\begin{equation*}
+    \sin{\phi_1} = \frac{d_1}{d} \Rightarrow 
+    d_1 = d \sin{\phi_1}
+\end{equation*}
+
+\begin{equation*}
+\sin{\phi_2 - \phi_1} = \frac{d_1}{d_2} \Rightarrow d_2 = \frac{d_1}{\sin{\phi_2 - \phi_1}} \Rightarrow d_2 = \frac{d \sin{\phi_1}}{\sin{\phi_2 - \phi_1}}     
+\end{equation*}
+
+The distances to the target from $S_2$, $x$ and $y$, can be computed as:
+
+\begin{equation*}
+x = d_2 \cos{\phi_2}     
+\end{equation*}
+
+\begin{equation*}
+y = d_2 \sin{\phi_2}     
+\end{equation*}
+
+These principles can be extended to three dimensions and to the use of more than two sensors. The resulting coordinates can be averaged taking two sensors at a time and computing the coordinates of the target.
+
+Plotting the measured \textit{LOBs} and see where they cross is another technique for triangulation. The sensors could be one moving, as shown in figure \ref{target5}, or three stationary, and the same results would apply.
+
+In general, the \textit{LOBs} are corrupted with measurement error and noise. Zero mean additive white Gaussian \textit{AWGN} frequently characterises the noise. The \textit{LOBs} would all cross at a single point in the absence of errors in the measurement process. 
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{target5.png}
+\caption{Triangulation}
+\label{target5}
+\end{figure} 
+ 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{target6.png}
+\caption{Random error effects on computing the PF}
+\label{target6}
+\end{figure} 
+
+However, the result on the Point Fixed computation is to cause the \textit{LOBs} to move away from crossing at a single point. As illustrated in figure \ref{target6}, if the noise is random, the measured \textit{LOB} could be larger than or smaller than the actual \textit{LOB} resulting in an error ellipse. 
+
+\begin{quote} \itshape
+The sensors could also exhibit biases, which many parameter estimators do. Biases can be caused by being an inherent property of the algorithm to compute the Point Fixed or they can be due to systematic errors in the parameter measurement device. \end{quote}\cite{poiseltarget}
+
+With three \textit{LOBs} available, a triangle is formed closed to the actual location of the target, figure \ref{target5}. Three nonstatistical methods are shown here to estimate the location of the target given the triangle, figure \ref{target7}.  All these techniques are used for estimating the centroid of the area of the triangle. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{target7.png}
+\caption{Nonstatistical Point Fixed calculations with only three \textit{LOBs}: (a) intersection of medians, (b)
+intersection of angle bisectors, and (c) Steiner point (defined by the point where the angles between the lines from the corners are all 120º). They are all methods for estimating the centroid of the triangle.}
+\label{target7}
+\end{figure} 
+
+
+
+The sides are connected with the opposite angle by its median, figure \ref{target7}a). The angles are bisected and the Point Fixed is chosen through the point where the bisectors intersect, illustrated inf figure \ref{target7} b). At last, the Point Fixed is chosen by the intersection of lines drawn from each angle to the point in the triangle where the lines form $120\degree$ angles, figure \ref{target7} c).  
+
+Can be taken three \textit{LOBs} at time, figure \ref{target8} (b-e), if there are more than three \textit{LOBs} in the calculation, as shown in figure \ref{target8} a). For final fix determination, the coordinates of the resultant centroids can be averaged, white circle illustrated in figure \ref{target9}. Averaging the intersections of bearings may lead to biased results. 
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=90mm]{target8.png}
+\caption{(a-e) Calculating the Point Fixed when there are more than three \textit{LOBs}. \textit{PFs} are computed using three \textit{LOBs} at a time. After that, the results are combined.}
+\label{target8}
+\end{figure} 
+
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=90mm]{target9.png}
+\caption{The centroid of the polygon formed by connecting the centroids of the triangles formed with three \textit{LOBs} yields the final fix.}
+\label{target9}
+\end{figure} 
+
+Some optimization methods are enumerated here. They rely on finding an estimate, based on minimizing the error between the estimate and the actual value of the Point Fixed. It was decided to dodge the calculus behind these methods because of their big extension and complexity. We only exemplify some of them. This metho
+
+
+
+
+
+
+
+
+Measuring the time of arrival of the signal is another possibility at
+several dispersed sensors located substantially more than a wavelength apart. Typically the time of arrival are transferred to a central site where are computed between the sensors, two at a time but the time of arrival can also be used to compute the point fix, where the isocontours are circles.
+
+Computing the range differences between the sensors and the target is closely related to the method using time of arrivals. The range differences are related to the time of arrivals by the speed of propagation in the medium through which the signal propagates.
+Normally assumed to be the speed of light in the air, if the signal is an audio signal then in the air it is the speed of propagation of sound through the air, which can be influenced by humidity and other parameters in the air. The speed of propagation is the sound through water, if the signal is an audio signal underwater.
+
+Measuring the differential Doppler is another form of quadratic processing. Such measurements generate target location isochrones upon which the target is estimated to lie.  Large errors can occur when trying to measure Doppler differences if the target is moving.
+Otherwise, errors can occur in the point fix calculations. These errors can be mitigated if the target's motion is detected. It is required to estimate the time delay between the sensors to determine the line of position. 
+
+Using reflections off the Earth’s ionosphere, high frequency signals can propagate for considerable distances. Variations in the electron and ion density in the ionosphere causes the bending of the signal.
+
+\begin{quote} \itshape
+    
+Knowing the azimuth angle of arrival of the signal, as well as its elevation angle, combined with an estimate of the equivalent height of the ionosphere where the signals are reflected allows estimation of the point fix of a target with a single sensor. Such point fix techniques are known as single-site location (SSL)...
+... Perhaps the most used form of AOA estimation is amplitude comparison since that is the popular technique used in aircraft survivability equipment (ASE), in particular, in radar warning receivers (RWRs). Every combat aircraft in the Air
+Force and Navy has this equipment employed on it. The downfall of the method is that it is fairly inaccurate.
+\end{quote} \cite{poiseltarget}.
+ 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=95mm]{target2.png}
+\caption{The standard Kalman Filter algorithm}
+\label{target2}
+\end{figure} 
+
+To the point fix estimation problem The Kalman filter can be applied in a variety of ways. In the case of the standard Kalman filter,
+the results are optimum in the least mean-squares error sense. A flowchart for the standard Kalman filter is illustrated in figure \ref{target2}.
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=80mm]{target3.png}
+%\caption{Kalman filter application.}
+%\label{target3}
+%\end{figure} 
+
+\begin{figure}[ht]
+    \renewcommand\baselinestretch{1}
+    \centering
+    \begin{tikzpicture}[node distance = 2cm]
+        \node (inputs) at (0,0) [align=center] {Noisy \\ Inputs};
+        \node (system) [draw, rectangle, align = center, inner sep = 4mm, right=of inputs] {Dynamic system \\ with unknown states};
+        \node (sum) [draw,circle,below=of system] {\bfseries\large$+$};
+        \node (kalman) [draw, rectangle, align = center, inner sep = 4mm, below=of sum] {Kalman \\ filter};
+        \node (estimates) [right=of kalman,align = center] {State \\ variable \\ estimates};
+        \node (noise) [align = center, left=of sum] {Measurement \\ noise};
+        \path [draw, -{Stealth[]}] (inputs) -- (system);
+        \path [draw, -{Stealth[]}] (system) -- node [auto,align=left] {Sampled \\ outputs} (sum);
+        \path [draw, -{Stealth[]}] (sum) -- node [auto,align=left] {Noisy \\ outputs} (kalman);
+        \path [draw, -{Stealth[]}] (kalman) -- (estimates);
+        \path [draw, -{Stealth[]}] (noise) -- (sum);
+    \end{tikzpicture}
+    \caption{Kalman filter application.}
+    \label{target3}
+\end{figure}
+
+
+
+
+
+
+\begin{quote} \itshape
+In some cases, knowing only the PF of a target is inadequate. Examples of this include subsurface oceanographic targets that are tracked with active sonar and surface and airborne targets that are tracked by active radar. Thus, methods were devised to accommodate such tracking. Kalman filtering is one of those methods, although Kalman filters have much broader applications than tracking targets.
+Kalman filtering is based on the principles of MMSE...
+ Kalman filter estimation uses a form of feedback control: the filter estimates the process state at some time and then obtains feedback in the form of noisy measurements. The behavior of a dynamic system can be described by the time evolution of the state variables. As indicated previously, the state variables of a dynamic system cannot be determined exactly by direct measurements; instead, the measurements available are functions of the state variables corrupted by random noise. It is then necessary to estimate the state variables from the noisy observations. The measurement and estimation process is illustrated in Figure \ref{target3}. The purpose of the Kalman filter is to optimally estimate the state variables in the dynamical system. Optimum in this sense means that the mean squared estimation error is minimized...
+
+ The Kalman filter fall into two groups: time update equations and measurement update equations. The time update equations are responsible for projecting forward in time the current state and error covariance estimates to obtain the estimates for the next a priori time step. The measurement update equations are responsible for the feedback, that is, for incorporating a new measurement into the a priori estimate to obtain an improved a posteriori estimate. \cite{poiseltarget}\end{quote}
+
+
+
+
+
+
+
+
+\pagebreak
+\nocite{*}
 \printbibliography
 
 \end{document}
