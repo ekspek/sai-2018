@@ -33,6 +33,7 @@
 \setlist{noitemsep}
 
 \graphicspath{{graphics/}}
+\usepackage{placeins}
 \usepackage{caption}
 \usepackage{subcaption}
 \captionsetup{
@@ -131,7 +132,7 @@ With the emergence of radio technology, demonstrated by Heinrich Hertz in 1888, 
 
 With these developments, the interest in disrupting these \textit{wireless} communications became bigger. Approaching the more modern definition of electronic warfare, the objective was set at intercepting or blocking these communications entirely. The first recorded instance of radio \jamming{}, as the procedure quickly came to be known as, occurred in 1901 in the United States of America, in a civilian yacht race.
 \begin{quote}\itshape
-    The first recorded instance of deliberate radio jamming took place in September 1901, in the U.S. Interestingly, it was aimed at securing commercial gain rather than military advantage. As now, there was considerable public interest in the America’s Cup yacht races, and the newspaper first to reach the stands carrying each result stood to reap a large profit. In that year, Marconi obtained a contract from Associated Press [...] Another company, [...] Wireless Telegraph Company of America, secured a contract [...] A third company, the American Wireless Telephone and Telegraph Co., [...] failed to get a sponsor but decided to exploit the situation (and)[...] used a transmitter more powerful than its competitors, and one of its engineers, John Pickard, worked out a method which allowed him to jam signals from the other companies while at the same time reporting on the progress of the race from his boat [...] thus only AWT \& T was able to pass accurate reports on the races. \cite{alican2006}
+    The first recorded instance of deliberate radio jamming took place in September 1901, in the U.S. Interestingly, it was aimed at securing commercial gain rather than military advantage. As now, there was considerable public interest in the America’s Cup yacht races, and the newspaper first to reach the stands carrying each result stood to reap a large profit. In that year, Marconi obtained a contract from Associated Press [...] Another company, [...] Wireless Telegraph Company of America, secured a contract [...] A third company, the American Wireless Telephone and Telegraph Co., [...] failed to get a sponsor but decided to exploit the situation (and)[...] used a transmitter more powerful than its competitors, and one of its engineers, John Pickard, worked out a method which allowed him to jam signals from the other companies while at the same time reporting on the progress of the race from his boat [...] thus only AWT\&T was able to pass accurate reports on the races. \cite{alican2006}
 \end{quote}
 This event effectively marked \textbf{the first occasion of offensive \jamming{}} and therefore the \textbf{first occurrence of modern electronic warfare}. Although the event didn't accumulate much military attention, radio \jamming{} was becoming widely implemented and experimented with in military exercises, first by the British Navy in 1902 and by the U.S.\ Navy in 1903. This set precedents for western countries and their respective military forces to counteract the ever-increasing use of radio.
 
@@ -147,7 +148,7 @@ Portability of radio systems was improving as well, which made the pairing with 
 
 The spark of the first major World War, \textit{the war to end all wars}, made the first real testing scenario for a lot of emerging warfare technology in all fields, from weapons to transportation to information to communication, and at the forefront of this last topic lied the radio.
 
-By this point, most countries involved in the war had implemented and exercised with some form of signal \jamming{}, with the remaining countries quickly catching up. But the functionality and importance of this technology and of radio communications wasn't fully understood by their users, and most mid-battle signal \jamming{} occurred between friendly forces, when too many radio communications being attempted within a small space.
+By this point, most countries involved in the war had implemented and exercised with some form of signal \jamming{}, with the remaining countries quickly catching up. But the functionality and importance of this technology and of radio communications wasn't fully understood by their users, and most mid-battle signal \jamming{} occurred between friendly forces, when too many radio communications were being attempted within a small space.
 
 Towards the end of World War 1, the use of radio communications was so widespread that its presence could be exploited by either side of the war. A notable example was the detection of German U-boats in the Mediterranean, which started as a major threat to Allied forces in the battle for the sea, but whose detection and persecution became trivialised by the implementation of primitive direction finders that worked based on the communications performed by these underwater vessels.
 
@@ -236,7 +237,7 @@ This period also saw the invention of the first functional surface-to-air missil
 
 The Cold War that covered most of the second half of the 20th century was heavily reliant on intelligence and the protection thereof, as both sides of the war, the U.S.A. and the ever-growing U.S.S.R., wanted to develop as many tools of war as possible while hiding their information from the opponent. Thus gathering opposing force intelligence was, at the time, of major importance, but was also a major risk, as both parties were not officially at war with each other, and either side being caught stealing technology from the other could risk starting war, or \textit{setting off the keg}, as was commonly referred.
 
-This meant that electronic warfare came to the forefront of intelligence gathering missions. Aircraft were being developed with more complex and advanced electronic warfare devices on-board, such as \textit{jammers}, radio, and computers. These aircraft were being steadily employed by the United States on Electronic Intelligence missions, now commonly referred to as ELINT missions.
+This meant that electronic warfare came to the forefront of intelligence gathering missions. Aircraft were being developed with more complex and advanced electronic warfare devices on-board, such as \textit{jammers}, radio, and computers. These aircraft were being steadily employed by the United States on Electronic Intelligence missions, now commonly referred to as \textbf{ELINT missions}.
 
 At the time, the \textit{Lockheed U-2} was at the forefront of these developments. The aircraft was often used in these ELINT missions for gathering visuals of Soviet military and industrial installations and intelligence on Soviet radars and signals with the technology it carried on-board. With the widespread use of radar by both parties of the war, the aircraft was designed to gather a number of data from the enemy, including (but not limited to):
 \begin{itemize}
@@ -336,7 +337,7 @@ automatic active jammers with an information support system permitting the contr
 
 A block diagram for an automatic jammer is given by the figure \ref{jam1}, which is the logical result of the analysis of a smoothed radar environment, occurring at the current time in the dynamics of \textit{EEW}. The structure of a jammer permits the
 formation of jamming signals both for the jamming of radar systems for
-control of \textit{AAD}forces and weapons. The information support system of the jammer and the jamming system as a whole are represented as an \textit{ELINT} station, with its processor, knowledge and databases, a receiver, and the processor of the jammer itself. Besides this, the information support system also contains onboard information systems: the central onboard computer with its knowledge- and databases, the onboard radar system, the onboard optoelectronic intelligence system, the navigation and data interchange (radio communications) systems, and, possibly, an automated control system for EW systems. 
+control of \textit{AAD} forces and weapons. The information support system of the jammer and the jamming system as a whole are represented as an \textit{ELINT} station, with its processor, knowledge and databases, a receiver, and the processor of the jammer itself. Besides this, the information support system also contains onboard information systems: the central onboard computer with its knowledge- and databases, the onboard radar system, the onboard optoelectronic intelligence system, the navigation and data interchange (radio communications) systems, and, possibly, an automated control system for EW systems. 
 
 A stream of signals from radar stations, which are the operations targets, arrive at the receiving antennas of the \textit{ELINT} devices and jammers. 
 
@@ -421,7 +422,7 @@ The basic parameters of deception jamming signals are intentionally
 made to appear like the signal parameters of the targets being simulated, which can result, for example, in the victim systems for control of forces and weapons being redirected from the real targets to false ones. Just as with masking jamming, deception jamming signals do not directly cause irreversible changes in the targets being jammed. The latter circumstance permits the side being jammed to exclude or attenuate the jamming effect by using the differences between the jamming and useful signals that result from specific circuits in the jamming devices generating them, and also the way they are used in the dynamics of \textit{EW}.
 
 
-\subsection{Tactical level - Jamming}
+\section{Tactical level - Jamming}
 
 On a tactical level, the definition of jamming as a battle element can be substantiated using the example of airforce subdivisions conducting military operations against antiaircraft defense missile systems on the front line. When aircraft battle formations are screened using jamming, they can strike antiaircraft positions without suffering significant losses. In this case, airborne jamming systems represent an essential battle element. They directly participate in the delivery of material damage, having beforehand caused information damage to the electronic antiaircraft control systems.
 By information damage, we mean the size of the coverage area eliminated from the region where the attacked electronic system was acquiring information while working in normal operating mode during the dynamics of EW. Therefore, jamming is a weapon and not merely a
@@ -436,23 +437,21 @@ missiles, \textit{AAD} systems, and other targets belonging to the defending sid
 \part{Electronic Protection}
 \section{Introduction}
 
-As previously seen, jamming and other Electronic Attack methods are incredibly useful tools in the modern battlefield, especially in the air theatre. However, these methods present a significant drawback: the adversary might also possess sophisticated jamming systems, which can render radar, communications and weapons completely useless in the battlefield. As such, even on the early days of Electronic Warfare, special attention is given to systems and methods that are designed to counter jamming, so that one side can have and advantage over the enemy. These systems and methods are collectively called Electronic Protection (EP) measures (or by their old acronym Electronic Counter Counter-Measures, ECCM). 
+As previously seen, jamming and other Electronic Attack methods are incredibly useful tools in the modern battlefield, especially in the air theatre. However, these methods present a significant drawback: the adversary might also possess sophisticated jamming systems, which can render radar, communications and weapons completely useless in the battlefield. As such, even on the early days of Electronic Warfare, special attention is given to systems and methods that are designed to counter jamming, so that one side can have an advantage over the enemy. These systems and methods are collectively called Electronic Protection (EP) measures (or by their old acronym Electronic Counter Counter-Measures, ECCM). 
 
 Throughout the years, several Electronic Protection methods where devised and implemented. There are also surely several EP methods currently in use that we aren't aware, due to military secrets. For the present report, we shall only focus on methods that are currently in active use. Of those we will explore a few:
 \begin{itemize}
-    \item Pulse compression
-    \item Frequency hopping
-    \item Sidelobe blanking
-    \item Polarization
-    \item Radiation homing
+    \item Pulse compression using linear frequency modulation;
+    \item Frequency hopping;
+    \item Sidelobe blanking;
+    \item Polarization;
+    \item Chaff;
+    \item Radiation homing.
 \end{itemize}
 
+\section{Pulse compression using linear frequency modulation}
 
-\section{Electronic Attack detection}
-
-\section{Pulse compression}
-
-A pulse radar system is based around the concept of transmitting a signal, listening to it's reflection and measure the time delay to obtain a range. For such a radar, and assuming a simple sinusoidal pulse, we have a signal-to-noise ratio given by 
+As a practical example of application of pulse compression, let us examine a pulse radar system. This system is based around the concept of transmitting a signal, listening to it's reflection and measure the time delay to obtain a range. For such a radar, and assuming a simple sinusoidal pulse, we have a signal-to-noise ratio given by 
 
 $$
 SNR = \frac{K^2 A^2 T}{\sigma^2}
@@ -462,7 +461,7 @@ $$
 \Delta R = \frac{1}{2} c \Delta T
 $$
 
-One method to avoid these problems and increase SNR at the radar receiver is by modulating the pulse using linear frequency modulation, also called chirping. By modulating the transmitted signal linearly across a frequency band $\Delta f$ centered on the carrier frequency, we obtain a signal whose correlation between transmitted and received signal is centered at $t = 0$, which behaves as a sinc function at that point. The -3dB temporal width of that function gives us the pulse duration of the modulation signal, which is
+One method to avoid these problems and increase SNR at the radar receiver is by modulating the pulse using linear frequency modulation, also called chirping. By modulating the transmitted signal linearly across a frequency band $\Delta f$ centered on the carrier frequency, we obtain a signal whose correlation between transmitted and received signal is centered at $t = 0$, which behaves as a \textit{sinc} function at that point. The -3dB temporal width of that function gives us the pulse duration of the modulation signal, which is
 
 $$
 T' = \frac{1}{\Delta f}
@@ -475,7 +474,6 @@ $$
 P' = P \times \frac{T}{T'}
 $$
 Since $T'$ is smaller than $T$, we have an increase in the received signal power after the modulation, without increasing the transmitted wave's energy and also increasing the range resolution of the radar.
-
 
 %However, this method carries a steep price: the range resolution for a sinusoidal signal of a pulse radar is given by 
 %$$
@@ -513,7 +511,66 @@ Since the transmission is spread over a wider frequency range, the jamming sourc
 
 \section{Sidelobe blanking}
 
-A directional antenna always has sidelobes, sections of it's radiation pattern that are not aligned with the antenna direction. For a receiving antenna, this allows it to receive s
+A directional antenna always has sidelobes, sections of its radiation pattern that are not aligned with the antenna direction that have lower, but nonzero, gain than the main lobe. For a receiving antenna, this allows it to receive signals not in it's primary direction. Such a phenomenon is easily exploitable by jamming signals, which, with enough transmitting power, can be detected by an antenna's sidelobe and overload any wanted signals.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{radar_antenna_lobes.png}
+\caption{Beam pattern of a radar antenna}
+\label{target1}
+\end{figure} 
+
+To prevent jamming of such a receiving antenna, we can use a technique called Sidelobe Blanking (SLB). This technique is used in the presence of pulsed interference, and consists in using an auxiliary omnidirectional antenna in tandem with the directional antenna. Having an omnidirectional receiver whose gain is adjusted to be above the gain of the sidelobes, we can compare the received signals on both receivers. Whenever the output of the auxiliary antenna is greater than the output of the main antenna, we are in a sidelobe reception state, and we can then ignore the received signal as unwanted noise, for example jamming. An example of the sidelobe suppression method working can be seen in Figure \ref{sidelobe_suppression}, where we see two radar indicator examples, one without sidelobe suppression showing several artifacts and another with sidelobe suppression, showing only a single line in the radar indicator.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{sidelobe_suppresion.png}
+\caption{Sidelobe suppression system functional diagram}
+\label{sidelobe_suppression}
+\end{figure} 
+
+\section{Polarization}
+
+When transmitted, an electromagnetic signal presents some kind of polarization. For an antenna system to receive a signal, such signal must have a polarization equal to that of the receiving antenna. In the case of a jamming system where only one polarization is present, the simplest method of Electronic Protection consists in the usage of two antennas with different polarizations. In the presence of jamming, only one of the antennas will have a significant received signal from the jamming transmitter, allowing the receiver to discriminate the received signals and reject the jammer. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{parabolic_polarization_response.png}
+\caption{Polarization response of a parabolic antenna}
+\label{sidelobe_suppression}
+\end{figure} 
+
+\section{Chaff}
+
+One of the earliest airborne methods of radar countermeasures, chaff is a radar countermeasure that consists in the spreading of a large number of small, thin pieces of metal or metalized material, as seen on Figure \ref{chaff_photo}. These pieces of metal are cut to sizes that are equal to half the wavelength of the signal that is intended to counter, creating a cloud of half-dipole antennas. These tunned half-dipole antennas resonate with the radar signals, creating a cloud of radar echoes designed to mask the presence of the aircraft, diverting radar-guided missiles, ground-based anti-air artillery and rendering useless radar detection from enemy aircraft. Examples of the usage of chaff can be seen in Figures \ref{fig:chaff} and \ref{chaff_cloud_echo}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{Usnchaff.jpg}
+\caption{Modern chaff, in use with the United States Navy}
+\label{chaff_photo}
+\end{figure} 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{chaff_radarjpg.jpg}
+\caption{Radar echoes of a chaff cloud}
+\label{chaff_cloud_echo}
+\end{figure} 
+
+
+\section{Radiation homing}
+
+While most of this section is dedicated to negate the effects of jamming, there are cases where the desire is not to reject jamming but to focus on it. One such case is radiation homing, where we use the jamming signal to detect the location of a jammer and use it to direct a weapon, usually a missile. These weapons are usually called Anti-Radiation Missiles (ARM). One such missile is presented in Figure \ref{arm_missile}.
+
+There are several ways to implement such a weapon. However, one of them makes use of one unintended characteristic of the sidelobe suppression method previously mentioned. By using this system to focus on the reception of the jamming signal and suppression of other signals, the jamming signal's angle of arrival can be determined and, subsequently, the jammer locked on and destroyed by the missile.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{arm_missile.jpg}
+\caption{AGM-88 HARM Anti-Radiation Missile}
+\label{arm_missile}
+\end{figure}
 
 \pagebreak
 \part{Electronic Warfare Support}
@@ -630,13 +687,55 @@ Can be taken three \textit{LOBs} at time, figure \ref{target8} (b-e), if there a
 \label{target9}
 \end{figure} 
 
-Some optimization methods are enumerated here. They rely on finding an estimate, based on minimizing the error between the estimate and the actual value of the Point Fixed. It was decided to dodge the calculus behind these methods because of their big extension and complexity. We only exemplify some of them. This metho
 
 
 
+Some optimization methods that rely on finding an estimate, based on minimizing the error between the estimate and the actual value of the Point Fixed are enumerated here. It was decided to dodge the calculus behind these methods because of their big extension and complexity. We only mention some of them, remembering that are generalisations of Leasts Square Estimation Algortihm:
+
+\begin{itemize}
+    \item Total Least-Squares Estimation - allows for the existence of noise in not only the measurements but also for errors in the observation matrix;
+    \item Weighted Least-Squares Estimation - Weighting Matrix  $\mathbf{W_k}\neq I $ ;
+    \item Brown’s Least-Squares Triangulation Algorithm - is based on minimising the square of the miss distance of the Point Fixed from the measured \textit{LOBs}, figure \ref{target10} from page \pageref{target10};
+    \item Hemispheric Least-Squares Error Estimation Algorithm -
+    
+The measured bearing from a sensor, $\phi_i$ , projected onto
+the surface of the Earth in the northern hemisphere (the other hemisphere will work as well with appropriate change of variables), illustrated in figure \ref{target11} from page \pageref{target11};
+\begin{equation*}
+    \cos{\phi_i}= \frac{y_t - y_i}{\sqrt{(y_T - y_i)^2+(x_T - x_i)^2}}
+\end{equation*}
+
+$x_i$ is the longitude of the sensor during the ith observation interval;
+$y_i$ is the latitude of the sensor during the ith observation interval;
+$x_T$ is the actual longitude of the target emitter;
+$y_T$ is the actual latitude of the target emitter;
+$\eta$ is the heading of the sensor relative to north;
+$\phi_i$ is the ith measured bearing;
+$\Delta \phi_i$ is the error in the ith measured bearing;
+$x_i$ is the error in the calculation of the longitude in the ith observation interval;
+$\Delta y_i$ is the error in the calculation of the latitude in the ith observation interval; 
+
+\item Pages-Zamora Least-Squares - LSE algorithm based on the
+cellular phone requirements imposed by the Federal Communications Committee in the United States. Illustrated in figure \ref{target12} from page \pageref{target12}.  
+
+\begin{equation*}
+    \Vec{d_0}= \Vec{d_{oi}+ d_i\Vec{v_i}} 
+\end{equation*}
+\begin{equation*}
+    x_T = x_i + d_{oi}\cos{\phi_i}
+\end{equation*}
+\begin{equation*}
+    y_T = y_i + d_{oi}\sin{\phi_i}
+\end{equation*}
 
 
+\item Total least-squares estimation \textit{(TLSE)} method - starts with squaring the equantion from \textit{Hemispheric Least-Squares Error Estimation Algorithm}:
 
+\begin{equation*}
+    \cos{\phi_i}^2= \frac{(x_t - x_i)^2}{(y_T - y_i)^2+(x_T - x_i)^2}
+\end{equation*}
+
+
+\end{itemize}
 
 
 Measuring the time of arrival of the signal is another possibility at
@@ -701,18 +800,52 @@ the results are optimum in the least mean-squares error sense. A flowchart for t
 
 \begin{quote} \itshape
 In some cases, knowing only the PF of a target is inadequate. Examples of this include subsurface oceanographic targets that are tracked with active sonar and surface and airborne targets that are tracked by active radar. Thus, methods were devised to accommodate such tracking. Kalman filtering is one of those methods, although Kalman filters have much broader applications than tracking targets.
-Kalman filtering is based on the principles of MMSE...
- Kalman filter estimation uses a form of feedback control: the filter estimates the process state at some time and then obtains feedback in the form of noisy measurements. The behavior of a dynamic system can be described by the time evolution of the state variables. As indicated previously, the state variables of a dynamic system cannot be determined exactly by direct measurements; instead, the measurements available are functions of the state variables corrupted by random noise. It is then necessary to estimate the state variables from the noisy observations. The measurement and estimation process is illustrated in Figure \ref{target3}. The purpose of the Kalman filter is to optimally estimate the state variables in the dynamical system. Optimum in this sense means that the mean squared estimation error is minimized...
+Kalman filtering is based on the principles of MMSE [...]
+ Kalman filter estimation uses a form of feedback control: the filter estimates the process state at some time and then obtains feedback in the form of noisy measurements. The behavior of a dynamic system can be described by the time evolution of the state variables. As indicated previously, the state variables of a dynamic system cannot be determined exactly by direct measurements; instead, the measurements available are functions of the state variables corrupted by random noise. It is then necessary to estimate the state variables from the noisy observations. The measurement and estimation process is illustrated in Figure \ref{target3}. The purpose of the Kalman filter is to optimally estimate the state variables in the dynamical system. Optimum in this sense means that the mean squared estimation error is minimised [...]
 
- The Kalman filter fall into two groups: time update equations and measurement update equations. The time update equations are responsible for projecting forward in time the current state and error covariance estimates to obtain the estimates for the next a priori time step. The measurement update equations are responsible for the feedback, that is, for incorporating a new measurement into the a priori estimate to obtain an improved a posteriori estimate. \cite{poiseltarget}\end{quote}
+ The Kalman filter fall into two groups: time update equations and measurement update equations. The time update equations are responsible for projecting forward in time the current state and error covariance estimates to obtain the estimates for the next a priori time step. The measurement update equations are responsible for the feedback, that is, for incorporating a new measurement into the a priori estimate to obtain an improved \textit{a posteriori} estimate. \cite{poiseltarget}\end{quote}
+
+Applying the standard Kalman filter used in the linear systems to nonlinear systems with Additive White Gaussian Noise by linearizing the nonlinearity with Taylor series expansion, ignoring the terms of second order and higher is called Extended Kalman Filter.  
+
+There is one problem in the convergence to a reasonable estimate. It may not be obtained if the initial guess is poor or if the noise is so large that the linearization is inadequate to describe the system. \textit{EKF} can have instability problems caused by the linearization approximation. Example of \textit{EKF} apllication is given by figure \ref{target13}.  
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=110mm]{target13.png}
+\caption{Geometry for Extended Kalman Filter Point Fixed analysis}
+\label{target13}
+\end{figure} 
 
 
 
 
+\appendix
+\pagebreak
+\section{Auxiliary Images}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=110mm]{target10.png}
+\caption{Definitions of the terms for derivation of Brown’s mean-squares distance algorithm.}
+\label{target10}
+\end{figure} 
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=110mm]{target11.png}
+\caption{Geometry for hemispheric least-squared.}
+\label{target11}
+\end{figure} 
 
 
+\begin{figure}[!h]
+\centering
+\includegraphics[width=110mm]{target12.png}
+\caption{Geometry describing the algorithm developed by Pages-Zamora.}
+\label{target12}
+\end{figure}
 
-
+\FloatBarrier
 \pagebreak
 \nocite{*}
 \printbibliography
