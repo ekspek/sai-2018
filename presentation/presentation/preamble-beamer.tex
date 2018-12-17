@@ -1,0 +1,103 @@
+\usepackage[version=3]{mhchem}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{polyglossia}
+\setmainlanguage{portuges}
+%\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{anyfontsize}
+\usepackage{pdflscape}
+\usepackage{bbding}
+
+% -- Tipo de letra
+%\usepackage[osf]{newpxtext}
+%\usepackage{eulervm}
+%\usepackage[scaled=1.05]{nimbusmononarrow}
+\usepackage{fontspec}
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+\usepackage{FiraMono}
+%\usepackage{newtxsf}
+
+% -- Funções matemáticas extra
+\usepackage{mathtools}
+\usepackage{siunitx}
+
+% -- Símbolos extra
+\usepackage{amssymb}
+
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{cancel}
+
+% -- Bibliografia
+\usepackage[
+	backend = biber,
+	style = numeric,
+	sorting = ynt
+	]{biblatex}
+\usepackage{fvextra}
+\usepackage{csquotes}
+
+% --  Definições de imagens
+\usepackage{graphicx}
+\graphicspath{{graphics/}}
+\usepackage{caption}
+\captionsetup{font=scriptsize}
+\usepackage{subcaption}
+\usepackage{afterpage}
+\usepackage{tabularx}
+%\usepackage[labelformat=empty]{caption}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+
+% -- Desenhar circuitos elétricos e lógicos
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{arrows.meta,positioning,patterns}
+\pgfplotsset{compat=1.5}
+\pgfplotsset{table/search path = {data}}
+\pgfplotsset{	/pgf/number format/use comma,}
+
+\definecolor{ist-cyan}{cmyk}{1,0,0,0}
+\definecolor{ist-gray}{cmyk}{0.2,0,0,0.8}
+
+%\hypersetup{colorlinks,
+%	linkcolor	= {white},
+%	citecolor	= {ist-cyan},
+%	urlcolor	= {ist-cyan}}
+
+\usepackage{todonotes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Cenas do beamer
+
+\addbibresource{main.bib}
+\addbibresource{graphics.bib}
+\definecolor{istblue}{cmyk}{1,0,0,0} % ist blue)
+
+% símbolo de "certinho"
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\mode<presentation>
+{
+  \usetheme{Madrid}       % or try default, Darmstadt, Warsaw, ...
+  \usecolortheme{orchid} % or try albatross, beaver, crane, ...
+  \usecolortheme[named=istblue]{structure}
+  \usefonttheme{default}    % or try default, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{itemize items}[circle] %ball,circle, square
+}
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{institute}{size=\Large}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{author}{size=\small}
+
