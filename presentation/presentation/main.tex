@@ -32,6 +32,17 @@
   \vskip0pt%
 }
 
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
@@ -51,7 +62,12 @@
 \section{Introdução}
 
 \begin{frame}{Introdução}
-    In this research report we will present a general discussion on the topic of electric and electronic aeronautical systems and their presence within the context of war and warfare, beginning with an historical overview of the presence of these systems in aeronautics, their growth and expansion, the detection and exploitation of their vulnerabilities and subsequent and ongoing battle between exploitation and protection of these systems. Following it will be a presentation of the most notable weapons and systems within this topic, both historical and modern, which will culminate in a discussion on the future of electronic aeronautical systems and how relevant their overall protection can be to modern safety in the aeronautical and aerospace industry.
+    Nesta apresentação vamos discutir
+    \begin{itemize}
+        \item A definição de guerra eletrónica
+        \item A história e desenvolvimentos da guerra electrónica no combate aéreo
+        \item Sistemas actuais de Ataque, Protecção e Suporte Electrónico em combate aéreo
+    \end{itemize}
 \end{frame}
 
 \section{História}
@@ -271,19 +287,52 @@
 \end{frame}
 
 \begin{frame}{A Guerra do Vietname}
+    \begin{itemize}
+        \item O envolvimento dos Estados Unidos na guerra do Vietname implicou um grande progresso na evolução.
+        \begin{itemize}
+            \item A grande quantidade de baixas sofridas devido a armamentos anti-aéreos levou ao estudo de armamento anti-radar.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Os \textit{Wild Weasels}}
     \begin{minipage}[c]{0.44\textwidth}
         \begin{figure}
             \centering
-            \includegraphics[width=\textwidth]{wildweasel}
-            \caption{A cauda de um F-16 \textit{Wild Weasel}.}«
+            \includegraphics[width=0.9\textwidth]{wildweasel}
+            \caption{A cauda de um F-16 \textit{Wild Weasel}.}
         \end{figure}
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.55\textwidth}
         \begin{itemize}
-            \item Hello
+            \item Aviões começaram a ser equipados com mísseis que seguem sinais de radares, para destruir zonas mais fortificadas.
+            \item Estes aviões foram denominados \textit{Wild Weasels}, que escoltavam aviões de artilharia pesada e protegiam-nos dos armamentos anti-aéreos terrestres.
+            \item Esta combinação possibilitou o domínio aéreo e a invasão de zonas fortificadas nos terrenos vietnamitas.
         \end{itemize}
     \end{minipage}
+\end{frame}
+
+\begin{frame}{Guerra do Golfo}
+    A guerra no Golfo Persa em 1990 e 1991 iniciou a era moderna da guerra eletrónica.
+    \begin{itemize}
+        \item As forças da coalição concentraram o seu poder de fogo nas estruturas de comunicação, deteção e armamento anti-aéreo para debilitar a força eletrónica do exército iraquiano.
+        \item Rapidamente se criou um domínio aéreo sobre a região que acabou por decidir o resultado da guerra.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Inovações da Guerra do Golfo}
+    A guerra trouxe várias tecnologias de guerra eletrónica para o campo de batalha.
+    \begin{itemize}
+        \item Reunião de inteligência foi feita por aviões \textit{stealth}, indetetáveis ao radar inimigo.
+        \item A utilização de \textit{decoys} afetou a deteção dos radares e permitiu a entrada de artilharia aérea pesada sem perigo.
+        \item A destruição de radares facilitou a invasão de tropas terrestres.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width = 0.4\textwidth]{f117}
+        \caption{Um \textit{Lockheed F-117 Nighthawk}, um avião \textit{stealth} utilizado extensivamente na guerra.}
+    \end{figure}
 \end{frame}
 
 %----------------Pedro starts here ---------------------%
@@ -297,14 +346,14 @@
         \vspace*{3mm}
         \item  Reduzindo a detectibilidade no radar e detectibilidade térmica da aeronave; 
         \vspace*{3mm}
-        \item Nos dias actuais, o significado básico de ataque electrónico é o uso de vários sinais Jamming que afectam directamente os sistemas electrónicos na banda de radio frequência
+        \item Nos dias actuais, o significado básico de ataque electrónico é o uso de vários sinais Jamming que afectam directamente os sistemas electrónicos na banda de radio frequência.
     
     \end{itemize}
     
    
 \end{frame}
 
-\begin{frame}{Ataque Electrónico (AE) - Jamming }
+\begin{frame}{Ataque Electrónico (AE) - Jamming}
     
     Jammer constítuido por: 
      \vspace*{5mm}
@@ -313,9 +362,9 @@
         \vspace*{3mm}
         \item  Um subsistema que produz sinais de Jamming; 
         \vspace*{3mm}
-        \item Amplificadores de alta frequência e geradores com moduladores
+        \item Amplificadores de alta frequência e geradores com moduladores;
          \vspace*{3mm}
-         \item Dispositivos de Antena
+         \item Dispositivos de Antena.
     
     \end{itemize}
     
@@ -365,7 +414,7 @@ P_{rec}= \frac{P_j G_j}{4 \pi D_j ^2} A_{rec} \gamma_j \eta_j
 \begin{equation*}
 K_{drr}= \frac{P_{rec max}}{P_{rec min}}    
 \end{equation*}
-$P_{rec min}$- limite de sensibilidade  $K_{drr}$ - gama dinâmica do receptor $D_j$ - distância do jammer ao alvo, $P_{rec max}$ - Potência radiada requerida para causar uma sobrecarga dinâmica
+$P_{rec min}$- limite de sensibilidade , $D_j$ - distância do jammer ao alvo, $K_{drr}$ - gama dinâmica do receptor  $P_{rec max}$ - Potência radiada requerida para causar uma sobrecarga dinâmica
     \end{itemize}
     
   \end{frame}
@@ -378,28 +427,28 @@ $P_{rec min}$- limite de sensibilidade  $K_{drr}$ - gama dinâmica do receptor $
     
       \vspace*{5mm}
     \begin{itemize}
-        \item Nível táctico - Destruição das defesas Anti-Aéreas num ataque
+        \item Nível táctico - Destruição das defesas Anti-Aéreas num ataque;
         \vspace*{6mm}
-        \item  Nível Operacional - Simular dano nas defesas de forma a criar uma ilusão ao inimigo que realiza um ataque
+        \item  Nível Operacional - Simular dano nas defesas de forma a criar uma ilusão ao inimigo que realiza um ataque.
         \vspace*{3mm}
      
     
     \end{itemize}
     \end{frame}
 
-\begin{frame}{Jamming - Destrutivo}
+\begin{frame}{Jamming}
     \begin{figure}[ht]
-        \begin{minipage}[b]{0.49\linewidth}
+        \begin{minipage}[c]{0.49\linewidth}
             \centering
-            \includegraphics[width=40mm]{jam2.png}
-            \caption{Métodos de ocultação aviões (helicópteros) e outros alvos de áreas fixas usando jamming}
+            \includegraphics[width=50mm]{jam2.png}
+            \caption{Métodos de ocultação de aviões (helicópteros) e outros alvos de áreas fixas usando jamming}
             \label{jam2}
         \end{minipage}
         \hspace{\fill}
-        \begin{minipage}[b]{0.49\linewidth}
+        \begin{minipage}[c]{0.49\linewidth}
             \centering
-            \includegraphics[width=40mm]{jam3.png}
-            \caption{Métodos de observação de aviões em formação de batalha usando jamming.}
+            \includegraphics[width=50mm]{jam3.png}
+            \caption{Métodos de ocultação de aviões em formação de batalha usando jamming.}
             \label{jam3}
         \end{minipage}
     \end{figure}
@@ -407,12 +456,7 @@ $P_{rec min}$- limite de sensibilidade  $K_{drr}$ - gama dinâmica do receptor $
 
 
 
-
-
-
-
-
-
+\section{Protecção Electrónica}
 
 %----------------Manito starts here ---------------------%
 % para passar ha que pagar portagem que até se lixam...
@@ -471,48 +515,459 @@ $P_{rec min}$- limite de sensibilidade  $K_{drr}$ - gama dinâmica do receptor $
 \end{figure}
 \end{frame}
 
-\begin{frame}{Exemplo}
+\begin{frame}{Compressão de pulso}
+ Modulação linear em frequência do pulso - \textit{chirping}
+    \begin{itemize}
+    \item Duração do pulso: $T' = \frac{1}{\Delta f}$
+    \item Para certos valores de $\Delta t$, $T \ge T'$ $\Rightarrow$ compressão
+    \item Relação entre potências: $P' = P \times \frac{T}{T'}$
+    \end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/chirped_result.PNG}
+\caption{Pulso e sinal de eco desmodulado}
+\label{chirped_result}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Espectro de difusão em frequência variável}
+    \begin{itemize}
+    \item Mudança da frequência de operação ao longo do tempo;
+    \item Sincronia usando códigos pseudoaleatórios
+    \end{itemize}
     \begin{figure}[ht]
-        \begin{minipage}[b]{0.32\linewidth}
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/frequency_hopping.png}
+\caption{Exemplo de variação da frequência no tempo}
+\label{frequency_hopping}
+\end{figure}
+\end{frame}
+    
+\begin{frame}{Espectro de difusão em frequência variável}
+    \begin{itemize}
+    \item \textit{Jammers} necessitam de cobrir um espectro de frequências maior
+    \item Menos potência de transmissão disponível para frequências específicas
+    \item Redução da capacidade de \textit{jamming} dos sinais
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/frequency_hopping.png}
+\caption{Exemplo de variação da frequência no tempo}
+\label{frequency_hopping}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Anulamento de lóbulo secundário}
+    \begin{itemize}
+    \item<1-> Antenas direccionais apresentam padrões de radiação com lóbulos secundários
+    \item<2-> Potencial de \textit{jamming}
+    \item<3-> Redução da capacidade de \textit{jamming} dos sinais
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/radar_antenna_lobes.png}
+\caption{Padrão de radiação de uma antena de radar}
+\label{radiation_pattern}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Anulamento de lóbulo secundário}
+Solução: Utilização de uma antena secundária omnidireccional
+    \begin{itemize}
+    \item<1-> Ganho do receptor secundário superior ao ganho dos lobulos secundários
+    \item<2-> Comparação de intensidades de sinal
+    \item<3-> Receptor secundário com sinal superior à antena principal $\Rightarrow$ lobulos secundários em recepção
+    \item<4-> Minimização significativa de sinais fora do eixo da antena
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/sidelobe_suppresion.png}
+\caption{Esquema de funcionamento de anulamento de lóbulo secundário}
+\label{sidelobe_suppression}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Polarização}
+    \begin{itemize}
+    \item<1-> Ondas transmitidas são polarizadas
+    \item<2-> Necessário igualar polarizações para recepção óptima
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/parabolic_polarization_response.png}
+\caption{Resposta de uma antena parabólica a ondas polarizadas}
+\label{sidelobe_suppression}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Polarização}
+\textit{Jammer} com uma única polarização
+    \begin{itemize}
+    \item<1-> Solução simples: duas antenas com polarizações diferentes
+    \item<2-> Apenas uma das antenas recebe interferência
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/parabolic_polarization_response.png}
+\caption{Resposta de uma antena parabólica a ondas polarizadas}
+\label{sidelobe_suppression}
+\end{figure}
+\end{frame}
+
+\begin{frame}{\textit{Chaff}}
+    \begin{itemize}
+    \item<1-> Pequenas peças de metal espalhadas no ar
+    \item<2-> Antenas de meio dipolo
+    \item<3-> Método antigo mas eficaz
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/Usnchaff.jpg}
+\caption{\textit{Chaff} moderno}
+\label{chaff_photo}
+\end{figure}
+\end{frame}
+
+\begin{frame}{\textit{Chaff}}
+    \begin{itemize}
+    \item<1-> Cria ecos de radar quando iluminado
+    \item<2-> Curta duração
+    \item<3-> Permite mascarar aeronave de misseis, artilharia terrestre e outras aeronaves
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/chaff_radarjpg.jpg}
+\caption{Eco de radar devido a uma núvem de \textit{Chaff}}
+\label{chaff_cloud_echo}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Direccionamento por radiação}
+Usar sinais de \textit{jamming} contra eles mesmos
+    \begin{itemize}
+    \item<1-> Detecção da localização de um sistema de \textit{jamming} usando a radiação deste
+    \item<2-> Direccionamento de míssil contra a fonte de radiação
+    \item<3-> Exemplo: usando supressão de lóbulo lateral
+    \begin{itemize}
+        \item Detecção do sinal de \textit{jamming}
+        \item Determinação do ângulo de chegada do sinal
+        \item \textit{Lock-on} do míssil para a fonte da radiação
+    \end{itemize}
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\textwidth]{graphics/arm_missile.jpg}
+\caption{Míssil anti-radiação (ARM) AGM-88 HARM}
+\label{arm_missile}
+\end{figure}
+\end{frame}
+
+\section{Suporte Electrónico de Guerra}
+%----- Suporte electrónico de guerra -----%    
+    
+    \begin{frame}{Suporte Electrónico de Guerra - Localização do alvo}
+   
+    \begin{itemize}
+        \item Sabendo a localização dos alvos, indica-nos a disposição das forças;
+       
+        \item Pode dar uma indicação do tipo de entidade numa localização particular, agrupando diferentes tipos de emissores.
+        
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=50mm]{target1.png}
+\caption{Intersecção das linha de direcção medidas - \textit{Line of Bearing}}
+\label{target1}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Suporte Electrónico de Guerra - Triangulação}
+   
+    \begin{itemize}
+        \item Pode ser implementada numa variedade de plataformas (aviões);
+       
+        \item Requer um aglomerado de Antenas; 
+        
+        \item Fornece métodos para estimar o azimute dos ângulos de chegada dos sinais com base na medição da diferença de tempo de chegada ou diferença de fase dos sinais em duas antenas espaçadas a metade (ou menos) do comprimento de onda do sinal.
+        
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{target4.png}
+\caption{Relações Geométricas para o Ponto Fixo pela triangulação}
+\label{target4}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Suporte Electrónico de Guerra - Triangulação}
+   
+    \begin{itemize}
+        \item \begin{equation*}
+    \sin{\phi_1} = \frac{d_1}{d} \Rightarrow 
+    d_1 = d \sin{\phi_1}
+    \end{equation*}
+
+
+       
+        \item \begin{equation*}
+\sin{\phi_2 - \phi_1} = \frac{d_1}{d_2} \Rightarrow d_2 = \frac{d_1}{\sin{\phi_2 - \phi_1}} \Rightarrow d_2 = \frac{d \sin{\phi_1}}{\sin{\phi_2 - \phi_1}}     
+\end{equation*}
+        
+        \item As distâncias para o alvo ao sensor $S_2$, $x$ and $y$, podem ser obtidas:
+
+\begin{equation*}
+x = d_2 \cos{\phi_2}     
+\end{equation*}
+
+\begin{equation*}
+y = d_2 \sin{\phi_2}     
+\end{equation*}
+        
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=40mm]{target4.png}
+\caption{Relações Geométricas para o Ponto Fixo pela triangulação}
+\label{target4}
+\end{figure}
+\end{frame}
+
+  \begin{frame}{Suporte Electrónico de Guerra - Triangulação}
+   
+    \begin{itemize}
+        \item Algoritmos disponíveis para o cálculo do Ponto fixo baseados nas técnicas de estimação do \textit{LSE};
+      \vspace*{5mm}
+        \item Estes princípios podem-se extender a 3 dimensões e ao uso de mais de 2 sensores. 
+        \vspace*{5mm}
+        \item Desenhar as linhas de direcções medidas e observar directamente onde se cruzam é outra técnica de triangulação. Os sensores podem ser apenas um a mover-se ou três estacionários, como mostra a figura \ref{target5}.
+    \end{itemize}
+\end{frame}
+    
+\begin{frame}{Suporte Electrónico de Guerra - Triangulação}
+    \begin{figure}[ht]
+        \begin{minipage}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width = \linewidth]{example-image}
-            \caption{Label for a}
-            \label{fig:3a}
+            \includegraphics[width=50mm]{target5.png}
+            \caption{Triangulação}
+            \label{target5}
         \end{minipage}
         \hspace{\fill}
-        \begin{minipage}[b]{0.32\linewidth}
+        \begin{minipage}[b]{0.49\linewidth}
             \centering
-            \includegraphics[width = \linewidth]{example-image}
-            \caption{Label for b}
-            \label{fig:3b}
-        \end{minipage}
-        \hspace{\fill}
-        \begin{minipage}[b]{0.32\linewidth}
-            \centering
-            \includegraphics[width = \linewidth]{example-image}
-            \caption{Label for c}
-            \label{fig:3c}
+            \includegraphics[width=50mm]{target6.png}
+            \caption{Erros aleatórios no cálculo do Ponto Fixo}
+            \label{target6}
         \end{minipage}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Exemplo}
-    \begin{figure}[ht]
-        \begin{minipage}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width = \linewidth]{example-image}
-            \caption{Label for a}
-            \label{fig:2a}
-        \end{minipage}
-        \hspace{\fill}
-        \begin{minipage}[b]{0.49\linewidth}
-            \centering
-            \includegraphics[width = \linewidth]{example-image}
-            \caption{Label for b}
-            \label{fig:2b}
-        \end{minipage}
-    \end{figure}
+
+\begin{frame}{Suporte Electrónico de Guerra - Triangulação}
+   
+    \begin{itemize}
+        \item Em geral os sinais são corrompidos por erros de medição e ruído (Branco Gaussiano de zero de média);
+      \vspace*{5mm}
+        \item Se o ruído for aleatório, a linha de direcções medida poderá ser maior ou menor do que a actual, resultando na elipse de erro;
+        \vspace*{5mm}
+        \item Os sensores podem exibir \textit{bias}.
+    \end{itemize}
 \end{frame}
+
+    \begin{frame}{Localização do alvo - Triangulação}
+   
+    \begin{itemize}
+        \item Trêns métodos não estatísticos para estimar a localização do alvo dado um triângulos, figura \ref{target7} 
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=70mm]{target7.png}
+\caption{Cálculos de Ponto Fixo não estatísticos com só três linhas de direcção. (a) intersecção das médias (b) intersecção dos ângulos bissectores e (c) Ponto Steiner (definido pelo ponto onde os ângulos entre as linhas de direcção que vêm dos cantos são todas 120º). Todos eles são métodos para estimar o centroide do triângulo.}
+\label{target7}
+\end{figure}
+\end{frame}
+
+ \begin{frame}{Métodos de Optimização de localização do Ponto fixo}
+   
+    \begin{itemize}
+        \item Baseados na minimização do erro entre o valor estimado e o Ponto Fixo;
+         \vspace*{5mm}
+        \item Generalizações do algoritmo da estimação dos mínimos quadrados. 
+        \vspace*{5mm}
+         \item Estimação total dos mínimos quadrados - permite a existência de ruído nas medições; 
+        \vspace*{5mm}
+        \item Estimação do Pesos dos Mínimos Quadrados - Matriz dos Pesos $\mathbf{W_k}\neq I $
+         
+    \end{itemize}
+   
+\end{frame}
+
+  \begin{frame}{Triangulação - Métodos de Optimização}
+   
+    \begin{itemize}
+  
+        
+        \item Estimação do Pesos dos Mínimos Quadrados - Matriz dos Pesos $\mathbf{W_k}\neq I $
+       
+        \vspace*{3mm}
+        
+        \item Algoritmo de triangulação dos Mínimos quadrados do Brown, figura \ref{target10}.
+        
+        
+        
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=60mm]{target10.png}
+\caption{Definição dos termos de derivação do algoritmo do método dos mínimos quadrados de Brown}
+\label{target10}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Triangulação - Métodos de Optimização}
+   
+    \begin{itemize}
+ 
+        \item Algoritmo de Estimação do Erro dos mínimos quadrados Hemisférico - A medição da linha de direcção a partir de um sensor $\phi_i$ projectada na superficíe da Terra no hemisfério Norte
+        
+        \item \begin{equation*}
+    \cos{\phi_i}= \frac{y_t - y_i}{\sqrt{(y_T - y_i)^2+(x_T - x_i)^2}}
+\end{equation*}
+       
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=60mm]{target11.png}
+\caption{Geometria para o hemisférico calculado pelos mínimos quadrados}
+\label{target11}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Triangulação - Métodos de Optimização}
+   
+    \begin{itemize}
+ 
+        \item Algoritmos da Estimação Mínimos Quadrados Pages-Zamora baseado nos requisitos de telemóvel impostos pelo \textit{Federal Communications Committee} nos Estados Unidos da América.
+        
+        \item \begin{equation*}
+    \Vec{d_0}= \Vec{d_{oi}+ d_i\Vec{v_i}} 
+\end{equation*}
+
+    \item \begin{equation*}
+    x_T = x_i + d_{oi}\cos{\phi_i}
+\end{equation*}
+\begin{equation*}
+    y_T = y_i + d_{oi}\sin{\phi_i}
+\end{equation*}
+       
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=75mm]{target12.png}
+\caption{Geometria descritiva do algoritmo desenvolvido por Pages-Zamora.}
+\label{target12}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Triangulação - Métodos de Optimização}
+   
+    \begin{itemize}
+ 
+        \item Método da Estimação dos mínimos quadrados total - obtém-se elevando ao quadrado a equação do do método de Estimação dos minímos quadrados Hemisférico:
+        \vspace{5mm}
+        \item \begin{equation*}
+    \cos{\phi_i}^2= \frac{(x_t - x_i)^2}{(y_T - y_i)^2+(x_T - x_i)^2}
+\end{equation*}
+       
+    \end{itemize}
+  \end{frame} 
+
+
+\begin{frame}{Triangulação - Métodos de Optimização}
+   
+    \begin{itemize}
+ 
+        \item O filtro de Kalman pode também ser aplicado na estimação do ponto fixo;
+        
+        \item No caso da aplicação filtro de Kalman padrão, os resultados são óptimos no método dos mínimos quadrados relativamente aos erros.
+    
+       
+    \end{itemize}
+    \begin{figure}[ht]
+\centering
+\includegraphics[width=95mm]{target2.png}
+\caption{Algoritmo do filtro de Kalman}
+\label{target2}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Triangulação - Métodos de Optimização}
+   
+    \begin{itemize}
+ 
+        \item A Extenção do filtro de Kalman resulta na aplicação do filtro de Kalman em sistemas não lineares com ruído aditivo Branco Gaussiano lineatizando a não linearidade;
+        \vspace*{5mm}
+        \item Problema na convergência para uma estimação razoável. Por exemplo, se a tentativa inicial é pobre ou se o ruído é demasiado grande com influência na linearização que descreve o sistema. 
+ 
+       
+    \end{itemize}
+   
+\end{frame}
+
+\begin{frame}{Triangulação - Métodos de Optimização}
+ \begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\textwidth]{target13.png}
+\caption{Geometria para o Filtro de Kalman Estendido na análise do ponto fixo}
+\label{target13}
+\end{figure}
+\end{frame}
+%\begin{frame}{Exemplo}
+%    \begin{figure}[ht]
+%        \begin{minipage}[b]{0.32\linewidth}
+%            \centering
+%            \includegraphics[width = \linewidth]{example-image}
+%            \caption{Label for a}
+%            \label{fig:3a}
+%        \end{minipage}
+%        \hspace{\fill}
+%        \begin{minipage}[b]{0.32\linewidth}
+%            \centering
+%            \includegraphics[width = \linewidth]{example-image}
+%            \caption{Label for b}
+%            \label{fig:3b}
+%        \end{minipage}
+%        \hspace{\fill}
+%        \begin{minipage}[b]{0.32\linewidth}
+%            \centering
+%            \includegraphics[width = \linewidth]{example-image}
+%            \caption{Label for c}
+%            \label{fig:3c}
+%        \end{minipage}
+%    \end{figure}
+%\end{frame}
+
+%\begin{frame}{Exemplo}
+%    \begin{figure}[ht]
+%        \begin{minipage}[b]{0.49\linewidth}
+%            \centering
+%            \includegraphics[width = \linewidth]{example-image}
+%            \caption{Label for a}
+%            \label{fig:2a}
+%        \end{minipage}
+%        \hspace{\fill}
+%        \begin{minipage}[b]{0.49\linewidth}
+%            \centering
+%            \includegraphics[width = \linewidth]{example-image}
+%            \caption{Label for b}
+%            \label{fig:2b}
+%        \end{minipage}
+%    \end{figure}
+%\end{frame}
 
 \begin{frame}{Referências}
   \printbibliography
