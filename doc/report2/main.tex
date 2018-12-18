@@ -92,8 +92,7 @@ The model was plotted against the provided input data and can be found in figure
 %       p22 =   4.644e-05  (-8.942e-05, 0.0001823)
 %\end{minted}
 
-\section{ARINC Data Bus Sketching}
-
+\section{Modelling of a temperature data ADC}
 For this question we considered the range of values between $\num{-45}\degree C$ and $\num{125}\degree C$, which leaves us with a total of 170 values of temperature to be transmitted. With an additional request of an accuracy of $\num{0.1}\degree C$, we need ten times as many values. All things considered, we need to transmit any values in a range of 1700 possibilities. Going through the amount of possible values held by a number of binary bits, we look for the amount of bits to meet this requirement.
 
 \begin{table}[ht]
@@ -109,6 +108,32 @@ For this question we considered the range of values between $\num{-45}\degree C$
 \end{table}
 
 With this in mind, and considering using an offset of values to eliminate the need for a signal bit (or even converting the temperature to Kelvin), we need at the very least 11 bits to transmit.
+
+\section{Evaluation of model error and ADC accuracy in altitude determination}
+In order to be able to feed the pressure sensor data to the Air Data Computer, a Analog to Digital conversion has to be performed. This in turn leads us to a question: how much resolution is needed for the conversion? Obviously, the minimum ammount of bits necessary must be able to go from 0 to the maximum value necessary. In this case, the ISA mean sea level altitude is defined by a pressure of 1013.25 mbar; As such, at least 10 bits (1024 steps) are necessary to contain the entire range of pressures from sea level to vaccum. However, since there are locations on the planet with pressure altitudes below ISA mean sea level, we decided to require at least 11 bits of resolution, to ensure those locations are correctly included. However, a more accurate pressure determination is required to ensure that pressure altimeter errors are small enough for this system to be used for air travel. For this effect, we defined that the ADC shall have a fixed point output, with 11 integer part bits and N fractional bits. To determine the number of fractional bits required, we created a set of pressure values, simulating the pressure range of the International Standard Atmosphere. 
+
+Simulating a pressure sensor with an ADC, we determined the conversion altitude error. The results for N=3 (total 14 bits) and N=4 (total 15 bits) are presented in Figures \ref{fig:N3} and \ref{fig:N4}. As we can see, both present small errors, in the order of meters. Taking into account that we are working with modeled, ideal sensors, without noise and ignoring a plethora of other factors, we decided to go with N=4 (total 15 bits) as the operational requirement for the number of ADC bits. This allows us to have a larger tolerance for any problems that might arise in the use of the sensor, while still allowing meter-order errors in the altitude determination, enough to ensure a safe vertical separation between aircraft.
+%By discretizing these values for each number of bits of the ADC conversion we intended to study and feeding these values to the pressure-voltage model obtained in Section 1 (see Figure \ref{fig:2dplotmain}) we obtained a set of voltages that model the sensor output to an increase of altitude in the ISA. We then computed the pressure returned by this sensor+ADC system using the model from \ref{eq:fitpoly}. In the end, we converted this pressure to pressure altitude and determined it's error relative to the true pressure altitude, calculated using the set of initial pressure values. The results for N=3 (total 14 bits) and N=4 (total 15 bits) are presented in Figures \ref{fig:N3} and \ref{fig:N4}. As we can see, both present small errors, in the order of meters. Taking into account that we are working with modeled, ideal sensors, without noise and ignoring a plethora of other factors, we decided to go with N=4 (total 15 bits) as the operational requirement for the number of ADC bits. This allows us to have a larger tolerance for any problems that might arise in the use of the sensor, while still allowing meter-order errors in the altitude determination, enough to ensure a safe vertical separation between aircraft.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{graphics/N3.png}
+	\caption{Simulation result error for N=3}
+	\label{fig:N3}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{graphics/N4.png}
+	\caption{Simulation result error for N=4}
+	\label{fig:N4}
+\end{figure}
+
+
+\section{ARINC 429 Data Bus Sketching}
+The ARINC 429 Data Bus that was designed in order to provide the Air Data Computer with the needed inputs is presented in Figure \ref{fig:adc}.
+
 
 \begin{figure}[ht]
 	\centering
@@ -143,7 +168,6 @@ With this in mind, and considering using an offset of values to eliminate the ne
 	h(p) = 145366.45\left(1 - \left(\frac{p_s}{1013.25}\right)^{0.190284}\right)
 \end{gather*}
 
-\pagebreak
 \part{Dealing With Faults and Errors}
 
 For this section of the laboratory project the focus was to analyze and test possible faults within the components of the system and study and implement methods to deal with these problems. For this very purpose, we needed to design a simple aircraft controller and perform any tests and implementations around it.
@@ -158,12 +182,13 @@ The variables and their corresponding units and initial considered values can be
 	\begin{tabular}{c|c|c|c}\toprule
 		Variable		& Description			& Unit						& Initial Values	\\
 		\midrule
-		$x$				& Horizontal position	& \si{\meter}				&					\\
-		$h$				& Altitude				& \si{\meter}				&					\\
-		$\dot{x}$		& Horizontal speed		& \si{\meter\per\second}	&					\\
-		$\dot{h}$		& Altitude rate			& \si{\meter\per\second}	&					\\
-		$\gamma$		& Flight path angle		& 							&					\\
-		$\alpha$		& Angle of attack		& 							&					\\
+		$x$				& Horizontal position	& \si{\meter}				& $0$				\\
+		$h$				& Altitude				& \si{\meter}				& $0$				\\
+		$\dot{x}$		& Horizontal speed		& \si{\meter\per\second}	& $65.8354$		   	\\
+		$\dot{h}$		& Altitude rate			& \si{\meter\per\second}	& $0$				\\
+		$\gamma$		& Flight path angle		& $rad$     				& $0$			    \\
+		$\alpha$		& Angle of attack		& $rad$		        		& $0.052534$		\\
+		$T$             & Thrust force          & \si{\newton}              & $500$                \\
 		\bottomrule
 	\end{tabular}
 	\caption{The variables used in the description of the aircraft behaviour and their respective units.}
@@ -172,7 +197,7 @@ The variables and their corresponding units and initial considered values can be
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.3\textwidth]{example-image}
+	\includegraphics[width=0.6\textwidth]{aircraft}
 	\caption{Aircraft body referential and relevant angles used in the description of the aircraft behaviour.}
 	\label{fig:bodyref}
 \end{figure}
@@ -272,6 +297,26 @@ Finally, we get the state-space equation in short form.
 	\left[\begin{matrix} \dot{h} \\ \dot{V} \\ \dot{\gamma} \end{matrix}\right] = \mathbf{A}\left[\begin{matrix} h \\ V \\ \gamma \end{matrix}\right] + \mathbf{B}\left[\begin{matrix} \alpha \\ T \end{matrix}\right]
 \end{gather}
 
+
+Constant values from airplane:
+\begin{gather*}
+C_l = 0.476 \qquad
+C_d = 0.016 \qquad
+m = \SI{1518.44}{\kilogram} \qquad
+\rho (\textrm{Air density}) = \SI{1.2}{\kilogram\per\meter\cubed} \\
+S (\textrm{Wing Area}) = \SI{12}{\meter\squared} \qquad
+g (\textrm{Gravity acceleration}) = \SI{9.8}{\meter\per\second\squared} \\
+T_0 (\textrm{Thrust in equilibrium}) = \SI{500}{\newton}
+\end{gather*}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.6\textwidth]{graphics/hsim.jpg}
+	\caption{Controller altitude simulation.}
+	\label{fig:bodyref}
+\end{figure}
+
+
 \section{Possible Faults}
 
 Within the simple system implemented in this laboratory, several components can fail or behave unexpectedly. Whether it's the control system or the sensors used, either one can have a fault at some point and the control system needs to be ready to return the control to the pilot should a fault be detected somewhere.
@@ -280,7 +325,15 @@ This fault detection will be done by monitoring the flight variables and their b
 \begin{quote} \itshape
 	A fault is a deviation (of a feature) from the acceptable, standard operational condition.
 \end{quote}
-For sensors, we can consider four types of faults, either sensor bias, drift, loss of accuracy or freeze. The sources for these faults come from either the barometric sensor or the temperature A/D conversion and data transmission.
+For sensors, we can consider four types of faults, either sensor bias, drift, loss of accuracy or freeze. The sources for these faults come from either the barometric sensor or the temperature A/D conversion. For the bus, we can consider physical loss of the bus and data corruption as our faults.
+
+We then modeled a few failure modes for the controller. While at first glance some seem different from the faults above, the above faults can be considered subsets of these failure modes: signals above a given limit and signals that change too fast ("spikes"). Afterwards, we added these failure mode models to the simulator, ending with an architecture that is designed to detect errors and return the control of the aircraft to the pilot, emulated in this simulation with a simulation stop. We simulated a combination between every type of faults, injected manually, and for each situation in the presence of a fault the simulation was stopped and a control flag set to true corresponding to the failure. This represents the transfer of control to the pilot and simultaneous warning to the pilot of the presence of a fault and its origin. Since this analysis is "binary" in nature, there are no relevant plots to present.
+
+\section{Architecture for a fault tolerant controller}
+
+For the present lab work, we created a triplex architecture for fault tolerance. This architecture is present in the simulink file triplex.slx.
+
+
 
 \pagebreak
 \appendix
@@ -291,7 +344,7 @@ For sensors, we can consider four types of faults, either sensor bias, drift, lo
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[domain=0:5,y domain=-45:125,view={-30}{25},xlabel=$\si{\volt}$,ylabel=$\degree C$, zlabel=$\si{\pascal}$,width=0.7\textwidth]
-			\addplot3[surf,samples=05] {5.639 + 382.1 * x - 0.05732 * y - 69.73 * x^2 + 0.2646 * x * y + 0.0002634 * y^2 + 11.53 * x^3 - 0.05126 * x^2 * y - 0.0002063 * x * y^2 - 0.8314 * x^4 + 0.004329 * x^3 * y + 4.644 * 0.00001 * x^2 * y^2};
+			\addplot3[surf,samples=5] {5.639 + 382.1 * x - 0.05732 * y - 69.73 * x^2 + 0.2646 * x * y + 0.0002634 * y^2 + 11.53 * x^3 - 0.05126 * x^2 * y - 0.0002063 * x * y^2 - 0.8314 * x^4 + 0.004329 * x^3 * y + 4.644 * 0.00001 * x^2 * y^2};
 			\addplot3[only marks,color=red,mark=o] table [x index = {1}, z index = {0}, y expr = -45, col sep = comma] {inputdata.csv};
 			\addplot3[only marks,color=blue,mark=o] table [x index = {2}, z index = {0}, y expr = 25, col sep = comma] {inputdata.csv};
 			\addplot3[only marks,color=green,mark=o] table [x index = {3}, z index = {0}, y expr = 125, col sep = comma] {inputdata.csv};
@@ -304,13 +357,14 @@ For sensors, we can consider four types of faults, either sensor bias, drift, lo
 \begin{figure}[ht]
 	\centering
 	\begin{tikzpicture}
-		\begin{axis}[domain=0:5,xlabel=Voltage(\si{\volt}),ylabel=Pressure(\si{\pascal}),width=0.7\textwidth,grid=both]
+		\begin{axis}[domain=0:5,xlabel=Voltage (\si{\volt}),ylabel=Pressure (\si{\pascal}),width=0.7\textwidth,grid=both]
 			\addplot [mark=x,color=red] table [col sep = comma, x index = {1}, y index = {0}] {inputdata.csv};
 			\addplot [mark=x,color=blue] table [col sep = comma, x index = {2}, y index = {0}] {inputdata.csv};
 			\addplot [mark=x,color=green] table [col sep = comma, x index = {3}, y index = {0}] {inputdata.csv};
 			\addplot [mark=none,color=red!50!black] {5.639 + 382.1 * x - 0.05732 * (-45) - 69.73 * x^2 + 0.2646 * x * (-45) + 0.0002634 * (-45)^2 + 11.53 * x^3 - 0.05126 * x^2 * (-45) - 0.0002063 * x * (-45)^2 - 0.8314 * x^4 + 0.004329 * x^3 * (-45) + 4.644 * 0.00001 * x^2 * (-45)^2};
 			\addplot [mark=none,color=blue!50!black] {5.639 + 382.1 * x - 0.05732 * 25 - 69.73 * x^2 + 0.2646 * x * 25 + 0.0002634 * 25^2 + 11.53 * x^3 - 0.05126 * x^2 * 25 - 0.0002063 * x * 25^2 - 0.8314 * x^4 + 0.004329 * x^3 * 25 + 4.644 * 0.00001 * x^2 * 25^2};
 			\addplot [mark=none,color=green!50!black] {5.639 + 382.1 * x - 0.05732 * 125 - 69.73 * x^2 + 0.2646 * x * 125 + 0.0002634 * 125^2 + 11.53 * x^3 - 0.05126 * x^2 * 125 - 0.0002063 * x * 125^2 - 0.8314 * x^4 + 0.004329 * x^3 * 125 + 4.644 * 0.00001 * x^2 * 125^2};
+			%\addplot table [col sep = comma, x index = {1},y expr=\thisrowno{0} - 5.639 + 382.1 * \thisrowno{1} - 0.05732 * (-45) - 69.73 * \thisrowno{1}^2 + 0.2646 * \thisrowno{1} * (-45) + 0.0002634 * (-45)^2 + 11.53 * \thisrowno{1}^3 - 0.05126 * \thisrowno{1}^2 * (-45) - 0.0002063 * \thisrowno{1} * (-45)^2 - 0.8314 * \thisrowno{1}^4 + 0.004329 * \thisrowno{1}^3 * (-45) + 4.644 * 0.00001 * \thisrowno{1}^2 * (-45)^2] {inputdata.csv};
 		\end{axis}
 	\end{tikzpicture}
 	\caption{Side-view of the plots versus the modeled version at the same temperature. The modelled plots can be seen behind the data points.}
