@@ -34,6 +34,8 @@ int main ( int argc , char * argv [] ) {
     SDL_Renderer* renderer;
     int i=0;
     int j=1;
+    int k=0;
+    int l=1;
 
     SDL_Init ( SDL_INIT_VIDEO ) ;
 
@@ -62,16 +64,6 @@ int main ( int argc , char * argv [] ) {
     glDepthFunc ( GL_LEQUAL ) ;
 
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,0 ,0) ;
-    glVertex3f (210 ,50 ,0) ;
-    glVertex3f (220 ,50 ,0) ;
-    glVertex3f (220 ,60 ,0) ;
-    glVertex3f (210 ,60 ,0) ;
-    glEnd () ;
-
-
-
     /*
     * Draws until user orders to quit
     */
@@ -80,7 +72,7 @@ int main ( int argc , char * argv [] ) {
         //draw () ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //draw_test();
-        draw_artificial_horizon(i);
+        draw_artificial_horizon(i,k);
 
         SDL_GL_SwapWindow(window);
         SDL_Delay(10);
@@ -108,12 +100,27 @@ int main ( int argc , char * argv [] ) {
             }
         }
 
-        /* DEBUG PITCH ROUTINE */
+        /* DEBUG PITCH AND ROLL ROUTINE */
         i=i+j*1;
-        if (i==WINDOW_SIZE_X)
+        if (i==6*90)
         {
             j=-1;
         }
+
+        if (i==-6*90){
+            j=1;
+        }
+
+        k=i+j*1;
+        if (k==6*90)
+        {
+            l=-1;
+        }
+
+        if (k==-6*90){
+            l=1;
+        }
+
         /* END DEBUG PITCH ROUTINE*/
 
     }

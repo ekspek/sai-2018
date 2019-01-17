@@ -17,13 +17,14 @@
 #include "draw_functions.h"
 #include "global_variables.h"
 
-void draw_artificial_horizon(float pitch)
+void draw_artificial_horizon(float pitch, float roll)
 {
     int i=0; //Auxiliary counter
 
     float midX=(float) WINDOW_SIZE_X/2;
     float midY=(float) WINDOW_SIZE_Y/2;
 
+    roll=0;
 
     glMatrixMode(GL_MODELVIEW);
 
@@ -31,6 +32,7 @@ void draw_artificial_horizon(float pitch)
     glEnable ( GL_SCISSOR_TEST ) ;
     glScissor (200 , 200 , 400 , 400 ) ;
     glTranslatef(midX, midY,1.0); //Move reference to the middle of the screen
+    glRotatef (roll , 0 , 0 , 1) ;
 
     // Draw the blue section
     glBegin ( GL_POLYGON ) ;
@@ -218,8 +220,13 @@ void draw_artificial_horizon(float pitch)
     glDisable(GL_SCISSOR_TEST);
 
 
+
+
     //Draw the pitch angle lines
     glEnable(GL_SCISSOR_TEST);  //WARNING: está a manter a cor do horizonte artificial mesmo quando este desaparece!
+    glLoadIdentity();
+    glTranslatef(midX, midY,1);
+    glRotatef (roll , 0 , 0 , 1) ;
     glScissor(200 , 200 , 400 , 350 ) ;
     glBegin(GL_LINES);
     glColor3f(1,1,1);
