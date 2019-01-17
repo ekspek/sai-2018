@@ -11,7 +11,9 @@
 +-------------------------------------------------------*/
 
 # include <GL/gl.h>
+#include <GL/glut.h>
 # include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 # include <math.h>
 
 #include "draw_functions.h"
@@ -276,4 +278,3 @@ void draw_test(){
     glVertex3f (110 ,110 ,0) ;
     glEnd () ;
 }
-

@@ -11,6 +11,7 @@
 # include <pthread.h>
 # include <GL/gl.h>
 # include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 # include <math.h>
 
 #include "global_variables.h"
@@ -53,7 +54,6 @@ int main ( int argc , char * argv [] ) {
 
 
 
-
     glViewport (0 , 0 , WINDOW_SIZE_X , WINDOW_SIZE_Y ) ;
     glMatrixMode ( GL_PROJECTION ) ;
     glLoadIdentity () ;
@@ -63,6 +63,20 @@ int main ( int argc , char * argv [] ) {
     glEnable ( GL_DEPTH_TEST ) ;
     glDepthFunc ( GL_LEQUAL ) ;
 
+    TTF_Init();
+    //TTF_Font* Mono = TTF_OpenFont("Inconsolata-Bold.ttf", 10);
+    TTF_Font* Mono = TTF_OpenFont("monaco.ttf", 100);
+    if(Mono == NULL){
+        printf("Font not found.\n");
+    }
+    SDL_Color White = {255, 255, 255};
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Mono, "Test text", White);
+    SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+    SDL_Rect Message_rect;
+    Message_rect.x = 0;
+    Message_rect.y = 0;
+    Message_rect.w = 100;
+    Message_rect.h = 15;
 
     /*
     * Draws until user orders to quit
@@ -72,11 +86,13 @@ int main ( int argc , char * argv [] ) {
         //draw () ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //draw_test();
+        SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
         draw_artificial_horizon(i,k);
 
         SDL_GL_SwapWindow(window);
-        SDL_Delay(10);
 
+
+        SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Mono, "Test text", White);
 
 
 
@@ -124,6 +140,8 @@ int main ( int argc , char * argv [] ) {
         /* END DEBUG PITCH ROUTINE*/
 
     }
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(Message);
     SDL_Quit () ;
     return 0;
 }
