@@ -20,3 +20,6 @@ presentation/report/main.pdf
 *.swp
 *.*~
 makefile~
+
+## Project output
+project/main
