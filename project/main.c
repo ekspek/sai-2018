@@ -32,10 +32,11 @@ int main ( int argc , char * argv [] ) {
 
     SDL_Window* window;
     SDL_Renderer* renderer;
-    int i=0;
-    int j=1;
-    int k=0;
-    int l=1;
+    float i=0;
+    float j=1;
+    float k=0;
+    float l=1;
+
 
     SDL_Init ( SDL_INIT_VIDEO ) ;
 
@@ -101,23 +102,24 @@ int main ( int argc , char * argv [] ) {
         }
 
         /* DEBUG PITCH AND ROLL ROUTINE */
-        i=i+j*1;
-        if (i==6*90)
+        i=i+j*0.1;
+        //printf("i=%f j=%f\n",i,j);
+        if (90-i<=0.1)
         {
             j=-1;
         }
 
-        if (i==-6*90){
+        if (90+i<=-0.1){
             j=1;
         }
 
-        k=i+j*1;
-        if (k==6*90)
+        k=k+l*0.1;
+        if (90-k<=0.1)
         {
             l=-1;
         }
 
-        if (k==-6*90){
+        if (90+k<=-0.1){
             l=1;
         }
 
