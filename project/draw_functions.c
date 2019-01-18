@@ -412,6 +412,8 @@ void draw_artificial_horizon(float pitch, float roll)
     glVertex3f(1,0,0);
     glVertex3f(-1,0,0);
     glEnd();
+
+    glDisable(GL_SCISSOR_TEST);
 }
 
 void draw_airspeed_indicator(float airspeed){
@@ -465,6 +467,8 @@ void draw_airspeed_indicator(float airspeed){
         glVertex3f(0,1,0);
         glEnd();
     }
+
+    glDisable(GL_SCISSOR_TEST);
 
 }
 
@@ -605,18 +609,6 @@ void draw_heading_indicator(float heading)
             glVertex3f(-1,0,0);
             glEnd();
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
