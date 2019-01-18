@@ -16,7 +16,7 @@
 
 void draw_artificial_horizon(float pitch, float roll);
 void draw_airspeed_indicator(float airspeed);
-void draw_heading_indicator();
+void draw_heading_indicator(float heading);
 void draw_altitude_indicator();
 void draw_test();
 void draw_text(char* string, int x, int y, int angle, int scale);

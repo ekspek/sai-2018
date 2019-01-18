@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -lm -pedantic -Wall -ansi
+CFLAGS = -lm -lGL -lSDL2 -lSDL2_ttf
 DEPS = *.h
 
 makemain: main.c
