@@ -71,17 +71,19 @@ int main ( int argc , char * argv [] ) {
     */
     while (1) {
         SDL_Event event ;
-        //draw () ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //draw_test();
-        //draw_artificial_horizon(i,k);
-		    draw_text("Why2",100,100,45,2);
+
+        draw_text("0123456789",100,100,45,2);
         draw_artificial_horizon(i,k);
         draw_airspeed_indicator(m);
 	draw_heading_indicator(i);
 
         SDL_GL_SwapWindow(window);
+<<<<<<< HEAD
 	SDL_Delay(10);
+=======
+        SDL_Delay(10);
+>>>>>>> 67ed96976b94545deb3a298c868dd4e9cbc46f9e
 
 
         while ( SDL_PollEvent (& event ) > 0) {
