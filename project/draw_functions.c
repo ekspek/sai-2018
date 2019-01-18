@@ -33,7 +33,6 @@ void draw_artificial_horizon(float pitch, float roll)
 
     //roll=0;
     //pitch=0;
-    glScis
     pitch_pixels = pitch * pitch_scale_factor;
 
 
@@ -279,9 +278,13 @@ void draw_artificial_horizon(float pitch, float roll)
     glLoadIdentity();
     glEnable ( GL_SCISSOR_TEST ) ;
     glScissor (200 , 200 , 400 , 400 ) ;
-    glTranslatef(midX, midY-190,1);
+    
 
     //Draw the fixed triangle
+    glLoadIdentity();
+    glTranslatef(midX, midY,1);
+    glRotatef(roll,0,0,1);
+    glTranslatef(0, -200,0);
     glBegin(GL_TRIANGLES);
     glColor3f(1,1,1);
     glVertex3f(-10,20,0);
@@ -290,9 +293,8 @@ void draw_artificial_horizon(float pitch, float roll)
     glEnd();
 
     glLoadIdentity();
-    glTranslatef(midX,midY-30,1);
-    glRotatef(roll,0,0,1);
-    glTranslatef(0, -160,0); //Move the matrix to the arc center
+    glTranslatef(midX,midY,1);
+    glTranslatef(0, -200,0); //Move the matrix to the arc center
     //Draw the 0 degrees triangle
     glBegin(GL_TRIANGLES);
     glColor3f(1,1,1);
@@ -326,10 +328,10 @@ void draw_artificial_horizon(float pitch, float roll)
     //For angles of +-10 and +-20 degrees
     for (i=10;i<=20;i=i+10){
         glLoadIdentity();
-        glTranslatef(midX, midY-30,1);
-        glRotatef(roll,0,0,1);
+        glTranslatef(midX, midY,1);
+        //glRotatef(roll,0,0,1);
         glRotatef(i,0,0,1);
-        glTranslatef(0, -150,0); //Move the matrix to the arc center
+        glTranslatef(0, -190,0); //Move the matrix to the arc center
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
         glVertex3f(-1,-10,0);
@@ -339,10 +341,10 @@ void draw_artificial_horizon(float pitch, float roll)
         glEnd();
 
         glLoadIdentity();
-        glTranslatef(midX, midY-30,1);
-        glRotatef(roll,0,0,1);
+        glTranslatef(midX, midY,1);
+        //glRotatef(roll,0,0,1);
         glRotatef(-i,0,0,1);
-        glTranslatef(0, -150,0); //Move the matrix to the arc center
+        glTranslatef(0, -190,0); //Move the matrix to the arc center
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
         glVertex3f(-1,-10,0);
@@ -355,10 +357,10 @@ void draw_artificial_horizon(float pitch, float roll)
     //For angles of +-30 and +-60 degrees
     for (i=30;i<=60;i=i+30){
         glLoadIdentity();
-        glTranslatef(midX, midY-30,1);
-        glRotatef(roll,0,0,1);
+        glTranslatef(midX, midY,1);
+        //glRotatef(roll,0,0,1);
         glRotatef(i,0,0,1);
-        glTranslatef(0, -150,0); //Move the matrix to the arc center
+        glTranslatef(0, -190,0); //Move the matrix to the arc center
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
         glVertex3f(-1,-20,0);
@@ -368,10 +370,10 @@ void draw_artificial_horizon(float pitch, float roll)
         glEnd();
 
         glLoadIdentity();
-        glTranslatef(midX, midY-30,1);
-        glRotatef(roll,0,0,1);
+        glTranslatef(midX, midY,1);
+        //glRotatef(roll,0,0,1);
         glRotatef(-i,0,0,1);
-        glTranslatef(0, -150,0); //Move the matrix to the arc center
+        glTranslatef(0, -190,0); //Move the matrix to the arc center
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
         glVertex3f(-1,-20,0);
@@ -384,10 +386,10 @@ void draw_artificial_horizon(float pitch, float roll)
     //For angles of +-45 degrees
     i=45;
     glLoadIdentity();
-    glTranslatef(midX, midY-30,1);
-    glRotatef(roll,0,0,1);
+    glTranslatef(midX, midY,1);
+    //glRotatef(roll,0,0,1);
     glRotatef(i,0,0,1);
-    glTranslatef(0, -150,0); //Move the matrix to the arc center
+    glTranslatef(0, -190,0); //Move the matrix to the arc center
     glBegin(GL_POLYGON);
     glColor3f(1,1,1);
     glVertex3f(-1,-10,0);
@@ -397,10 +399,10 @@ void draw_artificial_horizon(float pitch, float roll)
     glEnd();
 
     glLoadIdentity();
-    glTranslatef(midX, midY-30,1);
-    glRotatef(roll,0,0,1);
+    glTranslatef(midX, midY,1);
+    //glRotatef(roll,0,0,1);
     glRotatef(-i,0,0,1);
-    glTranslatef(0, -150,0); //Move the matrix to the arc center
+    glTranslatef(0, -190,0); //Move the matrix to the arc center
     glBegin(GL_POLYGON);
     glColor3f(1,1,1);
     glVertex3f(-1,-10,0);
