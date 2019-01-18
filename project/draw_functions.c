@@ -14,9 +14,10 @@
 #include <SDL2/SDL.h>
 #include <math.h>
 
+#include "font.h"
 #include "draw_functions.h"
 #include "global_variables.h"
-#include "font.h"
+
 
 void draw_artificial_horizon(float pitch, float roll)
 {
