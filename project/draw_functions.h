@@ -21,5 +21,6 @@ void draw_altitude_indicator();
 void draw_test();
 void draw_text();
 void draw_square(int x, int y, int size);
+void draw_character(int num, int scale);
 
 #endif
