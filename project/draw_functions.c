@@ -11,9 +11,7 @@
 +-------------------------------------------------------*/
 
 # include <GL/gl.h>
-#include <GL/glut.h>
 # include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 # include <math.h>
 
 #include "draw_functions.h"
@@ -277,4 +275,45 @@ void draw_test(){
     glVertex3f (120 ,110 ,0) ;
     glVertex3f (110 ,110 ,0) ;
     glEnd () ;
+}
+
+void draw_text(){
+	int scale = 10;
+
+	// Character zero
+	draw_square(2,0,scale);
+	draw_square(3,0,scale);
+	draw_square(4,0,scale);
+	draw_square(1,1,scale);
+	draw_square(4,1,scale);
+	draw_square(5,1,scale);
+	draw_square(0,2,scale);
+	draw_square(1,2,scale);
+	draw_square(5,2,scale);
+	draw_square(6,2,scale);
+	draw_square(0,3,scale);
+	draw_square(1,3,scale);
+	draw_square(5,3,scale);
+	draw_square(6,3,scale);
+	draw_square(0,4,scale);
+	draw_square(1,4,scale);
+	draw_square(5,4,scale);
+	draw_square(6,4,scale);
+	draw_square(1,5,scale);
+	draw_square(2,5,scale);
+	draw_square(5,5,scale);
+	draw_square(2,6,scale);
+	draw_square(3,6,scale);
+	draw_square(4,6,scale);
+}
+
+void draw_square(int x, int y, int size){
+	x = x * size;
+	y = y * size;
+	glBegin(GL_QUADS);
+		glVertex2f(x,y);
+		glVertex2f(x + size,y);
+		glVertex2f(x + size,y + size);
+		glVertex2f(x,y + size);
+	glEnd();
 }

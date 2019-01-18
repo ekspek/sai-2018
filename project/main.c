@@ -11,7 +11,6 @@
 # include <pthread.h>
 # include <GL/gl.h>
 # include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 # include <math.h>
 
 #include "global_variables.h"
@@ -63,33 +62,6 @@ int main ( int argc , char * argv [] ) {
     glEnable ( GL_DEPTH_TEST ) ;
     glDepthFunc ( GL_LEQUAL ) ;
 
-    TTF_Init();
-    //TTF_Font* Mono = TTF_OpenFont("Inconsolata-Bold.ttf", 10);
-    TTF_Font* Mono = TTF_OpenFont("monaco.ttf", 24);
-    if(Mono == NULL){
-        printf("Font not found.\n");
-    }
-    SDL_Color White = {255, 255, 255};
-
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Mono, "Test text", White);
-    SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-    SDL_Rect Message_rect;
-    Message_rect.x = 200;
-    Message_rect.y = 200;
-    // Message_rect.w = 100;
-    // Message_rect.h = 15;
-    SDL_QueryTexture(Message, NULL, NULL, &Message_rect.w, &Message_rect.h);
-
-    SDL_Surface* surfaceMessage2 = TTF_RenderText_Solid(Mono, "Another test text", White);
-    SDL_Texture* Message2 = SDL_CreateTextureFromSurface(renderer, surfaceMessage2);
-    SDL_Rect Message_rect2;
-    Message_rect.x = 200;
-    Message_rect.y = 200;
-    // Message_rect.w = 100;
-    // Message_rect.h = 15;
-    SDL_QueryTexture(Message2, NULL, NULL, &Message_rect2.w, &Message_rect2.h);
-
-
     /*
     * Draws until user orders to quit
     */
@@ -98,9 +70,8 @@ int main ( int argc , char * argv [] ) {
         //draw () ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //draw_test();
-        //SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
-        //SDL_RenderCopy(renderer, Message2, NULL, &Message_rect2);
-        draw_artificial_horizon(i,k);
+        //draw_artificial_horizon(i,k);
+		draw_text();
 
         SDL_GL_SwapWindow(window);
 
