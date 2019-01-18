@@ -17,7 +17,7 @@
 
 void draw_artificial_horizon(float pitch, float roll);
 void draw_airspeed_indicator(float airspeed);
-void draw_altitude_indicator();
+void draw_altitude_indicator(float draw_altitude);
 void draw_test();
 void draw_text(char* string, int x, int y, int angle, int scale);
 void drawCircle (GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLint numberOfSides);
