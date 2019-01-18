@@ -69,17 +69,11 @@ int main ( int argc , char * argv [] ) {
     */
     while (1) {
         SDL_Event event ;
-        //draw () ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        //draw_test();
-        //draw_artificial_horizon(i,k);
-<<<<<<< Updated upstream
-		    draw_text("Why2",100,100,45,2);
+
+        draw_text("0123456789",100,100,45,2);
         draw_artificial_horizon(i,k);
         draw_airspeed_indicator(i);
-=======
-        draw_text("Why2",100,100,45,2);
->>>>>>> Stashed changes
 
         SDL_GL_SwapWindow(window);
         SDL_Delay(10);
