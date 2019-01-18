@@ -412,6 +412,60 @@ void draw_artificial_horizon(float pitch, float roll)
     glEnd();
 }
 
+void draw_airspeed_indicator(float airspeed){
+
+    int i=0; //Auxiliary counter
+    float max_airspeed = 400; //Maximum airspeed of the aircraft in knots
+    float max_airspeed_pixels;
+    float airspeed_scale_factor=5; //2 pixels per knot
+    float airspeed_pixels;
+
+    //Auxiliary position variables
+    float x;
+    float y;
+    float z;
+
+    //roll=0;
+    //pitch=0;
+    airspeed_pixels = airspeed * airspeed_scale_factor;
+    max_airspeed_pixels= max_airspeed * airspeed_scale_factor;
+
+
+
+    glMatrixMode(GL_MODELVIEW);
+
+    glLoadIdentity();
+    glEnable ( GL_SCISSOR_TEST ) ;
+    glScissor (50,100,100,600 ) ;
+    glTranslatef(50, 400,-2.0); //Move reference to the middle left of the box
+
+    //Move the entire slider for the amount of pixels corresponding to current airspeed
+    glTranslatef(0,airspeed_pixels,0);
+
+    // Draw the indicator background
+    glBegin ( GL_POLYGON ) ;
+    glColor3f (0.470, 0.470, 0.470);
+    glVertex3f (0,350,0);
+    glVertex3f (75 ,350,0) ;
+    glVertex3f (75 ,-max_airspeed_pixels,0) ;
+    glVertex3f (0,-max_airspeed_pixels,0) ;
+    glEnd () ;
+
+    // Draw the indicator scale
+    glTranslatef(75,0,1);
+    for (i=-30;i<=max_airspeed;i=i+10){
+        glTranslatef(0,-10*airspeed_scale_factor,0);
+        glBegin(GL_POLYGON);
+        glColor3f(1,1,1);
+        glVertex3f(-10,1,0);
+        glVertex3f(-10,-1,0);
+        glVertex3f(0,-1,0);
+        glVertex3f(0,1,0);
+        glEnd();
+    }
+
+}
+
 
 void draw_test(){
     glTranslatef(1.0f,0.0f,0.0f);
