@@ -74,6 +74,7 @@ int main ( int argc , char * argv [] ) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //draw_test();
         draw_artificial_horizon(i,k);
+        draw_airspeed_indicator(i);
 
         SDL_GL_SwapWindow(window);
         SDL_Delay(10);
