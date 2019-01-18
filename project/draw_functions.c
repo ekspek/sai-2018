@@ -10,12 +10,13 @@
 |Funções para gerar os diversos indicadores da aeronave  |
 +-------------------------------------------------------*/
 
-# include <GL/gl.h>
-# include <SDL2/SDL.h>
-# include <math.h>
+#include <GL/gl.h>
+#include <SDL2/SDL.h>
+#include <math.h>
 
 #include "draw_functions.h"
 #include "global_variables.h"
+#include "font.h"
 
 void draw_artificial_horizon(float pitch, float roll)
 {
@@ -478,3 +479,27 @@ void draw_test(){
     glEnd () ;
 }
 
+/* Draw a string of characters using OpenGL and the Press Start font
+ * Accepts the string, its screen coordinates x and y, an angle, and
+ * a scaling value.
+ *
+ * When set to scale 1, each character is 7 pixels tall and wide. */
+void draw_text(char* string, int x, int y, int angle, int scale){
+	//char string[10] = "218417241";
+	int aux = 0;
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(x,y,0);
+	glRotatef(-angle, 0, 0, 1);
+
+	while(string[aux] != '\0'){
+		draw_character(string[aux],scale); 
+
+		if(string[aux+1] != '\0'){
+			glTranslatef(8*scale,0,0);
+		}
+
+		aux++;
+	}
+}

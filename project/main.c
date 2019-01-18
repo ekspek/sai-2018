@@ -15,6 +15,7 @@
 
 #include "global_variables.h"
 #include "draw_functions.h"
+#include "font.h"
 
 
 int main ( int argc , char * argv [] ) {
@@ -54,7 +55,6 @@ int main ( int argc , char * argv [] ) {
 
 
 
-
     glViewport (0 , 0 , WINDOW_SIZE_X , WINDOW_SIZE_Y ) ;
     glMatrixMode ( GL_PROJECTION ) ;
     glLoadIdentity () ;
@@ -64,7 +64,6 @@ int main ( int argc , char * argv [] ) {
     glEnable ( GL_DEPTH_TEST ) ;
     glDepthFunc ( GL_LEQUAL ) ;
 
-
     /*
     * Draws until user orders to quit
     */
@@ -73,13 +72,12 @@ int main ( int argc , char * argv [] ) {
         //draw () ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //draw_test();
+        //draw_artificial_horizon(i,k);
+		    draw_text("Why2",100,100,45,2);
         draw_artificial_horizon(i,k);
         draw_airspeed_indicator(i);
 
         SDL_GL_SwapWindow(window);
-        SDL_Delay(10);
-
-
 
 
         while ( SDL_PollEvent (& event ) > 0) {
@@ -127,6 +125,8 @@ int main ( int argc , char * argv [] ) {
         /* END DEBUG PITCH ROUTINE*/
 
     }
+    //SDL_FreeSurface(surfaceMessage);
+    //SDL_DestroyTexture(Message);
     SDL_Quit () ;
     return 0;
 }
