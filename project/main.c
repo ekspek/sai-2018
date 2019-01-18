@@ -15,6 +15,7 @@
 
 #include "global_variables.h"
 #include "draw_functions.h"
+#include "font.h"
 
 
 int main ( int argc , char * argv [] ) {
@@ -71,7 +72,7 @@ int main ( int argc , char * argv [] ) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //draw_test();
         //draw_artificial_horizon(i,k);
-		draw_text();
+		draw_text("Why2",100,100,45,2);
 
         SDL_GL_SwapWindow(window);
 
