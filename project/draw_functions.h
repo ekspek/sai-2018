@@ -19,5 +19,7 @@ void draw_airspeed_indicator();
 void draw_heading_indicator();
 void draw_altitude_indicator();
 void draw_test();
+void draw_text();
+void draw_square(int x, int y, int size);
 
 #endif
