@@ -279,32 +279,7 @@ void draw_test(){
 
 void draw_text(){
 	int scale = 10;
-
-	// Character zero
-	draw_square(2,0,scale);
-	draw_square(3,0,scale);
-	draw_square(4,0,scale);
-	draw_square(1,1,scale);
-	draw_square(4,1,scale);
-	draw_square(5,1,scale);
-	draw_square(0,2,scale);
-	draw_square(1,2,scale);
-	draw_square(5,2,scale);
-	draw_square(6,2,scale);
-	draw_square(0,3,scale);
-	draw_square(1,3,scale);
-	draw_square(5,3,scale);
-	draw_square(6,3,scale);
-	draw_square(0,4,scale);
-	draw_square(1,4,scale);
-	draw_square(5,4,scale);
-	draw_square(6,4,scale);
-	draw_square(1,5,scale);
-	draw_square(2,5,scale);
-	draw_square(5,5,scale);
-	draw_square(2,6,scale);
-	draw_square(3,6,scale);
-	draw_square(4,6,scale);
+	draw_character(9,3); 
 }
 
 void draw_square(int x, int y, int size){
@@ -316,4 +291,292 @@ void draw_square(int x, int y, int size){
 		glVertex2f(x + size,y + size);
 		glVertex2f(x,y + size);
 	glEnd();
+}
+
+void draw_character(int num, int scale){
+	switch(num){
+		case 0:
+			draw_square(2,0,scale);
+			draw_square(3,0,scale);
+			draw_square(4,0,scale);
+			draw_square(1,1,scale);
+			draw_square(4,1,scale);
+			draw_square(5,1,scale);
+			draw_square(0,2,scale);
+			draw_square(1,2,scale);
+			draw_square(5,2,scale);
+			draw_square(6,2,scale);
+			draw_square(0,3,scale);
+			draw_square(1,3,scale);
+			draw_square(5,3,scale);
+			draw_square(6,3,scale);
+			draw_square(0,4,scale);
+			draw_square(1,4,scale);
+			draw_square(5,4,scale);
+			draw_square(6,4,scale);
+			draw_square(1,5,scale);
+			draw_square(2,5,scale);
+			draw_square(5,5,scale);
+			draw_square(2,6,scale);
+			draw_square(3,6,scale);
+			draw_square(4,6,scale);
+			break;
+
+		case 1:
+			draw_square(2,0,scale);
+			draw_square(3,0,scale);
+			draw_square(1,1,scale);
+			draw_square(2,1,scale);
+			draw_square(3,1,scale);
+			draw_square(2,2,scale);
+			draw_square(3,2,scale);
+			draw_square(2,3,scale);
+			draw_square(3,3,scale);
+			draw_square(2,4,scale);
+			draw_square(3,4,scale);
+			draw_square(2,5,scale);
+			draw_square(3,5,scale);
+			draw_square(0,6,scale);
+			draw_square(1,6,scale);
+			draw_square(2,6,scale);
+			draw_square(3,6,scale);
+			draw_square(4,6,scale);
+			draw_square(5,6,scale);
+			break;
+
+		case 2:
+			draw_square(1,0,scale);
+			draw_square(2,0,scale);
+			draw_square(3,0,scale);
+			draw_square(4,0,scale);
+			draw_square(5,0,scale);
+			draw_square(0,1,scale);
+			draw_square(1,1,scale);
+			draw_square(5,1,scale);
+			draw_square(6,1,scale);
+			draw_square(4,2,scale);
+			draw_square(5,2,scale);
+			draw_square(6,2,scale);
+			draw_square(2,3,scale);
+			draw_square(3,3,scale);
+			draw_square(4,3,scale);
+			draw_square(5,3,scale);
+			draw_square(1,4,scale);
+			draw_square(2,4,scale);
+			draw_square(3,4,scale);
+			draw_square(4,4,scale);
+			draw_square(0,5,scale);
+			draw_square(1,5,scale);
+			draw_square(2,5,scale);
+			draw_square(0,6,scale);
+			draw_square(1,6,scale);
+			draw_square(2,6,scale);
+			draw_square(3,6,scale);
+			draw_square(4,6,scale);
+			draw_square(5,6,scale);
+			draw_square(6,6,scale);
+			break;
+
+		case 3:
+			draw_square(1,0,scale);
+			draw_square(2,0,scale);
+			draw_square(3,0,scale);
+			draw_square(4,0,scale);
+			draw_square(5,0,scale);
+			draw_square(6,0,scale);
+			draw_square(4,1,scale);
+			draw_square(5,1,scale);
+			draw_square(3,2,scale);
+			draw_square(4,2,scale);
+			draw_square(2,3,scale);
+			draw_square(3,3,scale);
+			draw_square(4,3,scale);
+			draw_square(5,3,scale);
+			draw_square(5,4,scale);
+			draw_square(6,4,scale);
+			draw_square(0,5,scale);
+			draw_square(1,5,scale);
+			draw_square(5,5,scale);
+			draw_square(6,5,scale);
+			draw_square(1,6,scale);
+			draw_square(2,6,scale);
+			draw_square(3,6,scale);
+			draw_square(4,6,scale);
+			draw_square(5,6,scale);
+			break;
+
+		case 4:
+			draw_square(3,0,scale);
+			draw_square(4,0,scale);
+			draw_square(5,0,scale);
+			draw_square(2,1,scale);
+			draw_square(3,1,scale);
+			draw_square(4,1,scale);
+			draw_square(5,1,scale);
+			draw_square(1,2,scale);
+			draw_square(2,2,scale);
+			draw_square(4,2,scale);
+			draw_square(5,2,scale);
+			draw_square(0,3,scale);
+			draw_square(1,3,scale);
+			draw_square(4,3,scale);
+			draw_square(5,3,scale);
+			draw_square(0,4,scale);
+			draw_square(1,4,scale);
+			draw_square(2,4,scale);
+			draw_square(3,4,scale);
+			draw_square(4,4,scale);
+			draw_square(5,4,scale);
+			draw_square(6,4,scale);
+			draw_square(4,5,scale);
+			draw_square(5,5,scale);
+			draw_square(4,6,scale);
+			draw_square(5,6,scale);
+			break;
+
+		case 5:
+			draw_square(0,0,scale);
+			draw_square(1,0,scale);
+			draw_square(2,0,scale);
+			draw_square(3,0,scale);
+			draw_square(4,0,scale);
+			draw_square(5,0,scale);
+			draw_square(0,1,scale);
+			draw_square(1,1,scale);
+			draw_square(0,2,scale);
+			draw_square(1,2,scale);
+			draw_square(2,2,scale);
+			draw_square(3,2,scale);
+			draw_square(4,2,scale);
+			draw_square(5,2,scale);
+			draw_square(5,3,scale);
+			draw_square(6,3,scale);
+			draw_square(5,4,scale);
+			draw_square(6,4,scale);
+			draw_square(0,5,scale);
+			draw_square(1,5,scale);
+			draw_square(5,5,scale);
+			draw_square(6,5,scale);
+			draw_square(1,6,scale);
+			draw_square(2,6,scale);
+			draw_square(3,6,scale);
+			draw_square(4,6,scale);
+			draw_square(5,6,scale);
+			break;
+
+		case 6:
+			draw_square(2,0,scale);
+			draw_square(3,0,scale);
+			draw_square(4,0,scale);
+			draw_square(5,0,scale);
+			draw_square(1,1,scale);
+			draw_square(2,1,scale);
+			draw_square(0,2,scale);
+			draw_square(1,2,scale);
+			draw_square(0,3,scale);
+			draw_square(1,3,scale);
+			draw_square(2,3,scale);
+			draw_square(3,3,scale);
+			draw_square(4,3,scale);
+			draw_square(5,3,scale);
+			draw_square(0,4,scale);
+			draw_square(1,4,scale);
+			draw_square(5,4,scale);
+			draw_square(6,4,scale);
+			draw_square(0,5,scale);
+			draw_square(1,5,scale);
+			draw_square(5,5,scale);
+			draw_square(6,5,scale);
+			draw_square(1,6,scale);
+			draw_square(2,6,scale);
+			draw_square(3,6,scale);
+			draw_square(4,6,scale);
+			draw_square(5,6,scale);
+			break;
+
+		case 7:
+			draw_square(0,0,scale);
+			draw_square(1,0,scale);
+			draw_square(2,0,scale);
+			draw_square(3,0,scale);
+			draw_square(4,0,scale);
+			draw_square(5,0,scale);
+			draw_square(6,0,scale);
+			draw_square(0,1,scale);
+			draw_square(1,1,scale);
+			draw_square(5,1,scale);
+			draw_square(6,1,scale);
+			draw_square(4,2,scale);
+			draw_square(5,2,scale);
+			draw_square(3,3,scale);
+			draw_square(4,3,scale);
+			draw_square(2,4,scale);
+			draw_square(3,4,scale);
+			draw_square(2,5,scale);
+			draw_square(3,5,scale);
+			draw_square(2,6,scale);
+			draw_square(3,6,scale);
+			break;
+
+		case 8:
+			draw_square(1,0,scale);
+			draw_square(2,0,scale);
+			draw_square(3,0,scale);
+			draw_square(4,0,scale);
+			draw_square(0,1,scale);
+			draw_square(1,1,scale);
+			draw_square(5,1,scale);
+			draw_square(0,2,scale);
+			draw_square(1,2,scale);
+			draw_square(2,2,scale);
+			draw_square(5,2,scale);
+			draw_square(1,3,scale);
+			draw_square(2,3,scale);
+			draw_square(3,3,scale);
+			draw_square(4,3,scale);
+			draw_square(0,4,scale);
+			draw_square(3,4,scale);
+			draw_square(4,4,scale);
+			draw_square(5,4,scale);
+			draw_square(6,4,scale);
+			draw_square(0,5,scale);
+			draw_square(5,5,scale);
+			draw_square(6,5,scale);
+			draw_square(1,6,scale);
+			draw_square(2,6,scale);
+			draw_square(3,6,scale);
+			draw_square(4,6,scale);
+			draw_square(5,6,scale);
+			break;
+
+		case 9:
+			draw_square(1,0,scale);
+			draw_square(2,0,scale);
+			draw_square(3,0,scale);
+			draw_square(4,0,scale);
+			draw_square(5,0,scale);
+			draw_square(0,1,scale);
+			draw_square(1,1,scale);
+			draw_square(5,1,scale);
+			draw_square(6,1,scale);
+			draw_square(0,2,scale);
+			draw_square(1,2,scale);
+			draw_square(5,2,scale);
+			draw_square(6,2,scale);
+			draw_square(1,3,scale);
+			draw_square(2,3,scale);
+			draw_square(3,3,scale);
+			draw_square(4,3,scale);
+			draw_square(5,3,scale);
+			draw_square(6,3,scale);
+			draw_square(5,4,scale);
+			draw_square(6,4,scale);
+			draw_square(4,5,scale);
+			draw_square(5,5,scale);
+			draw_square(1,6,scale);
+			draw_square(2,6,scale);
+			draw_square(3,6,scale);
+			draw_square(4,6,scale);
+			break;
+	}
 }
