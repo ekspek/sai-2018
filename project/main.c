@@ -33,10 +33,12 @@ int main ( int argc , char * argv [] ) {
 
     SDL_Window* window;
     SDL_Renderer* renderer;
-    float i=0;
-    float j=1;
-    float k=0;
-    float l=1;
+    float i=0; //pitch test variable
+    float j=1; //pitch test variable
+    float k=0; //roll test variable
+    float l=1; //roll test variable
+    float m=1; //airspeed test variable
+    float n=1; //airspeed test variable
 
 
     SDL_Init ( SDL_INIT_VIDEO ) ;
@@ -75,9 +77,11 @@ int main ( int argc , char * argv [] ) {
         //draw_artificial_horizon(i,k);
 		    draw_text("Why2",100,100,45,2);
         draw_artificial_horizon(i,k);
-        draw_airspeed_indicator(i);
+        draw_airspeed_indicator(m);
+	draw_heading_indicator(i);
 
         SDL_GL_SwapWindow(window);
+	SDL_Delay(10);
 
 
         while ( SDL_PollEvent (& event ) > 0) {
@@ -113,14 +117,25 @@ int main ( int argc , char * argv [] ) {
         }
 
         k=k+l*0.1;
-        if (90-k<=0.1)
+        if (60-k<=0.1)
         {
             l=-1;
         }
 
-        if (90+k<=-0.1){
+        if (60+k<=-0.1){
             l=1;
         }
+
+        m=m+n*0.1;
+        if (400-m<=0.1)
+        {
+            n=-1;
+        }
+
+        if (400+m<=-0.1){
+            n=1;
+        }
+
 
         /* END DEBUG PITCH ROUTINE*/
 
