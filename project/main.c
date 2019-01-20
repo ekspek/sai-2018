@@ -139,8 +139,6 @@ int main ( int argc , char * argv [] ) {
         /* END DEBUG PITCH ROUTINE*/
 
     }
-    //SDL_FreeSurface(surfaceMessage);
-    //SDL_DestroyTexture(Message);
     SDL_Quit () ;
     return 0;
 }

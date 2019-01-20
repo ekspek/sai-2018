@@ -18,6 +18,29 @@
 #include "draw_functions.h"
 #include "global_variables.h"
 
+/* Draw a string of characters using OpenGL and the Press Start 2P font
+ * Accepts the string, its screen coordinates x and y, an angle, and a
+ * scaling value.
+ *
+ * When set to scale 1, each character is 7 pixels tall and wide. */
+void draw_text(char* string, int x, int y, int angle, int scale){
+    int aux = 0;
+    
+    //glMatrixMode(GL_MODELVIEW);
+    //glLoadIdentity();
+    glTranslatef(x,y,0);
+    glRotatef(-angle, 0, 0, 1);
+    
+    while(string[aux] != '\0'){
+        draw_character(string[aux],scale); 
+        
+        if(string[aux+1] != '\0'){
+            glTranslatef(8*scale,0,0);
+        }
+        
+        aux++;
+    }
+}
 
 void draw_artificial_horizon(float pitch, float roll)
 {
@@ -435,7 +458,6 @@ void draw_airspeed_indicator(float airspeed){
     max_airspeed_pixels= max_airspeed * airspeed_scale_factor;
 
 
-
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
@@ -522,6 +544,7 @@ void draw_altitude_indicator(float altitude){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
+        //draw_text("420",0,0,0,1);
     }
 
     glDisable(GL_SCISSOR_TEST);
@@ -540,30 +563,6 @@ void draw_test(){
     glEnd () ;
 }
 
-/* Draw a string of characters using OpenGL and the Press Start font
- * Accepts the string, its screen coordinates x and y, an angle, and
- * a scaling value.
- *
- * When set to scale 1, each character is 7 pixels tall and wide. */
-void draw_text(char* string, int x, int y, int angle, int scale){
-	//char string[10] = "218417241";
-	int aux = 0;
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(x,y,0);
-	glRotatef(-angle, 0, 0, 1);
-
-	while(string[aux] != '\0'){
-		draw_character(string[aux],scale); 
-
-		if(string[aux+1] != '\0'){
-			glTranslatef(8*scale,0,0);
-		}
-
-		aux++;
-	}
-}
 
 
 
