@@ -13,6 +13,7 @@
 #include <GL/gl.h>
 #include <SDL2/SDL.h>
 #include <math.h>
+#include <string.h>
 
 #include "font.h"
 #include "draw_functions.h"
@@ -692,15 +693,37 @@ glDisableClientState(GL_VERTEX_ARRAY);
 
 void draw_heading_indicator(float heading)
 {
-
+    int u;
+    char numb [360][3]; //numbers in characters
     int i=0; //Auxiliary counter
+    char string_aux[3];
 
     float midX = (float) WINDOW_SIZE_X/2 - 50;
+
+    printf("1\n");
+    for(u=0;u<360;u=u+1)
+    {
+        //printf("%d\n",u);
+        //sprintf(&numb[u][3],"%d", u);
+        sprintf(string_aux,"%d", u);
+        strcpy(numb[u],string_aux);
+        //printf("%3s\n",numb[u]);
+        //getchar();
+    }
+
+    /*
+    for (i=0;i<=359;i++){
+        printf("%3s\n",numb[i]);
+        //getchar();
+    }
+    */
+    //getchar();
+
 
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
-    glColor3f (0.3 , 0.4 , 0.1) ;
+    glColor3f (0.3 , 0.4 , 0.1);
     drawCircle(400,850, 1, 200, 500);
 
 
@@ -720,7 +743,7 @@ void draw_heading_indicator(float heading)
     {
             glLoadIdentity();
             glTranslatef(midX, 850,2);
-            glRotatef(heading,0,0,1);
+            glRotatef(-heading,0,0,1);
             glRotatef(i,0,0,2);
             glTranslatef(0, -200,0); //Move the matrix to the arc center
             glBegin(GL_POLYGON);
@@ -730,6 +753,17 @@ void draw_heading_indicator(float heading)
             glVertex3f(1,0,0);
             glVertex3f(-1,0,0);
             glEnd();
+            glTranslatef(-5,21,0);
+            draw_character(numb[i][0],1);
+            glTranslatef(6,0,0);
+            draw_character(numb[i][1],1);
+            glTranslatef(6,0,0);
+            draw_character(numb[i][2],1);
+
+
+
+
+
         }
 
 
@@ -737,7 +771,7 @@ void draw_heading_indicator(float heading)
     {
             glLoadIdentity();
             glTranslatef(midX, 850,2);
-            glRotatef(heading,0,0,1);
+            glRotatef(-heading,0,0,1);
             glRotatef(i,0,0,2);
             glTranslatef(0, -200,0); //Move the matrix to the arc center
             glBegin(GL_POLYGON);

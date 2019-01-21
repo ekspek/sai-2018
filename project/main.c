@@ -49,6 +49,15 @@ int main ( int argc , char * argv [] ) {
     float n=1; //airspeed test variable
 
 
+
+
+
+
+
+
+
+
+
     SDL_Init ( SDL_INIT_VIDEO ) ;
 
     SDL_GL_SetAttribute ( SDL_GL_RED_SIZE , 8) ;
@@ -103,7 +112,6 @@ int main ( int argc , char * argv [] ) {
         draw_airspeed_indicator(data_current.ias);
         draw_heading_indicator(data_current.pitch);
         draw_altitude_indicator(data_current.ias, tex);
-
 
         SDL_GL_SwapWindow(window);
         SDL_Delay(10);
