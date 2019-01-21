@@ -17,9 +17,16 @@
 #define WINDOW_SIZE_X 900
 #define WINDOW_SIZE_Y 800
 #define PI 3.14159
-#define CHAR_WIDTH 7
+#define CHAR_WIDTH 5
 #define CHAR_SKIP 1
 
+/* Main data structure that the program uses to process
+ * incoming and display data.
+ *
+ * Altitude is defined in feet.
+ * IAS is defined in knots.
+ * Vertical speed is feet per minute.
+ * Pitch, roll and heading are defined in degrees. */
 typedef struct Data {
 	double altitude;
 	double ias;
