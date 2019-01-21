@@ -842,7 +842,7 @@ void draw_vspeed_indicator(float vspeed){
     //pitch=0;
     //pitch_pixels = pitch * pitch_scale_factor;
 
-    vspeed=6;
+    //vspeed=-6;
 
 
     //glMatrixMode(GL_MODELVIEW);
@@ -854,7 +854,7 @@ void draw_vspeed_indicator(float vspeed){
 
     // Draw the blue section
     glBegin ( GL_POLYGON ) ;
-    glColor3f (0.4 ,0.4 ,1) ;
+    glColor3f (0.470, 0.470, 0.470) ;
     glVertex3f (0 ,150 ,0) ;
     glVertex3f (0 ,-150,0) ;
     glVertex3f (80 ,-150,0) ;
@@ -868,13 +868,20 @@ void draw_vspeed_indicator(float vspeed){
     glEnable (GL_SCISSOR_TEST) ;
     glScissor (WINDOW_SIZE_X-90 , midY-150, 80 , 300 );
 
-    if (vspeed>=0){
-        i=1;
-    } else {
+    if (vspeed>=0){ //Y axis is upside-down
         i=-1;
+    } else {
+        i=1;
     }
 
-    vspeed_scaled=(vspeed*vspeed)*0.5*i*vspeed_scale_factor;
+    if (vspeed >6){
+        vspeed = 6;
+    }
+    if (vspeed <-6){
+        vspeed = -6;
+    }
+
+    vspeed_scaled=(vspeed*vspeed)*i*vspeed_scale_factor;
 
     glBegin(GL_POLYGON);
     glColor3f(1,1,1);
