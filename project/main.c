@@ -80,7 +80,7 @@ int main ( int argc , char * argv [] ) {
         draw_altitude_indicator(m);
 
         SDL_GL_SwapWindow(window);
-	    SDL_Delay(10);
+        //SDL_Delay(10);
 
 
         while ( SDL_PollEvent (& event ) > 0) {
