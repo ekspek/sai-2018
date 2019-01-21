@@ -28,18 +28,20 @@ void draw_text(char* string, int x, int y, int angle, int scale){
     
     //glMatrixMode(GL_MODELVIEW);
     //glLoadIdentity();
-    glTranslatef(x,y,0);
-    glRotatef(-angle, 0, 0, 1);
+    //glTranslatef(x,y,0);
+    //glRotatef(-angle, 0, 0, 1);
     
     while(string[aux] != '\0'){
         draw_character(string[aux],scale); 
         
         if(string[aux+1] != '\0'){
-            glTranslatef(8*scale,0,0);
+            glTranslatef(4*scale,0,0);
         }
         
         aux++;
     }
+    
+    glTranslatef(-4*scale*(aux-1),0,0);
 }
 
 void draw_artificial_horizon(float pitch, float roll)
@@ -544,7 +546,10 @@ void draw_altitude_indicator(float altitude){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
-        //draw_text("420",0,0,0,1);
+        //draw_character('1', 4);
+        glTranslatef(15,-5,0);
+        draw_text("420",0,0,0,2);
+        glTranslatef(-15,5,0);
     }
 
     glDisable(GL_SCISSOR_TEST);
