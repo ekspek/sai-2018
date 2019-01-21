@@ -787,7 +787,8 @@ void draw_heading_indicator(float heading)
 void draw_vspeed_indicator(float vspeed){
 
     int i=0; //Auxiliary counter
-    //float vspeed_scale_factor=6;
+    float vspeed_scale_factor=4;
+    float vspeed_scaled;
     //float pitch_pixels;
     char pitch_str[2];
 
@@ -803,13 +804,13 @@ void draw_vspeed_indicator(float vspeed){
     //pitch=0;
     //pitch_pixels = pitch * pitch_scale_factor;
 
+    vspeed=6;
 
 
     //glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
-    //glEnable ( GL_SCISSOR_TEST ) ;
-    //glScissor (500 , 300 , 50 , 200 ) ;
+
     glTranslatef(0,0,1);
     glTranslatef(WINDOW_SIZE_X-90, midY,1.0); //Move reference to the middle of the screen
 
@@ -826,7 +827,28 @@ void draw_vspeed_indicator(float vspeed){
     //glVertex3f (500 ,500,0) ;
     glEnd () ;
 
-    //glDisable(GL_SCISSOR_TEST);
+    glEnable (GL_SCISSOR_TEST) ;
+    glScissor (WINDOW_SIZE_X-90 , midY-150, 80 , 300 );
+
+    if (vspeed>=0){
+        i=1;
+    } else {
+        i=-1;
+    }
+
+    vspeed_scaled=(vspeed*vspeed)*0.5*i*vspeed_scale_factor;
+
+    glBegin(GL_POLYGON);
+    glColor3f(1,1,1);
+    glVertex3f(80,3,0);
+    glVertex3f(80,-3,0);
+    glVertex3f(10,vspeed_scaled-2,0);
+    glVertex3f(10,vspeed_scaled+2,0);
+    glEnd();
+
+    /**/
+
+    glDisable(GL_SCISSOR_TEST);
 
 
 }
