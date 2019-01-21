@@ -48,6 +48,7 @@ void draw_artificial_horizon(float pitch, float roll)
     int i=0; //Auxiliary counter
     float pitch_scale_factor=6;
     float pitch_pixels;
+    char pitch_str[2];
 
     float midX=(float) WINDOW_SIZE_X/2;
     float midY=(float) WINDOW_SIZE_Y/2;
@@ -57,8 +58,8 @@ void draw_artificial_horizon(float pitch, float roll)
     float y;
     float z;
 
-    //roll=0;
-    //pitch=0;
+    roll=0;
+    pitch=0;
     pitch_pixels = pitch * pitch_scale_factor;
 
 
@@ -75,8 +76,8 @@ void draw_artificial_horizon(float pitch, float roll)
     glBegin ( GL_POLYGON ) ;
     glColor3f (0.4 ,0.4 ,1) ;
     glVertex3f (-400 ,-1 + pitch_pixels ,0) ;
-    glVertex3f (-400 ,-WINDOW_SIZE_Y + pitch_pixels,0) ;
-    glVertex3f (400 ,-WINDOW_SIZE_Y + pitch_pixels,0) ;
+    glVertex3f (-400 ,-WINDOW_SIZE_Y-50 + pitch_pixels,0) ;
+    glVertex3f (400 ,-WINDOW_SIZE_Y-50 + pitch_pixels,0) ;
     glVertex3f (400 ,-1 + pitch_pixels,0) ;
     glEnd () ;
 
@@ -84,8 +85,8 @@ void draw_artificial_horizon(float pitch, float roll)
     glBegin ( GL_POLYGON ) ;
     glColor3f (0.7 ,0.5 ,0) ;
     glVertex3f (-400 ,1+ pitch_pixels ,0) ;
-    glVertex3f (-400 ,WINDOW_SIZE_Y + pitch_pixels,0) ;
-    glVertex3f (400 ,WINDOW_SIZE_Y+ pitch_pixels,0) ;
+    glVertex3f (-400 ,WINDOW_SIZE_Y+50 + pitch_pixels,0) ;
+    glVertex3f (400 ,WINDOW_SIZE_Y+50+ pitch_pixels,0) ;
     glVertex3f (400 ,1+ pitch_pixels,0) ;
     glEnd () ;
 
@@ -256,7 +257,7 @@ void draw_artificial_horizon(float pitch, float roll)
 
     glDisable(GL_SCISSOR_TEST);
 
-    //Draw the pitch angle lines
+    //Draw the pitch angle lines and numbers
     glEnable(GL_SCISSOR_TEST);  //WARNING: está a manter a cor do horizonte artificial mesmo quando este desaparece!
     glLoadIdentity();
     glTranslatef(midX, midY,1);
@@ -267,7 +268,8 @@ void draw_artificial_horizon(float pitch, float roll)
 
     glBegin(GL_LINES);
     glColor3f(1,1,1);
-    for (i=1; i<=9; i=i+1){ //10 degree lines
+    //10 degree lines
+    for (i=1; i<=9; i=i+1){
         //Negative pitch
         glVertex3f(-50,-60*i+pitch_pixels,0);
         glVertex3f(50,-60*i+pitch_pixels,0);
@@ -275,9 +277,27 @@ void draw_artificial_horizon(float pitch, float roll)
         //Positive pitch
         glVertex3f(-50,60*i+pitch_pixels,0);
         glVertex3f(50,60*i+pitch_pixels,0);
-    }
+        }
 
-    for (i=1; i<=18; i=i+2){ //5 degree lines
+    /**/
+    //Print pitch numbers
+    for (i=1; i<=9; i=i+1){
+        //Positive pitch
+        //glTranslatef(50,-60*i+pitch_pixels,0); //Align left
+        //sprintf(pitch_str,"%2d",i);
+        //draw_text(pitch_str,0,0,0,2);
+        //glTranslatef(-50,+60*i+pitch_pixels,0); //Align left
+
+        //Align right
+        glTranslatef(-100,60*i+pitch_pixels,0);
+        sprintf(pitch_str,"%2d",i*10);
+        draw_text(pitch_str,0,0,0,2);
+        //glTranslatef(150,+60*i+pitch_pixels,0);
+    }
+    /**/
+
+    //5 degree lines
+    for (i=1; i<=18; i=i+2){
         //Negative pitch
         glVertex3f(-25,-30*i+pitch_pixels,0);
         glVertex3f(25,-30*i+pitch_pixels,0);
@@ -287,7 +307,8 @@ void draw_artificial_horizon(float pitch, float roll)
         glVertex3f(25,30*i+pitch_pixels,0);
     }
 
-    for (i=1; i<=36; i=i+2){ //2.5 degree lines
+    //2.5 degree lines
+    for (i=1; i<=36; i=i+2){
         //Negative pitch
         glVertex3f(-10,-15*i+pitch_pixels,0);
         glVertex3f(10,-15*i+pitch_pixels,0);
@@ -447,6 +468,7 @@ void draw_airspeed_indicator(float airspeed){
     float max_airspeed_pixels;
     float airspeed_scale_factor=5; //2 pixels per knot
     float airspeed_pixels;
+    char airspeed_str[4];
 
     //Auxiliary position variables
     float x;
@@ -481,7 +503,7 @@ void draw_airspeed_indicator(float airspeed){
     //glTranslatef(0,airspeed_pixels,0);
     //glTranslatef(75,0,1);
     glTranslatef(75,airspeed_pixels,1);
-    for (i=-30;i<=max_airspeed;i=i+10){
+    for (i=-20;i<=max_airspeed;i=i+10){
         glTranslatef(0,-10*airspeed_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -490,6 +512,15 @@ void draw_airspeed_indicator(float airspeed){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
+
+        //draw_text("4",0,0,0,1);
+        //draw_character('1', 4);
+        if (i%20 == 0 || i==0){
+            glTranslatef(-50,-5,0);
+            sprintf(airspeed_str,"%4d",i);
+            draw_text(airspeed_str,0,0,0,2);
+            glTranslatef(50,5,0);
+        }
     }
 
     glDisable(GL_SCISSOR_TEST);
@@ -503,6 +534,7 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     float max_altitude_pixels;
     float altitude_scale_factor=5; //2 pixels per knot
     float altitude_pixels;
+    char altitude_str[5];
 
     //Auxiliary position variables
     float x;
@@ -562,9 +594,12 @@ void draw_altitude_indicator(float altitude, GLuint tex){
         glEnd();
         //draw_text("4",0,0,0,1);
         //draw_character('1', 4);
-        glTranslatef(15,-5,0);
-        draw_text("420",0,0,0,2);
-        glTranslatef(-15,5,0);
+        if (i%20 == 0 || i==0){
+            glTranslatef(15,-5,0);
+            sprintf(altitude_str,"%5d",i);
+            draw_text(altitude_str,0,0,0,2);
+            glTranslatef(-15,5,0);
+        }
     }
     /**/
 
