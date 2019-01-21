@@ -18,29 +18,30 @@
 #include "draw_functions.h"
 #include "global_variables.h"
 
-/* Draw a string of characters using OpenGL and the Press Start 2P font
- * Accepts the string, its screen coordinates x and y, an angle, and a
+/* Draw a string of characters using OpenGL. Accepts the string and a
  * scaling value.
  *
- * When set to scale 1, each character is 7 pixels tall and wide. */
-void draw_text(char* string, int x, int y, int angle, int scale){
-    int aux = 0;
-    
-    //glMatrixMode(GL_MODELVIEW);
-    //glLoadIdentity();
-    //glTranslatef(x,y,0);
-    //glRotatef(-angle, 0, 0, 1);
-    
-    while(string[aux] != '\0'){
-        draw_character(string[aux],scale); 
-        
-        if(string[aux+1] != '\0'){
-            glTranslatef(4*scale,0,0);
-        }
-        
-        aux++;
-    }   
-    glTranslatef(-4*scale*(aux-1),0,0);
+ * The character width and skip are fixed (CHAR_WIDTH and CHAR_SKIP) on
+ * draw_functions.h. The CHAR_WIDTH is dependent on the font used which
+ * is defined in font.c.
+ * 
+ * This function returns the total width (in SDL coordinates) of the
+ * drawn text as an int value. */
+int draw_text(char* string, int scale){
+	int aux = 0;
+	
+	while(string[aux] != '\0'){
+		draw_character(string[aux],scale);
+		
+		if(string[aux+1] != '\0')
+			glTranslatef((CHAR_WIDTH + CHAR_SKIP)*scale,0,0);
+		
+		aux++;
+	}
+	
+	glTranslatef(-(CHAR_WIDTH + CHAR_SKIP)*scale*(aux - 1),0,0);
+	
+	return (aux - 1) * (CHAR_WIDTH + CHAR_SKIP) + CHAR_WIDTH;
 }
 
 void draw_artificial_horizon(float pitch, float roll)
@@ -562,9 +563,9 @@ void draw_altitude_indicator(float altitude, GLuint tex){
         glEnd();
         //draw_text("4",0,0,0,1);
         //draw_character('1', 4);
-        glTranslatef(15,-5,0);
-        draw_text("420",0,0,0,2);
-        glTranslatef(-15,5,0);
+        //glTranslatef(15,-5,0);
+        //draw_text("420",0,0,0,2);
+        //glTranslatef(-15,5,0);
     }
     /**/
 
