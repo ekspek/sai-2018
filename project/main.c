@@ -33,11 +33,19 @@ int main ( int argc , char * argv [] ) {
 
     SDL_Window* window;
     SDL_Renderer* renderer;
-    float i=0; //pitch test variable
+
+    Data data_current;
+    data_current.altitude = 3000;
+    data_current.ias = 150;
+    data_current.vspeed = 0;
+    data_current.pitch = 0;
+    data_current.roll = 0;
+    data_current.heading = 0;
+    //float i=0; //pitch test variable
     float j=1; //pitch test variable
-    float k=0; //roll test variable
+    //float k=0; //roll test variable
     float l=1; //roll test variable
-    float m=1; //airspeed test variable
+    //float m=1; //airspeed test variable
     float n=1; //airspeed test variable
 
 
@@ -78,18 +86,35 @@ int main ( int argc , char * argv [] ) {
     /*
     * Draws until user orders to quit
     */
+
+    /* GENERATE TEXTURE TEST*/
+    //create test checker image
+    //    unsigned char texDat[64];
+    //    for (int i = 0; i < 64; ++i)
+    //        texDat[i] = ((i + (i / 8)) % 2) * 128 + 127;
+    GLuint tex;
+    //generate_altimeter_texture(&tex);
+
+
+    /**/
     while (1) {
         SDL_Event event ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        //draw_text("0123456789",100,100,45,2);
-        draw_artificial_horizon(i,k);
-        draw_airspeed_indicator(m);
-        draw_heading_indicator(i);
-        draw_altitude_indicator(m);
+        
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glTranslatef(400,50,1.0);
+        draw_text("0123456789",2);
+        glTranslatef(0,20,0);
+        draw_text("EMNOSWft .-?#",2);
+        
+        draw_artificial_horizon(data_current.pitch, data_current.roll);
+        draw_airspeed_indicator(data_current.ias);
+        draw_heading_indicator(data_current.pitch);
+        draw_altitude_indicator(data_current.ias, tex);
 
         SDL_GL_SwapWindow(window);
-	    SDL_Delay(10);
+        SDL_Delay(10);
 
 
         while ( SDL_PollEvent (& event ) > 0) {
@@ -113,43 +138,40 @@ int main ( int argc , char * argv [] ) {
         }
 
         /* DEBUG PITCH AND ROLL ROUTINE */
-        i=i+j*0.1;
+        data_current.pitch = data_current.pitch + j*0.1;
         //printf("i=%f j=%f\n",i,j);
-        if (90-i<=0.1)
+        if (90 - data_current.pitch <= 0.1)
         {
-            j=-1;
+            j = -1;
         }
 
-        if (90+i<=-0.1){
-            j=1;
+        if (90 + data_current.pitch <= -0.1){
+            j = 1;
         }
 
-        k=k+l*0.1;
-        if (60-k<=0.1)
+        data_current.roll = data_current.roll + l*0.1;
+        if (60 - data_current.roll <= 0.1)
         {
-            l=-1;
+            l = -1;
         }
 
-        if (60+k<=-0.1){
-            l=1;
+        if (60 + data_current.roll <= -0.1){
+            l = 1;
         }
 
-        m=m+n*0.1;
-        if (400-m<=0.1)
+        data_current.ias=data_current.ias+n*0.1;
+        if (400 - data_current.ias <= 0.1)
         {
-            n=-1;
+            n = -1;
         }
 
-        if (400+m<=-0.1){
-            n=1;
+        if (400 + data_current.ias <= -0.1){
+            n = 1;
         }
-
 
         /* END DEBUG PITCH ROUTINE*/
 
     }
-    //SDL_FreeSurface(surfaceMessage);
-    //SDL_DestroyTexture(Message);
     SDL_Quit () ;
     return 0;
 }

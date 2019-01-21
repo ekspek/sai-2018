@@ -19,6 +19,31 @@
 #include "draw_functions.h"
 #include "global_variables.h"
 
+/* Draw a string of characters using OpenGL. Accepts the string and a
+ * scaling value.
+ *
+ * The character width and skip are fixed (CHAR_WIDTH and CHAR_SKIP) on
+ * draw_functions.h. The CHAR_WIDTH is dependent on the font used which
+ * is defined in font.c.
+ * 
+ * This function returns the total width (in SDL coordinates) of the
+ * drawn text as an int value. */
+int draw_text(char* string, int scale){
+	int aux = 0;
+	
+	while(string[aux] != '\0'){
+		draw_character(string[aux],scale);
+		
+		if(string[aux+1] != '\0')
+			glTranslatef((CHAR_WIDTH + CHAR_SKIP)*scale,0,0);
+		
+		aux++;
+	}
+	
+	glTranslatef(-(CHAR_WIDTH + CHAR_SKIP)*scale*(aux - 1),0,0);
+	
+	return (aux - 1) * (CHAR_WIDTH + CHAR_SKIP) + CHAR_WIDTH;
+}
 
 void draw_artificial_horizon(float pitch, float roll)
 {
@@ -436,7 +461,6 @@ void draw_airspeed_indicator(float airspeed){
     max_airspeed_pixels= max_airspeed * airspeed_scale_factor;
 
 
-
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
@@ -444,20 +468,21 @@ void draw_airspeed_indicator(float airspeed){
     glScissor (50,100,100,600 ) ;
     glTranslatef(50, 400,-2.0); //Move reference to the middle left of the box
 
-    //Move the entire slider for the amount of pixels corresponding to current airspeed
-    glTranslatef(0,airspeed_pixels,0);
 
     // Draw the indicator background
     glBegin ( GL_POLYGON ) ;
     glColor3f (0.470, 0.470, 0.470);
     glVertex3f (0,350,0);
     glVertex3f (75 ,350,0) ;
-    glVertex3f (75 ,-max_airspeed_pixels,0) ;
-    glVertex3f (0,-max_airspeed_pixels,0) ;
+    glVertex3f (75 ,-350,0) ;
+    glVertex3f (0,-350,0) ;
     glEnd () ;
 
     // Draw the indicator scale
-    glTranslatef(75,0,1);
+    //Move the entire slider for the amount of pixels corresponding to current airspeed
+    //glTranslatef(0,airspeed_pixels,0);
+    //glTranslatef(75,0,1);
+    glTranslatef(75,airspeed_pixels,1);
     for (i=-30;i<=max_airspeed;i=i+10){
         glTranslatef(0,-10*airspeed_scale_factor,0);
         glBegin(GL_POLYGON);
@@ -473,7 +498,7 @@ void draw_airspeed_indicator(float airspeed){
 
 }
 
-void draw_altitude_indicator(float altitude){
+void draw_altitude_indicator(float altitude, GLuint tex){
 
     int i=0; //Auxiliary counter
     float max_altitude = 50000; //Maximum altitude of the aircraft in feet
@@ -500,21 +525,35 @@ void draw_altitude_indicator(float altitude){
     glScissor (675,100,75,600 ) ;
     glTranslatef(675,400,-2.0); //Move reference to the middle left of the box
 
-    //Move the entire slider for the amount of pixels corresponding to current airspeed
-    glTranslatef(0,altitude_pixels,0);
+
 
     // Draw the indicator background
+    //glClear(GL_COLOR_BUFFER_BIT);
+    //glBindTexture(GL_TEXTURE_2D, tex);
+    //glEnable(GL_TEXTURE_2D);
+
     glBegin ( GL_POLYGON ) ;
     glColor3f (0.470, 0.470, 0.470);
+    //glTexCoord2i(0, 0);
     glVertex3f (75,350,0);
-    glVertex3f (0 ,350,0) ;
-    glVertex3f (0 ,-max_altitude_pixels,0) ;
-    glVertex3f (75,-max_altitude_pixels,0) ;
+    //glTexCoord2i(0, 1);
+    glVertex3f (-100 ,350,0);
+    //glTexCoord2i(1, 1);
+    glVertex3f (-100 ,-350,0) ;
+    //glTexCoord2i(1, 0);
+    glVertex3f (75,-350,0) ;
     glEnd () ;
 
+    //glDisable(GL_TEXTURE_2D);
+    //glBindTexture(GL_TEXTURE_2D, 0);
+
     // Draw the indicator scale
-    glTranslatef(0,0,1);
-    for (i=-30;i<=max_altitude;i=i+10){
+    /**/
+    //Move the entire slider for the amount of pixels corresponding to current airspeed
+    //glTranslatef(0,altitude_pixels,0);
+    //glTranslatef(0,0,1);
+    glTranslatef(0,altitude_pixels,1);
+    for (i=-100;i<=1000;i=i+10){
         glTranslatef(0,-10*altitude_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -523,48 +562,44 @@ void draw_altitude_indicator(float altitude){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
+        //draw_text("4",0,0,0,1);
+        //draw_character('1', 4);
+        //glTranslatef(15,-5,0);
+        //draw_text("420",0,0,0,2);
+        //glTranslatef(-15,5,0);
     }
+    /**/
 
     glDisable(GL_SCISSOR_TEST);
 
 }
 
 
-void draw_test(){
+void draw_test(GLuint tex){
+    glLoadIdentity();
+    glClear(GL_COLOR_BUFFER_BIT);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glEnable(GL_TEXTURE_2D);
     glTranslatef(1.0f,0.0f,0.0f);
     glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,0 ,0) ;
-    glVertex3f (110 ,100 ,0) ;
-    glVertex3f (120 ,100 ,0) ;
-    glVertex3f (120 ,110 ,0) ;
-    glVertex3f (110 ,110 ,0) ;
+    //glColor3f (1 ,0 ,0) ;
+    glVertex3f (100 ,100 ,0) ;
+    glVertex3f (100 ,200 ,0) ;
+    glVertex3f (200 ,200 ,0) ;
+    glVertex3f (200 ,100 ,0) ;
     glEnd () ;
+
+    glBegin(GL_QUADS);
+    glTexCoord2i(0, 0); glVertex2i(100, 100);
+    glTexCoord2i(0, 1); glVertex2i(100, 500);
+    glTexCoord2i(1, 1); glVertex2i(500, 500);
+    glTexCoord2i(1, 0); glVertex2i(500, 100);
+    glEnd();
+
+    glDisable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-/* Draw a string of characters using OpenGL and the Press Start font
- * Accepts the string, its screen coordinates x and y, an angle, and
- * a scaling value.
- *
- * When set to scale 1, each character is 7 pixels tall and wide. */
-void draw_text(char* string, int x, int y, int angle, int scale){
-	//char string[10] = "218417241";
-	int aux = 0;
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(x,y,0);
-	glRotatef(-angle, 0, 0, 1);
-
-	while(string[aux] != '\0'){
-		draw_character(string[aux],scale); 
-
-		if(string[aux+1] != '\0'){
-			glTranslatef(8*scale,0,0);
-		}
-
-		aux++;
-	}
-}
 
 
 
@@ -704,7 +739,91 @@ void draw_heading_indicator(float heading)
 }
 
 
+void generate_altimeter_texture(GLuint* texture){
 
+    GLuint tex;
+    tex = *texture;
+
+
+
+
+    int i=0; //Auxiliary counter
+    float max_altitude = 50000; //Maximum altitude of the aircraft in feet
+    float max_altitude_pixels;
+    float altitude_scale_factor=5; //2 pixels per knot
+    float altitude_pixels;
+
+    //Auxiliary position variables
+    float x;
+    float y;
+    float z;
+
+    //roll=0;
+    //pitch=0;
+    //altitude_pixels = altitude * altitude_scale_factor;
+    max_altitude_pixels= max_altitude * altitude_scale_factor;
+
+    glReadBuffer(GL_BACK);
+
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, 8, 8, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, texDat);
+
+
+
+    glMatrixMode(GL_MODELVIEW);
+
+    glLoadIdentity();
+    //glEnable ( GL_SCISSOR_TEST ) ;
+    //glScissor (675,100,75,600 ) ;
+    //glTranslatef(675,400,-2.0); //Move reference to the middle left of the box
+
+    //Move the entire slider for the amount of pixels corresponding to current airspeed
+    //glTranslatef(0,altitude_pixels,0);
+
+    // Draw the indicator background
+    glClear(GL_COLOR_BUFFER_BIT);
+    //glBindTexture(GL_TEXTURE_2D, tex);
+    glEnable(GL_TEXTURE_2D);
+
+    glBegin ( GL_POLYGON ) ;
+    glColor3f (0.470, 0.470, 0.470);
+    //glTexCoord2i(0, 0);
+    glVertex3f (75,350,0);
+    //glTexCoord2i(0, 1);
+    glVertex3f (0 ,350,0);
+    //glTexCoord2i(1, 1);
+    glVertex3f (0 ,-max_altitude_pixels,0) ;
+    //glTexCoord2i(1, 0);
+    glVertex3f (75,-max_altitude_pixels,0) ;
+    glEnd () ;
+
+    // Draw the indicator scale
+    glTranslatef(0,0,1);
+    for (i=-30;i<=max_altitude;i=i+10){
+        glTranslatef(0,-10*altitude_scale_factor,0);
+        glBegin(GL_POLYGON);
+        glColor3f(1,1,1);
+        glVertex3f(10,1,0);
+        glVertex3f(10,-1,0);
+        glVertex3f(0,-1,0);
+        glVertex3f(0,1,0);
+        glEnd();
+        //draw_text("4",0,0,0,1);
+    }
+
+    glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 75, max_altitude_pixels+350, 0);
+    glDisable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    //glDisable(GL_SCISSOR_TEST);
+
+}
 
 
 
