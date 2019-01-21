@@ -84,12 +84,7 @@ int main ( int argc , char * argv [] ) {
         SDL_Event event ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-<<<<<<< HEAD
-        //draw_test(tex);
-        draw_text("0123456789",100,100,45,2);
-=======
         //draw_text("0123456789",100,100,0,7);
->>>>>>> 5d46b159a55c0c6ae3c9a7e405d78fb5be8d5af4
         draw_artificial_horizon(i,k);
         draw_airspeed_indicator(m);
         draw_heading_indicator(i);
