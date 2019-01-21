@@ -83,8 +83,12 @@ int main ( int argc , char * argv [] ) {
     while (1) {
         SDL_Event event ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        //draw_text("0123456789",100,100,0,7);
+        
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glTranslatef(400,50,1.0);
+        draw_text("0123456789",4);
+        
         draw_artificial_horizon(i,k);
         draw_airspeed_indicator(m);
         draw_heading_indicator(i);
