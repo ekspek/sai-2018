@@ -652,7 +652,6 @@ void draw_heading_indicator(float heading)
 
     float midX = (float) WINDOW_SIZE_X/2;
 
-    printf("1\n");
     for(u=0;u<360;u=u+1)
     {
         //printf("%d\n",u);
