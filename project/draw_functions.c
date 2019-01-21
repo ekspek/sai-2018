@@ -59,8 +59,8 @@ void draw_artificial_horizon(float pitch, float roll)
     float y;
     float z;
 
-    roll=0;
-    pitch=0;
+    //roll=0;
+    //pitch=0;
     pitch_pixels = pitch * pitch_scale_factor;
 
 
@@ -70,7 +70,7 @@ void draw_artificial_horizon(float pitch, float roll)
     glLoadIdentity();
     glEnable ( GL_SCISSOR_TEST ) ;
     glScissor (200 , 200 , 400 , 400 ) ;
-    glTranslatef(midX, midY,1.0); //Move reference to the middle of the screen
+    glTranslatef(midX-50, midY,1.0); //Move reference to the middle of the screen
     glRotatef (roll , 0 , 0 , 1) ;
 
     // Draw the blue section
@@ -107,7 +107,7 @@ void draw_artificial_horizon(float pitch, float roll)
     glLoadIdentity();
     glEnable ( GL_SCISSOR_TEST ) ;
     glScissor (200 , 200 , 400 , 400 ) ;
-    glTranslatef(midX, midY,1.5);
+    glTranslatef(midX-50, midY,1.5);
 
     //Left Wing
     glBegin ( GL_POLYGON ) ;
@@ -261,7 +261,7 @@ void draw_artificial_horizon(float pitch, float roll)
     //Draw the pitch angle lines and numbers
     glEnable(GL_SCISSOR_TEST);  //WARNING: está a manter a cor do horizonte artificial mesmo quando este desaparece!
     glLoadIdentity();
-    glTranslatef(midX, midY,1);
+    glTranslatef(midX-50, midY,1);
     glRotatef (roll , 0 , 0 , 1) ;
     glScissor(300 , 200 , 200 , 350 ) ;
 
@@ -279,24 +279,6 @@ void draw_artificial_horizon(float pitch, float roll)
         glVertex3f(-50,60*i+pitch_pixels,0);
         glVertex3f(50,60*i+pitch_pixels,0);
         }
-
-    /**/
-    //Print pitch numbers
-    for (i=1; i<=9; i=i+1){
-        //Positive pitch
-        //glTranslatef(50,-60*i+pitch_pixels,0); //Align left
-        //sprintf(pitch_str,"%2d",i);
-        //draw_text(pitch_str,0,0,0,2);
-        //glTranslatef(-50,+60*i+pitch_pixels,0); //Align left
-
-        //Align right
-        glTranslatef(-100,60*i+pitch_pixels,0);
-        sprintf(pitch_str,"%2d",i*10);
-        draw_text(pitch_str,2);
-        glTranslatef(100,-60*i-pitch_pixels,0);
-    }
-    /**/
-
     //5 degree lines
     for (i=1; i<=18; i=i+2){
         //Negative pitch
@@ -319,6 +301,37 @@ void draw_artificial_horizon(float pitch, float roll)
         glVertex3f(10,15*i+pitch_pixels,0);
     }
     glEnd();
+
+    /**/
+    //Print pitch numbers
+    for (i=1; i<=9; i=i+1){
+        //Positive pitch
+        //Align left
+        glTranslatef(-88,-60*i+pitch_pixels-7,0);
+        sprintf(pitch_str,"%2d",i*10);
+        draw_text(pitch_str,2);
+        glTranslatef(88,60*i-pitch_pixels+7,0);
+        //Align right
+        glTranslatef(60,-60*i+pitch_pixels-7,0);
+        sprintf(pitch_str,"%2d",i*10);
+        draw_text(pitch_str,2);
+        glTranslatef(-60,60*i-pitch_pixels+7,0);
+
+        //Negative pitch
+        //Align left
+        glTranslatef(-88,60*i+pitch_pixels-7,0);
+        sprintf(pitch_str,"%2d",i*10);
+        draw_text(pitch_str,2);
+        glTranslatef(88,-60*i-pitch_pixels+7,0);
+        //Align right
+        glTranslatef(60,60*i+pitch_pixels-7,0);
+        sprintf(pitch_str,"%2d",i*10);
+        draw_text(pitch_str,2);
+        glTranslatef(-60,-60*i-pitch_pixels+7,0);
+    }
+    /**/
+
+
     glDisable(GL_SCISSOR_TEST);
 
 
@@ -330,7 +343,7 @@ void draw_artificial_horizon(float pitch, float roll)
 
     //Draw the fixed triangle
     glLoadIdentity();
-    glTranslatef(midX, midY,1);
+    glTranslatef(midX-50, midY,1);
     glRotatef(roll,0,0,1);
     glTranslatef(0, -200,0);
     glBegin(GL_TRIANGLES);
@@ -341,7 +354,7 @@ void draw_artificial_horizon(float pitch, float roll)
     glEnd();
 
     glLoadIdentity();
-    glTranslatef(midX,midY,1);
+    glTranslatef(midX-50,midY,1);
     glTranslatef(0, -200,0); //Move the matrix to the arc center
     //Draw the 0 degrees triangle
     glBegin(GL_TRIANGLES);
@@ -376,7 +389,7 @@ void draw_artificial_horizon(float pitch, float roll)
     //For angles of +-10 and +-20 degrees
     for (i=10;i<=20;i=i+10){
         glLoadIdentity();
-        glTranslatef(midX, midY,1);
+        glTranslatef(midX-50, midY,1);
         //glRotatef(roll,0,0,1);
         glRotatef(i,0,0,1);
         glTranslatef(0, -190,0); //Move the matrix to the arc center
@@ -389,7 +402,7 @@ void draw_artificial_horizon(float pitch, float roll)
         glEnd();
 
         glLoadIdentity();
-        glTranslatef(midX, midY,1);
+        glTranslatef(midX-50, midY,1);
         //glRotatef(roll,0,0,1);
         glRotatef(-i,0,0,1);
         glTranslatef(0, -190,0); //Move the matrix to the arc center
@@ -405,7 +418,7 @@ void draw_artificial_horizon(float pitch, float roll)
     //For angles of +-30 and +-60 degrees
     for (i=30;i<=60;i=i+30){
         glLoadIdentity();
-        glTranslatef(midX, midY,1);
+        glTranslatef(midX-50, midY,1);
         //glRotatef(roll,0,0,1);
         glRotatef(i,0,0,1);
         glTranslatef(0, -190,0); //Move the matrix to the arc center
@@ -418,7 +431,7 @@ void draw_artificial_horizon(float pitch, float roll)
         glEnd();
 
         glLoadIdentity();
-        glTranslatef(midX, midY,1);
+        glTranslatef(midX-50, midY,1);
         //glRotatef(roll,0,0,1);
         glRotatef(-i,0,0,1);
         glTranslatef(0, -190,0); //Move the matrix to the arc center
@@ -434,7 +447,7 @@ void draw_artificial_horizon(float pitch, float roll)
     //For angles of +-45 degrees
     i=45;
     glLoadIdentity();
-    glTranslatef(midX, midY,1);
+    glTranslatef(midX-50, midY,1);
     //glRotatef(roll,0,0,1);
     glRotatef(i,0,0,1);
     glTranslatef(0, -190,0); //Move the matrix to the arc center
@@ -447,7 +460,7 @@ void draw_artificial_horizon(float pitch, float roll)
     glEnd();
 
     glLoadIdentity();
-    glTranslatef(midX, midY,1);
+    glTranslatef(midX-50, midY,1);
     //glRotatef(roll,0,0,1);
     glRotatef(-i,0,0,1);
     glTranslatef(0, -190,0); //Move the matrix to the arc center
@@ -517,10 +530,10 @@ void draw_airspeed_indicator(float airspeed){
         //draw_text("4",0,0,0,1);
         //draw_character('1', 4);
         if (i%20 == 0 || i==0){
-            glTranslatef(-50,-5,0);
+            glTranslatef(-75,-7,0);
             sprintf(airspeed_str,"%4d",i);
             draw_text(airspeed_str,2);
-            glTranslatef(50,5,0);
+            glTranslatef(75,7,0);
         }
     }
 
@@ -553,7 +566,7 @@ void draw_altitude_indicator(float altitude, GLuint tex){
 
     glLoadIdentity();
     glEnable ( GL_SCISSOR_TEST ) ;
-    glScissor (675,100,75,600 ) ;
+    glScissor (675,100,110,600 ) ;
     glTranslatef(675,400,-2.0); //Move reference to the middle left of the box
 
 
@@ -566,13 +579,13 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     glBegin ( GL_POLYGON ) ;
     glColor3f (0.470, 0.470, 0.470);
     //glTexCoord2i(0, 0);
-    glVertex3f (75,350,0);
+    glVertex3f (110,350,0);
     //glTexCoord2i(0, 1);
     glVertex3f (-100 ,350,0);
     //glTexCoord2i(1, 1);
     glVertex3f (-100 ,-350,0) ;
     //glTexCoord2i(1, 0);
-    glVertex3f (75,-350,0) ;
+    glVertex3f (110,-350,0) ;
     glEnd () ;
 
     //glDisable(GL_TEXTURE_2D);
@@ -584,7 +597,7 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     //glTranslatef(0,altitude_pixels,0);
     //glTranslatef(0,0,1);
     glTranslatef(0,altitude_pixels,1);
-    for (i=-100;i<=1000;i=i+10){
+    for (i=-1000;i<=10000000;i=i+1000){
         glTranslatef(0,-10*altitude_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -596,10 +609,10 @@ void draw_altitude_indicator(float altitude, GLuint tex){
         //draw_text("4",0,0,0,1);
         //draw_character('1', 4);
         if (i%20 == 0 || i==0){
-            glTranslatef(15,-5,0);
+            glTranslatef(13,-9,0);
             sprintf(altitude_str,"%5d",i);
             draw_text(altitude_str,2);
-            glTranslatef(-15,5,0);
+            glTranslatef(-13,9,0);
         }
     }
     /**/
@@ -682,7 +695,7 @@ void draw_heading_indicator(float heading)
 
     int i=0; //Auxiliary counter
 
-    float midX = (float) WINDOW_SIZE_X/2;
+    float midX = (float) WINDOW_SIZE_X/2 - 50;
 
     glMatrixMode(GL_MODELVIEW);
 
