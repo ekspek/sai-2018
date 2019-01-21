@@ -8,5 +8,8 @@ makemain: main.c
 sdl: main.c
 	$(CC) *.c -o main -lGL -lSDL2
 
+comms: comms.c
+	$(CC) comms.c -o comms -lpthread -lm
+
 clean:
 	rm main
