@@ -544,6 +544,8 @@ void draw_character(char n, int scale){
 			draw_square(4,4,scale);
 			draw_square(3,5,scale);
 			draw_square(4,5,scale);
+			draw_square(3,6,scale);
+			draw_square(4,6,scale);
 			break;
 
 		case 't':

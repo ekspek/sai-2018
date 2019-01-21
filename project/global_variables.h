@@ -23,7 +23,7 @@
 typedef struct Data {
 	double altitude;
 	double ias;
-	double speed_vertical;
+	double vspeed;
 	double pitch;
 	double roll;
 	double heading;
