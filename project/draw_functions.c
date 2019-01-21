@@ -39,15 +39,8 @@ void draw_text(char* string, int x, int y, int angle, int scale){
         }
         
         aux++;
-    }
-<<<<<<< HEAD
-
-    glTranslatef(-8*scale*(aux-1),0,0);
-
-=======
-    
+    }   
     glTranslatef(-4*scale*(aux-1),0,0);
->>>>>>> 5d46b159a55c0c6ae3c9a7e405d78fb5be8d5af4
 }
 
 void draw_artificial_horizon(float pitch, float roll)
@@ -485,8 +478,9 @@ void draw_airspeed_indicator(float airspeed){
 
     // Draw the indicator scale
     //Move the entire slider for the amount of pixels corresponding to current airspeed
-    glTranslatef(0,airspeed_pixels,0);
-    glTranslatef(75,0,1);
+    //glTranslatef(0,airspeed_pixels,0);
+    //glTranslatef(75,0,1);
+    glTranslatef(75,airspeed_pixels,1);
     for (i=-30;i<=max_airspeed;i=i+10){
         glTranslatef(0,-10*airspeed_scale_factor,0);
         glBegin(GL_POLYGON);
@@ -554,9 +548,10 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     // Draw the indicator scale
     /**/
     //Move the entire slider for the amount of pixels corresponding to current airspeed
-    glTranslatef(0,altitude_pixels,0);
-    glTranslatef(0,0,1);
-    for (i=-30;i<=max_altitude;i=i+10){
+    //glTranslatef(0,altitude_pixels,0);
+    //glTranslatef(0,0,1);
+    glTranslatef(0,altitude_pixels,1);
+    for (i=-100;i<=1000;i=i+10){
         glTranslatef(0,-10*altitude_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -565,14 +560,11 @@ void draw_altitude_indicator(float altitude, GLuint tex){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
-<<<<<<< HEAD
         //draw_text("4",0,0,0,1);
-=======
         //draw_character('1', 4);
         glTranslatef(15,-5,0);
         draw_text("420",0,0,0,2);
         glTranslatef(-15,5,0);
->>>>>>> 5d46b159a55c0c6ae3c9a7e405d78fb5be8d5af4
     }
     /**/
 
