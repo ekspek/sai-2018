@@ -8,7 +8,7 @@
 |Daniel Schiffart                                        |
 +--------------------------------------------------------+
 | Definicao do tipo de letra utilizando poligonos OpenGL |
-| O tipo de letra utilizado e Press Start                |
+| O tipo de letra utilizado e Press Start 2P             |
 +-------------------------------------------------------*/
 
 #include <GL/gl.h>
