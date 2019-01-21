@@ -489,8 +489,7 @@ void draw_airspeed_indicator(float airspeed){
     float y;
     float z;
 
-    //roll=0;
-    //pitch=0;
+    //airspeed=0;
     airspeed_pixels = airspeed * airspeed_scale_factor;
     max_airspeed_pixels= max_airspeed * airspeed_scale_factor;
 
@@ -517,7 +516,7 @@ void draw_airspeed_indicator(float airspeed){
     //glTranslatef(0,airspeed_pixels,0);
     //glTranslatef(75,0,1);
     glTranslatef(75,airspeed_pixels,1);
-    for (i=-20;i<=max_airspeed;i=i+10){
+    for (i=-40;i<=max_airspeed;i=i+10){
         glTranslatef(0,-10*airspeed_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -786,19 +785,15 @@ void draw_heading_indicator(float heading)
 }
 
 
-void generate_altimeter_texture(GLuint* texture){
-
-    GLuint tex;
-    tex = *texture;
-
-
-
+void draw_vspeed_indicator(float vspeed){
 
     int i=0; //Auxiliary counter
-    float max_altitude = 50000; //Maximum altitude of the aircraft in feet
-    float max_altitude_pixels;
-    float altitude_scale_factor=5; //2 pixels per knot
-    float altitude_pixels;
+    //float vspeed_scale_factor=6;
+    //float pitch_pixels;
+    char pitch_str[2];
+
+    //float midX=(float) WINDOW_SIZE_X/2;
+    float midY=(float) WINDOW_SIZE_Y/2;
 
     //Auxiliary position variables
     float x;
@@ -807,73 +802,34 @@ void generate_altimeter_texture(GLuint* texture){
 
     //roll=0;
     //pitch=0;
-    //altitude_pixels = altitude * altitude_scale_factor;
-    max_altitude_pixels= max_altitude * altitude_scale_factor;
-
-    glReadBuffer(GL_BACK);
-
-    glGenTextures(1, &tex);
-    glBindTexture(GL_TEXTURE_2D, tex);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    //glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, 8, 8, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, texDat);
+    //pitch_pixels = pitch * pitch_scale_factor;
 
 
 
-    glMatrixMode(GL_MODELVIEW);
+    //glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
     //glEnable ( GL_SCISSOR_TEST ) ;
-    //glScissor (675,100,75,600 ) ;
-    //glTranslatef(675,400,-2.0); //Move reference to the middle left of the box
+    //glScissor (500 , 300 , 50 , 200 ) ;
+    glTranslatef(0,0,1);
+    glTranslatef(WINDOW_SIZE_X-90, midY,1.0); //Move reference to the middle of the screen
 
-    //Move the entire slider for the amount of pixels corresponding to current airspeed
-    //glTranslatef(0,altitude_pixels,0);
-
-    // Draw the indicator background
-    glClear(GL_COLOR_BUFFER_BIT);
-    //glBindTexture(GL_TEXTURE_2D, tex);
-    glEnable(GL_TEXTURE_2D);
-
+    // Draw the blue section
     glBegin ( GL_POLYGON ) ;
-    glColor3f (0.470, 0.470, 0.470);
-    //glTexCoord2i(0, 0);
-    glVertex3f (75,350,0);
-    //glTexCoord2i(0, 1);
-    glVertex3f (0 ,350,0);
-    //glTexCoord2i(1, 1);
-    glVertex3f (0 ,-max_altitude_pixels,0) ;
-    //glTexCoord2i(1, 0);
-    glVertex3f (75,-max_altitude_pixels,0) ;
+    glColor3f (0.4 ,0.4 ,1) ;
+    glVertex3f (0 ,150 ,0) ;
+    glVertex3f (0 ,-150,0) ;
+    glVertex3f (80 ,-150,0) ;
+    glVertex3f (80 ,150,0) ;
+    //glVertex3f (-500 ,500 ,0) ;
+    //glVertex3f (-500 ,-500,0) ;
+    //glVertex3f (500 ,-500,0) ;
+    //glVertex3f (500 ,500,0) ;
     glEnd () ;
 
-    // Draw the indicator scale
-    glTranslatef(0,0,1);
-    for (i=-30;i<=max_altitude;i=i+10){
-        glTranslatef(0,-10*altitude_scale_factor,0);
-        glBegin(GL_POLYGON);
-        glColor3f(1,1,1);
-        glVertex3f(10,1,0);
-        glVertex3f(10,-1,0);
-        glVertex3f(0,-1,0);
-        glVertex3f(0,1,0);
-        glEnd();
-        //draw_text("4",0,0,0,1);
-    }
-
-    glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 75, max_altitude_pixels+350, 0);
-    glDisable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, 0);
     //glDisable(GL_SCISSOR_TEST);
 
+
 }
-
-
-
-
 
 
