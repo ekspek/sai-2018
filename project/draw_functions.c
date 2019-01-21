@@ -698,7 +698,7 @@ void draw_heading_indicator(float heading)
 
     float midX = (float) WINDOW_SIZE_X/2 - 50;
 
-    for(u=0;u<360;u=u+1)
+    for(u=0;u<360;u=u+10)
     {
         //printf("%d\n",u);
         //sprintf(&numb[u][3],"%d", u);
@@ -720,20 +720,27 @@ void draw_heading_indicator(float heading)
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
-    glColor3f (0.3 , 0.4 , 0.1);
+    glColor3f (0 , 0 , 0.8);
     drawCircle(400,850, 1, 200, 500);
 
 
     glLoadIdentity();
-    glTranslatef(midX,640,1.5);
+    glTranslatef(midX,640,1.1);
     glBegin(GL_TRIANGLES);
     glColor3f(1,1,1);
-    glVertex3f(-10,0,0);
-    glVertex3f(10,0,0);
-    glVertex3f(0,15,0);
+    glVertex3f(-15,-4,0);
+    glVertex3f(15,-4,0);
+    glVertex3f(0,18,0);
     glEnd();
 
-
+    glLoadIdentity();
+    glTranslatef(midX,640,1.1);
+    glBegin(GL_TRIANGLES);
+    glColor3f(1,0,0);
+    glVertex3f(-10,-1,0);
+    glVertex3f(10,-1,0);
+    glVertex3f(0,12,0);
+    glEnd();
 
 
     for (i=0;i<=359;i=i+10)
@@ -751,16 +758,47 @@ void draw_heading_indicator(float heading)
             glVertex3f(-1,0,0);
             glEnd();
             glTranslatef(-5,21,0);
+
+            if(i==0){
+                    draw_character('N',3);
+            }else{
+                if(i==90){
+                    draw_character('E',3);
+                }else{
+                    if(i==180){
+                        draw_character('S',3);
+                    }else{
+
+                        if(i==270){
+                            draw_character('W',3);
+                        }else{
+            if(i>99)
+            {
+
             draw_character(numb[i][0],1);
             glTranslatef(6,0,0);
             draw_character(numb[i][1],1);
             glTranslatef(6,0,0);
             draw_character(numb[i][2],1);
+            }
+            else
+            {
+                if(i>9){
+                    draw_character(numb[i][0],1);
+                    glTranslatef(6,0,0);
+                    draw_character(numb[i][1],1);
+                }else{
+                    draw_character(numb[i][0],1);
+
+                }
+
+            }
 
 
-
-
-
+        }
+        }
+        }
+        }
         }
 
 
