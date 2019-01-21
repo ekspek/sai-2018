@@ -69,18 +69,31 @@ int main ( int argc , char * argv [] ) {
     /*
     * Draws until user orders to quit
     */
+
+    /* GENERATE TEXTURE TEST*/
+    //create test checker image
+    //    unsigned char texDat[64];
+    //    for (int i = 0; i < 64; ++i)
+    //        texDat[i] = ((i + (i / 8)) % 2) * 128 + 127;
+    GLuint tex;
+    //generate_altimeter_texture(&tex);
+
+
+    /**/
     while (1) {
         SDL_Event event ;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        //draw_text("0123456789",100,100,45,2);
+        //draw_test(tex);
+        draw_text("0123456789",100,100,45,2);
         draw_artificial_horizon(i,k);
         draw_airspeed_indicator(m);
-	    draw_heading_indicator(i);
-        draw_altitude_indicator(m);
+        draw_heading_indicator(i);
+        draw_altitude_indicator(m, tex);
+
 
         SDL_GL_SwapWindow(window);
-        //SDL_Delay(10);
+        SDL_Delay(10);
 
 
         while ( SDL_PollEvent (& event ) > 0) {
