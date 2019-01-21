@@ -87,7 +87,7 @@ int main ( int argc , char * argv [] ) {
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
         glTranslatef(400,50,1.0);
-        draw_text("0123456789",4);
+        draw_text("-NSEO -12",4);
         
         draw_artificial_horizon(i,k);
         draw_airspeed_indicator(m);
