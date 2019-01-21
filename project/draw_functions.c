@@ -35,14 +35,19 @@ void draw_text(char* string, int x, int y, int angle, int scale){
         draw_character(string[aux],scale); 
         
         if(string[aux+1] != '\0'){
-            glTranslatef(8*scale,0,0);
+            glTranslatef(4*scale,0,0);
         }
         
         aux++;
     }
+<<<<<<< HEAD
 
     glTranslatef(-8*scale*(aux-1),0,0);
 
+=======
+    
+    glTranslatef(-4*scale*(aux-1),0,0);
+>>>>>>> 5d46b159a55c0c6ae3c9a7e405d78fb5be8d5af4
 }
 
 void draw_artificial_horizon(float pitch, float roll)
@@ -560,7 +565,14 @@ void draw_altitude_indicator(float altitude, GLuint tex){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
+<<<<<<< HEAD
         //draw_text("4",0,0,0,1);
+=======
+        //draw_character('1', 4);
+        glTranslatef(15,-5,0);
+        draw_text("420",0,0,0,2);
+        glTranslatef(-15,5,0);
+>>>>>>> 5d46b159a55c0c6ae3c9a7e405d78fb5be8d5af4
     }
     /**/
 
