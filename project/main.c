@@ -35,8 +35,8 @@ int main ( int argc , char * argv [] ) {
     SDL_Renderer* renderer;
 
     Data data_current;
-    data_current.altitude = 3000;
-    data_current.ias = 150;
+    data_current.altitude = 0;//3000;
+    data_current.ias = 0;//150;
     data_current.vspeed = 0;
     data_current.pitch = 0;
     data_current.roll = 0;
@@ -47,6 +47,7 @@ int main ( int argc , char * argv [] ) {
     float l=1; //roll test variable
     //float m=1; //airspeed test variable
     float n=1; //airspeed test variable
+    float m=1; //vspeed test variable
 
 
 
@@ -112,6 +113,7 @@ int main ( int argc , char * argv [] ) {
         draw_airspeed_indicator(data_current.ias);
         draw_heading_indicator(data_current.pitch);
         draw_altitude_indicator(data_current.ias, tex);
+        draw_vspeed_indicator(data_current.vspeed);
 
         SDL_GL_SwapWindow(window);
         SDL_Delay(10);
@@ -167,6 +169,16 @@ int main ( int argc , char * argv [] ) {
 
         if (400 + data_current.ias <= -0.1){
             n = 1;
+        }
+
+        data_current.vspeed=data_current.vspeed+m*0.1;
+        if (9 - data_current.vspeed <= 0.1)
+        {
+            m = -1;
+        }
+
+        if (9 + data_current.vspeed <= -0.1){
+            m = 1;
         }
 
         /* END DEBUG PITCH ROUTINE*/

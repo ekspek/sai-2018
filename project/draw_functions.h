@@ -21,6 +21,6 @@ void draw_altitude_indicator(float draw_altitude,GLuint texture);
 void draw_test(GLuint texture);
 void drawCircle (GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLint numberOfSides);
 void draw_heading_indicator(float heading);
-void generate_altimeter_texture(GLuint* tex);
+void draw_vspeed_indicator(float vspeed);
 
 #endif
