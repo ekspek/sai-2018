@@ -13,7 +13,6 @@
 #include <GL/gl.h>
 #include <SDL2/SDL.h>
 #include <math.h>
-#include <string.h>
 
 #include "font.h"
 #include "draw_functions.h"
@@ -25,24 +24,24 @@
  * The character width and skip are fixed (CHAR_WIDTH and CHAR_SKIP) on
  * draw_functions.h. The CHAR_WIDTH is dependent on the font used which
  * is defined in font.c.
- * 
+ *
  * This function returns the total width (in SDL coordinates) of the
  * drawn text as an int value. */
 int draw_text(char* string, int scale){
-	int aux = 0;
-	
-	while(string[aux] != '\0'){
-		draw_character(string[aux],scale);
-		
-		if(string[aux+1] != '\0')
-			glTranslatef((CHAR_WIDTH + CHAR_SKIP)*scale,0,0);
-		
-		aux++;
-	}
-	
-	glTranslatef(-(CHAR_WIDTH + CHAR_SKIP)*scale*(aux - 1),0,0);
-	
-	return (aux - 1) * (CHAR_WIDTH + CHAR_SKIP) + CHAR_WIDTH;
+    int aux = 0;
+
+    while(string[aux] != '\0'){
+        draw_character(string[aux],scale);
+
+        if(string[aux+1] != '\0')
+            glTranslatef((CHAR_WIDTH + CHAR_SKIP)*scale,0,0);
+
+        aux++;
+    }
+
+    glTranslatef(-(CHAR_WIDTH + CHAR_SKIP)*scale*(aux - 1),0,0);
+
+    return (aux - 1) * (CHAR_WIDTH + CHAR_SKIP) + CHAR_WIDTH;
 }
 
 void draw_artificial_horizon(float pitch, float roll)
@@ -340,7 +339,7 @@ void draw_artificial_horizon(float pitch, float roll)
     glLoadIdentity();
     glEnable ( GL_SCISSOR_TEST ) ;
     glScissor (200 , 200 , 400 , 400 ) ;
-    
+
 
     //Draw the fixed triangle
     glLoadIdentity();
@@ -598,7 +597,7 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     //glTranslatef(0,altitude_pixels,0);
     //glTranslatef(0,0,1);
     glTranslatef(0,altitude_pixels,1);
-    for (i=-1000;i<=10000000;i=i+1000){
+    for (i=-1000;i<=50000;i=i+100){
         glTranslatef(0,-10*altitude_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
