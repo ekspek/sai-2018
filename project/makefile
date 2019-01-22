@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -lm -lGL -lSDL2
+CFLAGS = -lm -lGL -lSDL2 -lpthread
 DEPS = *.h
 
 makemain: main.c
@@ -7,9 +7,6 @@ makemain: main.c
 
 sdl: main.c
 	$(CC) *.c -o main -lGL -lSDL2
-
-comms: comms.c
-	$(CC) comms.c -o comms -lpthread -lm
 
 clean:
 	rm main

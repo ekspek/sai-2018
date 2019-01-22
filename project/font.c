@@ -3,12 +3,12 @@
 +--------------------------------------------------------+
 |           Grupo 11 - Projecto E2                       |
 |                                                        |
-|Pedro Afonso                                            |
-|João Manito                                             |
-|Daniel Schiffart                                        |
+| Pedro Afonso                                           |
+| João Manito                                            |
+| Daniel de Schiffart                                    |
 +--------------------------------------------------------+
 | Definicao do tipo de letra utilizando poligonos OpenGL |
-| O tipo de letra utilizado e Press Start 2P              |
+| O tipo de letra utilizado é Coder's Crux               |
 +-------------------------------------------------------*/
 
 #include <GL/gl.h>
