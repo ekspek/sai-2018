@@ -1,7 +1,14 @@
-// Programmer: Mihalis Tsoukalos
-// Date: Wednesday 04 June 2014
-//
-// A simple OpenGL program that draws a triangle.
+/*-------------------------------------------------------+
+|           SAI - Trabalho Experimental                  |
++--------------------------------------------------------+
+|           Grupo 11 - Projecto E2                       |
+|                                                        |
+| Pedro Afonso                                           |
+| João Manito                                            |
+| Daniel de Schiffart                                    |
++--------------------------------------------------------+
+| Codigo principal do programa                           |
++-------------------------------------------------------*/
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -16,9 +23,15 @@
 #include "global_variables.h"
 #include "draw_functions.h"
 #include "font.h"
+#include "comms.h"
 
+/* Mutex variables for data synchronization */
+pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 
 int main ( int argc , char * argv [] ) {
+
+	uint32_t port = 8500;
+	pthread_t thread_comms_id;
 
     //_ERROR = 1;    /* initialization ; always start in error mode */
     //_in_package.Heading = 0;
@@ -27,9 +40,7 @@ int main ( int argc , char * argv [] ) {
     //_in_package.timestamp.tv_sec = 0;
     //_in_package.timestamp.tv_usec = 0;
 
-    /*
-    * Window for the primary flight display
-    */
+    /* Window for the primary flight display */
 
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -49,15 +60,7 @@ int main ( int argc , char * argv [] ) {
     float n=1; //airspeed test variable
     float m=1; //vspeed test variable
 
-
-
-
-
-
-
-
-
-
+	pthread_create(&thread_comms_id,NULL,thread_comms,&port);
 
     SDL_Init ( SDL_INIT_VIDEO ) ;
 
@@ -183,7 +186,9 @@ int main ( int argc , char * argv [] ) {
 
         /* END DEBUG PITCH ROUTINE*/
 
+		//printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
     }
     SDL_Quit () ;
+	pthread_cancel(thread_comms_id);
     return 0;
 }

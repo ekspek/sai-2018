@@ -12,13 +12,9 @@
 #include <arpa/inet.h>
 #include <signal.h>
 
-#include "global_variables.h"
+#include "comms.h"
 
-#define BUFFER_SIZE 1024 
-
-/* Global variable definitions */
-pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
-Data data_current;
+extern pthread_mutex_t m;
 
 /* Reverses endianess of a floating point value */
 float float_swap(float value){
@@ -87,30 +83,6 @@ void* thread_comms(void* ptr){
 			data_current.roll =  float_swap((*(float*)(buffer + 4 * wordsize)));
 			data_current.heading =  float_swap((*(float*)(buffer + 5 * wordsize)));
 			pthread_mutex_unlock(&m);
-
-			printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
 		}
 	}
-}
-
-int main (){
-	uint32_t port = 8500;
-	pthread_t thread_comms_id;
-
-	/* Initial values for the data structure */
-	data_current.altitude = 3000;
-	data_current.ias = 150;
-	data_current.vspeed = 0;
-	data_current.pitch = 0;
-	data_current.roll = 0;
-	data_current.heading = 0;
-
-	/* Begin of communications thread */
-	pthread_create(&thread_comms_id,NULL,thread_comms,&port);
-
-	while(1);
-
-	pthread_cancel(thread_comms_id);
-
-	return 0;
 }
