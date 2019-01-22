@@ -3,16 +3,18 @@
 +--------------------------------------------------------+
 |           Grupo 11 - Projecto E2                       |
 |                                                        |
-|Pedro Afonso                                            |
-|João Manito                                             |
-|Daniel Schiffart                                        |
+| Pedro Afonso                                           |
+| João Manito                                            |
+| Daniel de Schiffart                                    |
 +--------------------------------------------------------+
-|Protótipos das funções para gerar os diversos           |
-|indicadores da aeronave                                 |
+| Protótipos das funções para gerar os diversos          |
+| indicadores da aeronave                                |
 +-------------------------------------------------------*/
 
 #ifndef __GLOBAL_VARIABLES_H__
 #define __GLOBAL_VARIABLES_H__
+
+#include <pthread.h>
 
 #define WINDOW_SIZE_X 900
 #define WINDOW_SIZE_Y 800
@@ -35,5 +37,8 @@ typedef struct Data {
 	double roll;
 	double heading;
 } Data;
+
+/* Main data global variable */
+Data data_current;
 
 #endif
