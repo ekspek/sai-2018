@@ -20,6 +20,21 @@
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 Data data_current;
 
+// Reverses endianess of a floating point value
+float float_swap(float value){
+    union v {
+        float       f;
+        unsigned int    i;
+    };
+     
+    union v val;
+     
+    val.f = value;
+    val.i = htonl(val.i);
+                   
+    return val.f;
+}
+
 /* Function that contains the code run by the communications thread */
 void* thread_comms(void* ptr){
 	printf("Started communications thread\n");
@@ -56,19 +71,29 @@ void* thread_comms(void* ptr){
 
 	int clientlen = sizeof(client_addr);
 
+    // Sender's API places each variable on a given position
+    const int latitude_idx = 0;
+    const int longitude_idx = 4;
+    const int altitude_idx = 8;
+	double latitude;
+	double longitude;
+	double altitude;
+
 	/* Main incoming data loop */
 	while(1){
 		bytes_in = recvfrom(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*)&client_addr, (socklen_t*)&clientlen);
 		if(bytes_in)
-			printf("Received message %s\n", buffer);
-	}
+			//printf("Received %ld bytes, the message is %s\n", bytes_in, buffer);
+            buffer[bytes_in]=0;
 
-	/* Mutex testing */
-	//pthread_mutex_lock(&m);
-	//sleep(3);
-	//data_current.altitude = 2000;
-	//printf("O valor da altitude é %f\n", data_current.altitude);
-	//pthread_mutex_unlock(&m);
+            pthread_mutex_lock(&m);
+            latitude = float_swap(*(float*)(buffer+latitude_idx));
+            longitude = *(float*)(buffer+longitude_idx);
+            altitude =  *(float*)(buffer+altitude_idx);
+            //ready = 1;
+            pthread_mutex_unlock(&m);
+			printf("Data received, latitude is %f, longitude is %f, altitude is %f\n", latitude, longitude, altitude);
+	}
 }
 
 int main (){
@@ -86,12 +111,6 @@ int main (){
 	/* Begin of communications thread */
 	pthread_create(&thread_comms_id,NULL,thread_comms,&port);
 
-	/* Mutex testing */
-	//sleep(1);
-	//pthread_mutex_lock(&m);
-	//data_current.altitude = 4000;
-	//printf("O valor da altitude é %f\n", data_current.altitude);
-	//pthread_mutex_unlock(&m);
 	while(1);
 
 	pthread_cancel(thread_comms_id);
