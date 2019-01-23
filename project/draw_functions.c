@@ -456,7 +456,7 @@ void draw_airspeed_indicator(float airspeed){
     float max_airspeed_pixels;
     float airspeed_scale_factor=5; //2 pixels per knot
     float airspeed_pixels;
-    char airspeed_str[3];
+    char airspeed_str[9];
 
     //Auxiliary variables for the decimals,units, tens and hundreds
     float d;
