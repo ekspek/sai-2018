@@ -49,53 +49,43 @@ int main ( int argc , char * argv [] ) {
 
     char test_string[20];
 
-    //_ERROR = 1;    /* initialization ; always start in error mode */
-    //_in_package.Heading = 0;
-    //_in_package.Pitch   = 0;
-    //_in_package.Roll    = 0;
-    //_in_package.timestamp.tv_sec = 0;
-    //_in_package.timestamp.tv_usec = 0;
-
     /* Window for the primary flight display */
-
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    data_current.altitude = 0;//3000;
+    data_current.altitude = 0;
+    data_current.pitch = 0;
+    data_current.heading = 0;
+    data_current.roll = 0;
     data_current.ias = 0;
     data_current.vspeed = 0;
-    data_current.pitch = 0;
-    data_current.roll = 0;
-    //float i=0; //pitch test variable
+    float i=1; //altitude test variable
     float j=1; //pitch test variable
-    //float k=0; //roll test variable
+    float k=1; //heading test variable
     float l=1; //roll test variable
-    //float m=1; //airspeed test variable
     float n=1; //airspeed test variable
     float m=1; //vspeed test variable
 
-    SDL_Init ( SDL_INIT_VIDEO ) ;
+    SDL_Init(SDL_INIT_VIDEO) ;
 
-    SDL_GL_SetAttribute ( SDL_GL_RED_SIZE , 8) ;
-    SDL_GL_SetAttribute ( SDL_GL_GREEN_SIZE , 8) ;
-    SDL_GL_SetAttribute ( SDL_GL_BLUE_SIZE , 8) ;
-    SDL_GL_SetAttribute ( SDL_GL_DEPTH_SIZE , 8) ;
-    SDL_GL_SetAttribute ( SDL_GL_DOUBLEBUFFER , 1) ;
+    SDL_GL_SetAttribute(SDL_GL_RED_SIZE,8);
+    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,8);
+    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,8);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,8);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
 
-    //SDL_WM_SetCaption (  , "Primary Flight Display" ) ;
-    //SDL_SetVideoMode ( WINDOW_SIZE_X , WINDOW_SIZE_Y , 24 , SDL_WINDOW_OPENGL | SDL_HWSURFACE ) ;
-    window = SDL_CreateWindow("Primary Flight Display", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,WINDOW_SIZE_X,WINDOW_SIZE_Y, SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow("Primary Flight Display",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,WINDOW_SIZE_X,WINDOW_SIZE_Y,SDL_WINDOW_OPENGL);
 
     renderer = SDL_CreateRenderer(window, -1, 0);
 
-    glViewport (0 , 0 , WINDOW_SIZE_X , WINDOW_SIZE_Y ) ;
-    glMatrixMode ( GL_PROJECTION ) ;
-    glLoadIdentity () ;
-    glOrtho (0 , WINDOW_SIZE_X , WINDOW_SIZE_Y , 0 , -2 , 2) ;
-    glClearColor (0 , 0 , 0 , 0) ;
-    glClearDepth (2) ;
-    glEnable ( GL_DEPTH_TEST ) ;
-    glDepthFunc ( GL_LEQUAL ) ;
+    glViewport(0,0,WINDOW_SIZE_X,WINDOW_SIZE_Y);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0,WINDOW_SIZE_X,WINDOW_SIZE_Y,0,-2,2);
+    glClearColor(0,0,0,0);
+    glClearDepth(2);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
 
     /* Main graphics loop */
     while(1){
@@ -146,35 +136,49 @@ int main ( int argc , char * argv [] ) {
         SDL_GL_SwapWindow(window);
         SDL_Delay(10);
 
-        while ( SDL_PollEvent (& event ) > 0) {
-            if ( event . type == SDL_QUIT )
-                break ;
-            if ( event . type == SDL_KEYDOWN ) {
-                if ( event . key . keysym . sym == SDLK_ESCAPE )
-                    break ;
+        while(SDL_PollEvent(&event)>0){
+            if(event.type==SDL_QUIT)
+                break;
+            if (event.type==SDL_KEYDOWN){
+                if(event.key.keysym.sym == SDLK_ESCAPE){
+                    break;
+                }
             }
         }
-        if ( event . type == SDL_QUIT )
-            break ;
-
-        if ( event . type == SDL_KEYDOWN ) {
-            if ( event . key . keysym . sym == SDLK_ESCAPE )
-                break ;
+        if (event.type==SDL_QUIT){
+            break;
         }
 
-        /* DEBUG PITCH AND ROLL ROUTINE
-        data_current.altitude = data_current.altitude + j;
-        //printf("i=%f j=%f\n",i,j);
-        if (40000 - data_current.pitch <= 0.1)
-            j = -1;
+        if(event.type==SDL_KEYDOWN){
+            if(event.key.keysym.sym == SDLK_ESCAPE){
+                break;
+            }
+        }
 
-        if (1000 + data_current.pitch <= -0.1)
+
+        /* DEBUG ROUTINEs */
+        data_current.altitude = data_current.altitude + 2*i;
+        if (1200 - data_current.altitude <= 0.1)
+            i = -1;
+        if (300 + data_current.altitude <= -0.1)
+            i = 1;
+
+        data_current.pitch = data_current.pitch + j;
+        if (90 - data_current.pitch <= 0.1)
+            j = -1;
+        if (90 + data_current.pitch <= -0.1)
             j = 1;
-        /*
-        data_current.roll = data_current.roll + l*0.1;
+
+        data_current.heading = data_current.heading + k;
+        if (359 - data_current.heading <= 0.1)
+            k = -1;
+
+        if (359 + data_current.heading <= -0.1)
+            k = 1;
+
+        data_current.roll = data_current.roll + l;
         if (60 - data_current.roll <= 0.1)
             l = -1;
-
         if (60 + data_current.roll <= -0.1)
             l = 1;
 
@@ -185,17 +189,17 @@ int main ( int argc , char * argv [] ) {
         if (400 + data_current.ias <= -0.1)
             n = 1;
 
-        data_current.vspeed=data_current.vspeed+m*0.001;
+        data_current.vspeed=data_current.vspeed+m*0.1;
         if (9 - data_current.vspeed <= 0.1)
             m = -1;
 
         if (9 + data_current.vspeed <= -0.1)
             m = 1;
-        */
+        /**/
         //printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
         /* END DEBUG PITCH ROUTINE*/
     }
-    SDL_Quit () ;
+    SDL_Quit();
     pthread_cancel(thread_comms_id);
     return 0;
 }

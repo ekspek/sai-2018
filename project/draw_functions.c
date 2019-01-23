@@ -59,8 +59,6 @@ void draw_artificial_horizon(float pitch, float roll)
     float y;
     float z;
 
-    //roll=0;
-    //pitch=0;
     pitch_pixels = pitch * pitch_scale_factor;
 
 
@@ -459,9 +457,9 @@ void draw_airspeed_indicator(float airspeed){
     float airspeed_scale_factor=5; //2 pixels per knot
     float airspeed_pixels;
     char airspeed_str[3];
-    float sign;
 
-    //Auxiliary variables for the units, tens and hundreds
+    //Auxiliary variables for the decimals,units, tens and hundreds
+    float d;
     float u;
     float t;
     float h;
@@ -540,9 +538,10 @@ void draw_airspeed_indicator(float airspeed){
 
 
     //Divide the IAS into 3 separate, single digits
-    h=(floorf(airspeed/100));
-    t=(floorf((airspeed-h*100)/10));
-    u=(floorf(airspeed-h*100-t*10));
+    h=floorf(airspeed/100);
+    t=floorf((airspeed-h*100)/10);
+    u=floorf(airspeed-h*100-t*10);
+    d=airspeed-h*100-t*10-u;
 
     //Draw the hundreds digit
     glColor3f(1,1,1);
@@ -553,11 +552,7 @@ void draw_airspeed_indicator(float airspeed){
     //Draw the tens digit
     glColor3f(1,1,1);
     glTranslatef(32,0,0);
-    if (sign == -1){
-        sprintf(airspeed_str,"%1.0f",-t);
-    } else {
-        sprintf(airspeed_str,"%1.0f",t);
-    }
+    sprintf(airspeed_str,"%1.0f",t);
     draw_text(airspeed_str,5);
 
 
@@ -567,7 +562,7 @@ void draw_airspeed_indicator(float airspeed){
     glEnable ( GL_SCISSOR_TEST ) ;
     glScissor (47,360,100,80) ;
     glTranslatef(50-35+32, 400-15,1); //Move reference to the middle left of the box
-    glTranslatef(0,u*0.2*sign,0);
+    glTranslatef(0,d*40,0);
 
     glColor3f(1,1,1);                   //u
     glTranslatef(32,0,0);
@@ -622,6 +617,7 @@ void draw_altitude_indicator(float altitude){
     float altitude_scale_factor=5; //5 pixels per 10 feet
     float altitude_pixels;
     char altitude_str[5];
+    float sign;
 
     //Auxiliary variables for the tens, hundreds and thousands
     float t;
@@ -629,9 +625,6 @@ void draw_altitude_indicator(float altitude){
     float h;
     float th;
 
-    //roll=0;
-    //pitch=0;
-    //altitude = 0;
     altitude_pixels = altitude*0.1 * altitude_scale_factor;
     max_altitude_pixels= max_altitude*0.1 * altitude_scale_factor;
 
@@ -655,8 +648,8 @@ void draw_altitude_indicator(float altitude){
 
     //Draw the indicator scale
     //Move the entire slider for the amount of pixels corresponding to current altitude
-    glTranslatef(0,altitude_pixels + 110*altitude_scale_factor,0);
-    for (i=-1000;i<=50000;i=i+100){
+    glTranslatef(0,altitude_pixels + 100*altitude_scale_factor,0);
+    for (i=-900;i<=50000;i=i+100){
         glTranslatef(0,-10*altitude_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -702,33 +695,39 @@ void draw_altitude_indicator(float altitude){
     glVertex3f(148,-38,0);
     glEnd();
 
+    //Determine altitude sign
+    if (altitude>=0){
+        sign=1; //Y axis is upside down
+    } else {
+        sign=-1;
+    }
+
     //Divide the altitude into 3 separate groups (thousands, hundreds and tens)
-    th=floorf(altitude/1000);
-    h=floorf((altitude-th*1000)/100);
-    t=floorf(altitude-th*1000-h*100);
+    th=floorf(fabs(altitude)/1000);
+    h=floorf((fabs(altitude)-th*1000)/100);
+    t=floorf(fabs(altitude)-th*1000-h*100);
     t_precise=t;
 
     if (fmodf(t,20) != 0 && t != 0){
-        //DEBUG
-        printf("t1=%f\n",t);
-        //DEBUG
         t=floor(t/20)*20;
-        //DEBUG
-        printf("t1=%f\n",t);
-        //DEBUG
     }
 
     //Draw the thousands digit
     glColor3f(1,1,1);
     glTranslatef(25,-15,1);
     sprintf(altitude_str,"%1.0f",th);
-    draw_text(altitude_str,5);
+    if (sign != -1){
+        draw_text(altitude_str,5);
+    } else {
+        draw_text("-",5);
+    }
 
     //Draw the hundreds digit
     glColor3f(1,1,1);
     glTranslatef(32,0,0);
     sprintf(altitude_str,"%1.0f",h);
     draw_text(altitude_str,5);
+
 
     //Draw the tens digits
     //Draw four numbers, two above and two below the current rounded altitude. Use a scisor box for croping the excess of the numbers
