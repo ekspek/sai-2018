@@ -308,24 +308,24 @@ void draw_artificial_horizon(float pitch, float roll)
         //Positive pitch
         //Align left
         glTranslatef(-88,-60*i+pitch_pixels-7,0);
-        sprintf(pitch_str,"%2d",i*10);
+        sprintf(pitch_str,"%d",i*10);
         draw_text(pitch_str,2);
         glTranslatef(88,60*i-pitch_pixels+7,0);
         //Align right
         glTranslatef(60,-60*i+pitch_pixels-7,0);
-        sprintf(pitch_str,"%2d",i*10);
+        sprintf(pitch_str,"%d",i*10);
         draw_text(pitch_str,2);
         glTranslatef(-60,60*i-pitch_pixels+7,0);
 
         //Negative pitch
         //Align left
         glTranslatef(-88,60*i+pitch_pixels-7,0);
-        sprintf(pitch_str,"%2d",i*10);
+        sprintf(pitch_str,"%d",i*10);
         draw_text(pitch_str,2);
         glTranslatef(88,-60*i-pitch_pixels+7,0);
         //Align right
         glTranslatef(60,60*i+pitch_pixels-7,0);
-        sprintf(pitch_str,"%2d",i*10);
+        sprintf(pitch_str,"%d",i*10);
         draw_text(pitch_str,2);
         glTranslatef(-60,-60*i-pitch_pixels+7,0);
     }
@@ -825,10 +825,16 @@ void draw_heading_indicator(float heading)
 void draw_vspeed_indicator(float vspeed){
 
     int i=0; //Auxiliary counter
-    float vspeed_scale_factor=4;
+    float vspeed_scale_factor[3] = {70, 40, 7.5};
     float vspeed_scaled;
+    float vspeed_capped;
     //float pitch_pixels;
     char pitch_str[2];
+    float sign;
+
+    //vspeed=2;
+
+
 
     //float midX=(float) WINDOW_SIZE_X/2;
     float midY=(float) WINDOW_SIZE_Y/2;
@@ -849,8 +855,8 @@ void draw_vspeed_indicator(float vspeed){
 
     glLoadIdentity();
 
-    glTranslatef(0,0,1);
-    glTranslatef(WINDOW_SIZE_X-90, midY,1.0); //Move reference to the middle of the screen
+    //glTranslatef(0,0,1);
+    glTranslatef(WINDOW_SIZE_X-90, midY,-1.0); //Move reference to the middle of the screen
 
     // Draw the blue section
     glBegin ( GL_POLYGON ) ;
@@ -865,35 +871,156 @@ void draw_vspeed_indicator(float vspeed){
     //glVertex3f (500 ,500,0) ;
     glEnd () ;
 
-    glEnable (GL_SCISSOR_TEST) ;
-    glScissor (WINDOW_SIZE_X-90 , midY-150, 80 , 300 );
 
-    if (vspeed>=0){ //Y axis is upside-down
-        i=-1;
-    } else {
-        i=1;
-    }
 
-    if (vspeed >6){
-        vspeed = 6;
-    }
-    if (vspeed <-6){
-        vspeed = -6;
-    }
 
-    vspeed_scaled=(vspeed*vspeed)*i*vspeed_scale_factor;
 
+    //vspeed_scaled=vspeed*vspeed*sign*vspeed_scale_factor;
+    //vspeed_scaled=(vspeed/6.5)*(65);
+    //vspeed_scaled=(logf(fabs(vspeed_capped)+1)*sign)*35;
+
+    //Display the indicator scale
+    //Draw the 0 indicator
+    glLoadIdentity();
+    glTranslatef(WINDOW_SIZE_X-60, midY,0);
     glBegin(GL_POLYGON);
     glColor3f(1,1,1);
-    glVertex3f(80,3,0);
-    glVertex3f(80,-3,0);
-    glVertex3f(10,vspeed_scaled-2,0);
-    glVertex3f(10,vspeed_scaled+2,0);
+    glVertex3f(-10,2,0);
+    glVertex3f(-10,-2,0);
+    glVertex3f(10,-2,0);
+    glVertex3f(10,2,0);
+    glEnd();
+
+    glTranslatef(-25,-7,0);
+    draw_character('0',2);
+
+    //Draw the +-6 indicator
+    for (i=-1;i<=1;i=i+2){
+        glLoadIdentity();
+        glTranslatef(WINDOW_SIZE_X-60, midY+i*140,0);
+        glBegin(GL_POLYGON);
+        glColor3f(1,1,1);
+        glVertex3f(-10,2,0);
+        glVertex3f(-10,-2,0);
+        glVertex3f(0,-2,0);
+        glVertex3f(0,2,0);
+        glEnd();
+
+        glTranslatef(-25,-7,0);
+        draw_character('6',2);
+    }
+
+    //Draw the +-4 indicator
+    for (i=-1;i<=1;i=i+2){
+        glLoadIdentity();
+        glTranslatef(WINDOW_SIZE_X-60, midY+i*125,0);
+        glBegin(GL_POLYGON);
+        glColor3f(1,1,1);
+        glVertex3f(-10,1,0);
+        glVertex3f(-10,-1,0);
+        glVertex3f(0,-1,0);
+        glVertex3f(0,1,0);
+        glEnd();
+    }
+
+    //Draw the +-2 indicator
+    for (i=-1;i<=1;i=i+2){
+        glLoadIdentity();
+        glTranslatef(WINDOW_SIZE_X-60, midY+i*110,0);
+        glBegin(GL_POLYGON);
+        glColor3f(1,1,1);
+        glVertex3f(-10,2,0);
+        glVertex3f(-10,-2,0);
+        glVertex3f(0,-2,0);
+        glVertex3f(0,2,0);
+        glEnd();
+
+        glTranslatef(-25,-7,0);
+        draw_character('2',2);
+    }
+
+    //Draw the +-1.5 indicator
+    for (i=-1;i<=1;i=i+2){
+        glLoadIdentity();
+        glTranslatef(WINDOW_SIZE_X-60, midY+i*90,0);
+        glBegin(GL_POLYGON);
+        glColor3f(1,1,1);
+        glVertex3f(-10,1,0);
+        glVertex3f(-10,-1,0);
+        glVertex3f(0,-1,0);
+        glVertex3f(0,1,0);
+        glEnd();
+
+        //glTranslatef(-25,-7,0);
+        //draw_character('1',2);
+    }
+
+    //Draw the +-1 indicator
+    for (i=-1;i<=1;i=i+2){
+        glLoadIdentity();
+        glTranslatef(WINDOW_SIZE_X-60, midY+i*70,0);
+        glBegin(GL_POLYGON);
+        glColor3f(1,1,1);
+        glVertex3f(-10,2,0);
+        glVertex3f(-10,-2,0);
+        glVertex3f(0,-2,0);
+        glVertex3f(0,2,0);
+        glEnd();
+
+        glTranslatef(-25,-7,0);
+        draw_character('1',2);
+    }
+
+    //Draw the +-0.5 indicator
+    for (i=-1;i<=1;i=i+2){
+        glLoadIdentity();
+        glTranslatef(WINDOW_SIZE_X-60, midY+i*35,0);
+        glBegin(GL_POLYGON);
+        glColor3f(1,1,1);
+        glVertex3f(-10,1,0);
+        glVertex3f(-10,-1,0);
+        glVertex3f(0,-1,0);
+        glVertex3f(0,1,0);
+        glEnd();
+
+        //glTranslatef(-25,-7,0);
+        //draw_character('4',2);
+    }
+
+    if (fabs(vspeed)<=1){
+        vspeed_capped=vspeed_scale_factor[0]*vspeed;
+        i=0;
+    } else if (fabs(vspeed)<=2){
+        vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*(vspeed-1);
+        i=1;
+    } else if (fabs(vspeed)<=6.5){
+        vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*1+vspeed_scale_factor[2]*(vspeed-2);
+        i=2;
+    } else {
+        vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*1+vspeed_scale_factor[2]*(6.5-2);
+        i=2;
+    }
+
+
+
+    printf("vspeed=%f   vspeed_capped=%f    vspeed_scale=%f\n",vspeed, vspeed_capped,vspeed_scale_factor[i]);
+    glLoadIdentity();
+    //glEnable (GL_SCISSOR_TEST) ;
+    //glScissor (WINDOW_SIZE_X-60 , midY-150, 70 , 300 );
+    glTranslatef(WINDOW_SIZE_X-10, midY,1.0);
+    //glTranslatef(80,0,0);
+    //glRotatef(vspeed_scaled,0,0,1);
+    glBegin(GL_POLYGON);
+    glColor3f(1,1,1);
+    glVertex3f(-50,vspeed_capped+2,0);
+    glVertex3f(-50,vspeed_capped-2,0);
+    glVertex3f(0,-2,0);
+    glVertex3f(0,2,0);
     glEnd();
 
     /**/
 
-    glDisable(GL_SCISSOR_TEST);
+    //glDisable(GL_SCISSOR_TEST);
 
 
 }

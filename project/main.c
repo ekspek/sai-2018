@@ -171,7 +171,7 @@ int main ( int argc , char * argv [] ) {
             n = 1;
         }
 
-        data_current.vspeed=data_current.vspeed+m*0.1;
+        data_current.vspeed=data_current.vspeed+m*0.001;
         if (9 - data_current.vspeed <= 0.1)
         {
             m = -1;
