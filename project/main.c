@@ -26,12 +26,15 @@
 #include "comms.h"
 
 /* Mutex variables for data synchronization */
-pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mutex_main = PTHREAD_MUTEX_INITIALIZER;
+
+/* Main data global variable */
+Data data_current;
 
 int main ( int argc , char * argv [] ) {
 
-	uint32_t port = 8500;
-	pthread_t thread_comms_id;
+    uint32_t port = 8500;
+    pthread_t thread_comms_id;
 
     //_ERROR = 1;    /* initialization ; always start in error mode */
     //_in_package.Heading = 0;
@@ -45,9 +48,8 @@ int main ( int argc , char * argv [] ) {
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    Data data_current;
     data_current.altitude = 0;//3000;
-    data_current.ias = 0;//150;
+    data_current.ias = 0;
     data_current.vspeed = 0;
     data_current.pitch = 0;
     data_current.roll = 0;
@@ -60,7 +62,7 @@ int main ( int argc , char * argv [] ) {
     float n=1; //airspeed test variable
     float m=1; //vspeed test variable
 
-	pthread_create(&thread_comms_id,NULL,thread_comms,&port);
+    pthread_create(&thread_comms_id,NULL,thread_comms,&port);
 
     SDL_Init ( SDL_INIT_VIDEO ) ;
 
@@ -112,37 +114,35 @@ int main ( int argc , char * argv [] ) {
         glTranslatef(0,20,0);
         draw_text("EMNOSWft .-?#",2);
         
+        pthread_mutex_lock(&mutex_main);
         draw_artificial_horizon(data_current.pitch, data_current.roll);
         draw_airspeed_indicator(data_current.ias);
         draw_heading_indicator(data_current.pitch);
         draw_altitude_indicator(data_current.ias, tex);
         draw_vspeed_indicator(data_current.vspeed);
+        pthread_mutex_unlock(&mutex_main);
 
         SDL_GL_SwapWindow(window);
         SDL_Delay(10);
 
-
         while ( SDL_PollEvent (& event ) > 0) {
-            if ( event . type == SDL_QUIT ) {
+            if ( event . type == SDL_QUIT )
                 break ;
-            }
             if ( event . type == SDL_KEYDOWN ) {
-                if ( event . key . keysym . sym == SDLK_ESCAPE ) {
+                if ( event . key . keysym . sym == SDLK_ESCAPE )
                     break ;
-                }
             }
         }
-        if ( event . type == SDL_QUIT ) {
+        if ( event . type == SDL_QUIT )
             break ;
-        }
 
         if ( event . type == SDL_KEYDOWN ) {
-            if ( event . key . keysym . sym == SDLK_ESCAPE ) {
+            if ( event . key . keysym . sym == SDLK_ESCAPE 
                 break ;
-            }
         }
 
         /* DEBUG PITCH AND ROLL ROUTINE */
+        /*
         data_current.pitch = data_current.pitch + j*0.1;
         //printf("i=%f j=%f\n",i,j);
         if (90 - data_current.pitch <= 0.1)
@@ -183,12 +183,12 @@ int main ( int argc , char * argv [] ) {
         if (9 + data_current.vspeed <= -0.1){
             m = 1;
         }
-
+        */
         /* END DEBUG PITCH ROUTINE*/
 
-		//printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
+        //printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
     }
     SDL_Quit () ;
-	pthread_cancel(thread_comms_id);
+    pthread_cancel(thread_comms_id);
     return 0;
 }

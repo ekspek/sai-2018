@@ -14,9 +14,15 @@
 
 #include "comms.h"
 
-extern pthread_mutex_t m;
+#define BUFFER_SIZE 1024
 
-/* Reverses endianess of a floating point value */
+extern pthread_mutex_t mutex_main;
+extern Data data_current;
+
+/* Reverses endianess of a floating point value
+ *
+ * Data received by the project arrives in big-endian
+ * mode, needs to be swapped for every variable */
 float float_swap(float value){
 	union v {
 		float f;
@@ -74,15 +80,15 @@ void* thread_comms(void* ptr){
 		bytes_in = recvfrom(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr*)&client_addr, (socklen_t*)&clientlen);
 
 		if(bytes_in){
-			pthread_mutex_lock(&m);
-			/* float_swap switches endians (program receives big-endian) */
+			pthread_mutex_lock(&mutex_main);
 			data_current.altitude = float_swap(*(float*)(buffer + 0 * wordsize));
 			data_current.ias = float_swap(*(float*)(buffer + 1 * wordsize));
-			data_current.vspeed =  float_swap((*(float*)(buffer + 2 * wordsize)));
-			data_current.pitch =  float_swap((*(float*)(buffer + 3 * wordsize)));
-			data_current.roll =  float_swap((*(float*)(buffer + 4 * wordsize)));
-			data_current.heading =  float_swap((*(float*)(buffer + 5 * wordsize)));
-			pthread_mutex_unlock(&m);
+			data_current.vspeed = float_swap((*(float*)(buffer + 2 * wordsize)));
+			data_current.pitch = float_swap((*(float*)(buffer + 3 * wordsize)));
+			data_current.roll = float_swap((*(float*)(buffer + 4 * wordsize)));
+			data_current.heading = float_swap((*(float*)(buffer + 5 * wordsize)));
+			pthread_mutex_unlock(&mutex_main);
+			//printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
 		}
 	}
 }

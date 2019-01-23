@@ -29,8 +29,6 @@
 
 #include "global_variables.h"
 
-#define BUFFER_SIZE 1024
-
 float float_swap(float value);
 void* thread_comms(void *ptr);
 

@@ -29,7 +29,7 @@
  * IAS is defined in knots.
  * Vertical speed is feet per minute.
  * Pitch, roll and heading are defined in degrees. */
-typedef struct Data {
+typedef struct data {
 	double altitude;
 	double ias;
 	double vspeed;
@@ -37,8 +37,5 @@ typedef struct Data {
 	double roll;
 	double heading;
 } Data;
-
-/* Main data global variable */
-Data data_current;
 
 #endif
