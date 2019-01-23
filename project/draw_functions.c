@@ -599,6 +599,7 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     float altitude_scale_factor=5; //5 pixels per 10 feet
     float altitude_pixels;
     char altitude_str[5];
+    char altitude_disp[2];
 
     //Auxiliary variables for the tens, hundreds and thousands
     float t;
@@ -710,33 +711,34 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     //Draw the thousands digit
     glColor3f(1,1,1);
     glTranslatef(25,-15,1);
-    sprintf(altitude_str,"%1.0f",th);
-    draw_text(altitude_str,5);
+    sprintf(altitude_disp,"%1.0f",th);
+    draw_text(altitude_disp,5);
 
     //Draw the hundreds digit
     glColor3f(1,1,1);
     glTranslatef(32,0,0);
-    sprintf(altitude_str,"%1.0f",h);
-    draw_text(altitude_str,5);
+    sprintf(altitude_disp,"%1.0f",h);
+    draw_text(altitude_disp,5);
 
     //Draw the tens digits
     //Draw two numbers, one above and one below the current rounded altitude
     glLoadIdentity();
     glTranslatef(675+25+32,400-15,0); //Move reference to the middle left of the box
     glColor3f(1,1,1);                   //t
-    glTranslatef(32,5*fmod(altitude_pixels,20),0);
-    sprintf(altitude_str,"%02.0f",t);
-    draw_text(altitude_str,5);
+    glTranslatef(32,0,0);
+    sprintf(altitude_disp,"%02.0f",t);
+    draw_text(altitude_disp,5);
 
     glColor3f(1,1,1);                   //t+20
     glTranslatef(0,-40,0);
-    sprintf(altitude_str,"%02.0f",t+20);
-    draw_text(altitude_str,5);
+    sprintf(altitude_disp,"%02.0f",t+20);
+    draw_text(altitude_disp,5);
 
     glColor3f(1,1,1);                   //t-20
     glTranslatef(0,80,0);
-    sprintf(altitude_str,"%02.0f",100+t-20);
-    draw_text(altitude_str,5);
+    sprintf(altitude_disp,"%02.0f",ceilf(100+t-20));
+    printf("Alt_disp=%s",altitude_disp);
+    draw_text(altitude_disp,5);
 
 }
 
