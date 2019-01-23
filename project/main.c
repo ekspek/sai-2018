@@ -164,15 +164,15 @@ int main ( int argc , char * argv [] ) {
                 break ;
         }
 
-        /* DEBUG PITCH AND ROLL ROUTINE
-        data_current.pitch = data_current.pitch + j*0.1;
+        /* DEBUG PITCH AND ROLL ROUTINE */
+        data_current.altitude = data_current.altitude + j;
         //printf("i=%f j=%f\n",i,j);
-        if (90 - data_current.pitch <= 0.1)
+        if (40000 - data_current.pitch <= 0.1)
             j = -1;
 
-        if (90 + data_current.pitch <= -0.1)
+        if (1000 + data_current.pitch <= -0.1)
             j = 1;
-
+        /*
         data_current.roll = data_current.roll + l*0.1;
         if (60 - data_current.roll <= 0.1)
             l = -1;
