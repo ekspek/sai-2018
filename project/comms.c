@@ -47,14 +47,16 @@ float float_swap(float value){
  * which is locked beforehand via a mutex. */
 void* thread_comms(void* ptr){
 
+	double gs, vpath;
+
 	/* Setting up sockets and communications */
 	struct sockaddr_in server_addr, client_addr;
 
 	// Setup UDP socket
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	if(sockfd < 0){
-	    fprintf(stderr, "Error starting socket\n");
-	    exit(1);
+		fprintf(stderr, "Error starting socket\n");
+		exit(1);
 	}
 
 	// Port Reusing
@@ -69,8 +71,8 @@ void* thread_comms(void* ptr){
 
 	// Bind to given port
 	if(bind(sockfd, (struct sockaddr*)&server_addr, sizeof(server_addr)) != 0){
-	    perror("bind");
-	    exit(1);
+		perror("bind");
+		exit(1);
 	}
 
 	char buffer[BUFFER_SIZE];
@@ -87,12 +89,14 @@ void* thread_comms(void* ptr){
 
 		if(bytes_in){
 			pthread_mutex_lock(&mutex_main);
-			data_current.altitude = float_swap(*(float*)(buffer + 0 * wordsize));
-			data_current.ias = float_swap(*(float*)(buffer + 1 * wordsize));
-			data_current.vspeed = float_swap((*(float*)(buffer + 2 * wordsize)));
-			data_current.pitch = float_swap((*(float*)(buffer + 3 * wordsize)));
-			data_current.roll = float_swap((*(float*)(buffer + 4 * wordsize)));
-			data_current.heading = float_swap((*(float*)(buffer + 5 * wordsize)));
+			data_current.altitude = float_swap(*(float*)(buffer + 2 * wordsize));
+			data_current.ias = float_swap(*(float*)(buffer + 6 * wordsize));
+			data_current.pitch = float_swap((*(float*)(buffer + 7 * wordsize)));
+			data_current.roll = float_swap((*(float*)(buffer + 8 * wordsize)));
+			data_current.heading = float_swap((*(float*)(buffer + 9 * wordsize)));
+			gs = float_swap((*(float*)(buffer + 5 * wordsize)));
+			vpath = float_swap((*(float*)(buffer + 3 * wordsize)));
+			data_current.vspeed = gs * sin(vpath);
 			pthread_mutex_unlock(&mutex_main);
 		}
 	}
