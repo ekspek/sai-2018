@@ -47,7 +47,7 @@ float float_swap(float value){
  * which is locked beforehand via a mutex. */
 void* thread_comms(void* ptr){
 
-	double gs, vpath;
+    double gs, vpath, vspeed_kts;
 
 	/* Setting up sockets and communications */
 	struct sockaddr_in server_addr, client_addr;
@@ -96,7 +96,8 @@ void* thread_comms(void* ptr){
 			data_current.heading = float_swap((*(float*)(buffer + 9 * wordsize)));
 			gs = float_swap((*(float*)(buffer + 5 * wordsize)));
 			vpath = float_swap((*(float*)(buffer + 3 * wordsize)));
-			data_current.vspeed = gs * tan(vpath * M_PI / 180);
+            vspeed_kts = gs * tan(vpath * M_PI / 180);
+            data_current.vspeed = vspeed_kts*101.2685914252;
 			pthread_mutex_unlock(&mutex_main);
 		}
 	}

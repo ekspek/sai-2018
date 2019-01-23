@@ -33,6 +33,14 @@ Data data_current;
 
 int main ( int argc , char * argv [] ) {
 
+    float i=1; //altitude test variable
+    float j=1; //pitch test variable
+    float k=1; //heading test variable
+    float l=1; //roll test variable
+    float n=1; //airspeed test variable
+    float m=1; //vspeed test variable
+
+
     if(argc != 2){
         fprintf(stderr, "Usage: %s <port>\n", argv[0]);
         exit(1);
@@ -53,18 +61,12 @@ int main ( int argc , char * argv [] ) {
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    data_current.altitude = 0;
-    data_current.pitch = 0;
-    data_current.heading = 0;
+    data_current.altitude = 2690;
+    data_current.pitch = 4.9;
+    data_current.heading = 322;
     data_current.roll = 0;
-    data_current.ias = 0;
-    data_current.vspeed = 0;
-    float i=1; //altitude test variable
-    float j=1; //pitch test variable
-    float k=1; //heading test variable
-    float l=1; //roll test variable
-    float n=1; //airspeed test variable
-    float m=1; //vspeed test variable
+    data_current.ias = 174.8;
+    data_current.vspeed = -0.4;
 
     SDL_Init(SDL_INIT_VIDEO) ;
 
@@ -156,7 +158,7 @@ int main ( int argc , char * argv [] ) {
         }
 
 
-        /* DEBUG ROUTINEs
+        /* DEBUG ROUTINEs */
         data_current.altitude = data_current.altitude + 2*i;
         if (1000 - data_current.altitude <= 0.1)
             i = -1;

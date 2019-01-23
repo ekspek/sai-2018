@@ -21,11 +21,11 @@
 /* Draw a string of characters using OpenGL. Accepts the string and a
  * scaling value.
  *
- * The character width and skip are fixed (CHAR_WIDTH and CHAR_SKIP) on
+ * The character width and skip are fixed(CHAR_WIDTH and CHAR_SKIP) on
  * draw_functions.h. The CHAR_WIDTH is dependent on the font used which
  * is defined in font.c.
  *
- * This function returns the total width (in SDL coordinates) of the
+ * This function returns the total width(in SDL coordinates) of the
  * drawn text as an int value. */
 int draw_text(char* string, int scale){
     int aux = 0;
@@ -41,7 +41,7 @@ int draw_text(char* string, int scale){
 
     glTranslatef(-(CHAR_WIDTH + CHAR_SKIP)*scale*(aux - 1),0,0);
 
-    return (aux - 1) * (CHAR_WIDTH + CHAR_SKIP) + CHAR_WIDTH;
+    return(aux - 1) *(CHAR_WIDTH + CHAR_SKIP) + CHAR_WIDTH;
 }
 
 void draw_artificial_horizon(float pitch, float roll)
@@ -66,193 +66,193 @@ void draw_artificial_horizon(float pitch, float roll)
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
-    glEnable ( GL_SCISSOR_TEST ) ;
-    glScissor (200 , 200 , 400 , 400 ) ;
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(200,200,400,400);
     glTranslatef(midX-50, midY,1.0); //Move reference to the middle of the screen
-    glRotatef (roll , 0 , 0 , 1) ;
+    glRotatef(roll,0,0,1);
 
     // Draw the blue section
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0.4 ,0.4 ,1) ;
-    glVertex3f (-400 ,-1 + pitch_pixels ,0) ;
-    glVertex3f (-400 ,-WINDOW_SIZE_Y-50 + pitch_pixels,0) ;
-    glVertex3f (400 ,-WINDOW_SIZE_Y-50 + pitch_pixels,0) ;
-    glVertex3f (400 ,-1 + pitch_pixels,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0.4,0.4,1);
+    glVertex3f(-400,-1 + pitch_pixels,0);
+    glVertex3f(-400,-WINDOW_SIZE_Y-50 + pitch_pixels,0);
+    glVertex3f(400,-WINDOW_SIZE_Y-50 + pitch_pixels,0);
+    glVertex3f(400,-1 + pitch_pixels,0);
+    glEnd();
 
     //Draw the brown section
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0.7 ,0.5 ,0) ;
-    glVertex3f (-400 ,1+ pitch_pixels ,0) ;
-    glVertex3f (-400 ,WINDOW_SIZE_Y+50 + pitch_pixels,0) ;
-    glVertex3f (400 ,WINDOW_SIZE_Y+50+ pitch_pixels,0) ;
-    glVertex3f (400 ,1+ pitch_pixels,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0.7 ,0.5 ,0);
+    glVertex3f(-400 ,1+ pitch_pixels ,0);
+    glVertex3f(-400 ,WINDOW_SIZE_Y+50 + pitch_pixels,0);
+    glVertex3f(400 ,WINDOW_SIZE_Y+50+ pitch_pixels,0);
+    glVertex3f(400 ,1+ pitch_pixels,0);
+    glEnd();
 
     //Draw the Horizon line
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1,1) ;
-    glVertex3f (-400 ,1+ pitch_pixels ,0) ;
-    glVertex3f (-400 ,-1 + pitch_pixels,0) ;
-    glVertex3f (400 ,-1+ pitch_pixels,0) ;
-    glVertex3f (400 ,1+ pitch_pixels,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1,1);
+    glVertex3f(-400 ,1+ pitch_pixels ,0);
+    glVertex3f(-400 ,-1 + pitch_pixels,0);
+    glVertex3f(400 ,-1+ pitch_pixels,0);
+    glVertex3f(400 ,1+ pitch_pixels,0);
+    glEnd();
 
     glDisable(GL_SCISSOR_TEST);
 
 
     //Draw the Plane Horizontal indicator
     glLoadIdentity();
-    glEnable ( GL_SCISSOR_TEST ) ;
-    glScissor (200 , 200 , 400 , 400 ) ;
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(200 , 200 , 400 , 400);
     glTranslatef(midX-50, midY,1.5);
 
     //Left Wing
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (-150 ,0,0) ;
-    glVertex3f (-50 ,0,0) ;
-    glVertex3f (-50 ,2,0) ;
-    glVertex3f (-150 ,2,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(-150 ,0,0);
+    glVertex3f(-50 ,0,0);
+    glVertex3f(-50 ,2,0);
+    glVertex3f(-150 ,2,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (-50 ,0,0) ;
-    glVertex3f (-50 ,29,0) ;
-    glVertex3f (-48 ,29,0) ;
-    glVertex3f (-48 ,0,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(-50 ,0,0);
+    glVertex3f(-50 ,29,0);
+    glVertex3f(-48 ,29,0);
+    glVertex3f(-48 ,0,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (-50 ,27,0) ;
-    glVertex3f (-50 ,29,0) ;
-    glVertex3f (-56 ,29,0) ;
-    glVertex3f (-56 ,27,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(-50 ,27,0);
+    glVertex3f(-50 ,29,0);
+    glVertex3f(-56 ,29,0);
+    glVertex3f(-56 ,27,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (-54 ,29,0) ;
-    glVertex3f (-56 ,29,0) ;
-    glVertex3f (-56 ,6,0) ;
-    glVertex3f (-54,6,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(-54 ,29,0);
+    glVertex3f(-56 ,29,0);
+    glVertex3f(-56 ,6,0);
+    glVertex3f(-54,6,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (-54 ,6,0) ;
-    glVertex3f (-54 ,8,0) ;
-    glVertex3f (-150 ,8,0) ;
-    glVertex3f (-150 ,6,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(-54 ,6,0);
+    glVertex3f(-54 ,8,0);
+    glVertex3f(-150 ,8,0);
+    glVertex3f(-150 ,6,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (-150 ,8,0) ;
-    glVertex3f (-150 ,0,0) ;
-    glVertex3f (-148 ,0,0) ;
-    glVertex3f (-148 ,8,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(-150 ,8,0);
+    glVertex3f(-150 ,0,0);
+    glVertex3f(-148 ,0,0);
+    glVertex3f(-148 ,8,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0 ,0 ,0) ;
-    glVertex3f (-148 ,2,0) ;
-    glVertex3f (-50 ,2,0) ;
-    glVertex3f (-50 ,6,0) ;
-    glVertex3f (-148 ,6,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0 ,0 ,0);
+    glVertex3f(-148 ,2,0);
+    glVertex3f(-50 ,2,0);
+    glVertex3f(-50 ,6,0);
+    glVertex3f(-148 ,6,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0 ,0 ,0) ;
-    glVertex3f (-54 ,2,0) ;
-    glVertex3f (-50 ,2,0) ;
-    glVertex3f (-50 ,27,0) ;
-    glVertex3f (-54 ,27,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0 ,0 ,0);
+    glVertex3f(-54 ,2,0);
+    glVertex3f(-50 ,2,0);
+    glVertex3f(-50 ,27,0);
+    glVertex3f(-54 ,27,0);
+    glEnd();
 
     //Right Wing
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (150 ,0,0) ;
-    glVertex3f (50 ,0,0) ;
-    glVertex3f (50 ,2,0) ;
-    glVertex3f (150 ,2,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(150 ,0,0);
+    glVertex3f(50 ,0,0);
+    glVertex3f(50 ,2,0);
+    glVertex3f(150 ,2,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (50 ,0,0) ;
-    glVertex3f (50 ,29,0) ;
-    glVertex3f (48 ,29,0) ;
-    glVertex3f (48 ,0,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(50 ,0,0);
+    glVertex3f(50 ,29,0);
+    glVertex3f(48 ,29,0);
+    glVertex3f(48 ,0,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (50 ,27,0) ;
-    glVertex3f (50 ,29,0) ;
-    glVertex3f (56 ,29,0) ;
-    glVertex3f (56 ,27,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(50 ,27,0);
+    glVertex3f(50 ,29,0);
+    glVertex3f(56 ,29,0);
+    glVertex3f(56 ,27,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (54 ,29,0) ;
-    glVertex3f (56 ,29,0) ;
-    glVertex3f (56 ,6,0) ;
-    glVertex3f (54,6,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(54 ,29,0);
+    glVertex3f(56 ,29,0);
+    glVertex3f(56 ,6,0);
+    glVertex3f(54,6,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (54 ,6,0) ;
-    glVertex3f (54 ,8,0) ;
-    glVertex3f (150 ,8,0) ;
-    glVertex3f (150 ,6,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(54 ,6,0);
+    glVertex3f(54 ,8,0);
+    glVertex3f(150 ,8,0);
+    glVertex3f(150 ,6,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (150 ,8,0) ;
-    glVertex3f (150 ,0,0) ;
-    glVertex3f (148 ,0,0) ;
-    glVertex3f (148 ,8,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(150 ,8,0);
+    glVertex3f(150 ,0,0);
+    glVertex3f(148 ,0,0);
+    glVertex3f(148 ,8,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0 ,0 ,0) ;
-    glVertex3f (148 ,2,0) ;
-    glVertex3f (50 ,2,0) ;
-    glVertex3f (50 ,6,0) ;
-    glVertex3f (148 ,6,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0 ,0 ,0);
+    glVertex3f(148 ,2,0);
+    glVertex3f(50 ,2,0);
+    glVertex3f(50 ,6,0);
+    glVertex3f(148 ,6,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0 ,0 ,0) ;
-    glVertex3f (54 ,2,0) ;
-    glVertex3f (50 ,2,0) ;
-    glVertex3f (50 ,27,0) ;
-    glVertex3f (54 ,27,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0 ,0 ,0);
+    glVertex3f(54 ,2,0);
+    glVertex3f(50 ,2,0);
+    glVertex3f(50 ,27,0);
+    glVertex3f(54 ,27,0);
+    glEnd();
 
     //Nose
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (1 ,1 ,1) ;
-    glVertex3f (-5 ,0,0) ;
-    glVertex3f (5 ,0,0) ;
-    glVertex3f (5 ,10,0) ;
-    glVertex3f (-5 ,10,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(1 ,1 ,1);
+    glVertex3f(-5 ,0,0);
+    glVertex3f(5 ,0,0);
+    glVertex3f(5 ,10,0);
+    glVertex3f(-5 ,10,0);
+    glEnd();
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0 ,0 ,0) ;
-    glVertex3f (-3 ,2,0) ;
-    glVertex3f (3 ,2,0) ;
-    glVertex3f (3 ,8,0) ;
-    glVertex3f (-3 ,8,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0 ,0 ,0);
+    glVertex3f(-3 ,2,0);
+    glVertex3f(3 ,2,0);
+    glVertex3f(3 ,8,0);
+    glVertex3f(-3 ,8,0);
+    glEnd();
 
     glDisable(GL_SCISSOR_TEST);
 
@@ -260,15 +260,15 @@ void draw_artificial_horizon(float pitch, float roll)
     glEnable(GL_SCISSOR_TEST);
     glLoadIdentity();
     glTranslatef(midX-50, midY,1);
-    glRotatef (roll , 0 , 0 , 1) ;
-    glScissor(300 , 200 , 200 , 350 ) ;
+    glRotatef(roll , 0 , 0 , 1);
+    glScissor(300 , 200 , 200 , 350);
 
 
 
     glBegin(GL_LINES);
     glColor3f(1,1,1);
     //10 degree lines
-    for (i=1; i<=9; i=i+1){
+    for(i=1; i<=9; i=i+1){
         //Negative pitch
         glVertex3f(-50,-60*i+pitch_pixels,0);
         glVertex3f(50,-60*i+pitch_pixels,0);
@@ -278,7 +278,7 @@ void draw_artificial_horizon(float pitch, float roll)
         glVertex3f(50,60*i+pitch_pixels,0);
     }
     //5 degree lines
-    for (i=1; i<=18; i=i+2){
+    for(i=1; i<=18; i=i+2){
         //Negative pitch
         glVertex3f(-25,-30*i+pitch_pixels,0);
         glVertex3f(25,-30*i+pitch_pixels,0);
@@ -289,7 +289,7 @@ void draw_artificial_horizon(float pitch, float roll)
     }
 
     //2.5 degree lines
-    for (i=1; i<=36; i=i+2){
+    for(i=1; i<=36; i=i+2){
         //Negative pitch
         glVertex3f(-10,-15*i+pitch_pixels,0);
         glVertex3f(10,-15*i+pitch_pixels,0);
@@ -301,7 +301,7 @@ void draw_artificial_horizon(float pitch, float roll)
     glEnd();
 
     //Print pitch numbers
-    for (i=1; i<=9; i=i+1){
+    for(i=1; i<=9; i=i+1){
         //Positive pitch
         //Align left
         glTranslatef(-88,-60*i+pitch_pixels-7,0);
@@ -331,8 +331,8 @@ void draw_artificial_horizon(float pitch, float roll)
 
     //Draw the roll angle indicator
     glLoadIdentity();
-    glEnable ( GL_SCISSOR_TEST ) ;
-    glScissor (200 , 200 , 400 , 400 ) ;
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(200 , 200 , 400 , 400);
 
 
     //Draw the roll indicator cursor
@@ -362,7 +362,7 @@ void draw_artificial_horizon(float pitch, float roll)
 
     //Draw the angle indicator lines
     //For angles of +-10 and +-20 degrees
-    for (i=10;i<=20;i=i+10){
+    for(i=10;i<=20;i=i+10){
         glLoadIdentity();
         glTranslatef(midX-50, midY,1);
         //glRotatef(roll,0,0,1);
@@ -391,7 +391,7 @@ void draw_artificial_horizon(float pitch, float roll)
     }
 
     //For angles of +-30 and +-60 degrees
-    for (i=30;i<=60;i=i+30){
+    for(i=30;i<=60;i=i+30){
         glLoadIdentity();
         glTranslatef(midX-50, midY,1);
         //glRotatef(roll,0,0,1);
@@ -471,24 +471,24 @@ void draw_airspeed_indicator(float airspeed){
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
-    glEnable ( GL_SCISSOR_TEST ) ;
-    glScissor (50,100,100,600 ) ;
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(50,100,100,600);
     glTranslatef(50, 400,-2.0); //Move reference to the middle left of the box
 
     // Draw the indicator background
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0.470, 0.470, 0.470);
-    glVertex3f (0,350,0);
-    glVertex3f (75 ,350,0) ;
-    glVertex3f (75 ,-350,0) ;
-    glVertex3f (0,-350,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0.470, 0.470, 0.470);
+    glVertex3f(0,350,0);
+    glVertex3f(75 ,350,0);
+    glVertex3f(75 ,-350,0);
+    glVertex3f(0,-350,0);
+    glEnd();
 
     //Translate the entire scale according to current airspeed
     glTranslatef(75,airspeed_pixels+10*airspeed_scale_factor,1);
 
     //Draw the airspeed indicator scale
-    for (i=0;i<=max_airspeed;i=i+10){
+    for(i=0;i<=max_airspeed;i=i+10){
         glTranslatef(0,-10*airspeed_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -498,7 +498,7 @@ void draw_airspeed_indicator(float airspeed){
         glVertex3f(0,1,0);
         glEnd();
 
-        if (i%20 == 0 || i==0){
+        if(i%20 == 0 || i==0){
             glTranslatef(-75,-7,0);
             sprintf(airspeed_str,"%4d",i);
             draw_text(airspeed_str,2);
@@ -559,8 +559,8 @@ void draw_airspeed_indicator(float airspeed){
     //Draw the units digit
     //Draw four numbers, two above and two below the current rounded airspeed. Use a scissor box for croping the excess of the numbers
     glLoadIdentity();
-    glEnable ( GL_SCISSOR_TEST ) ;
-    glScissor (47,360,100,80) ;
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(47,360,100,80);
     glTranslatef(50-35+32, 400-15,1); //Move reference to the middle left of the box
     glTranslatef(0,d*40,0);
 
@@ -571,39 +571,43 @@ void draw_airspeed_indicator(float airspeed){
 
     glColor3f(1,1,1);                   //u+2
     glTranslatef(0,-80,0);
-    if (u+2 >= 10){        //Avoid 2 digit strings
+    if(u+2 >= 10){        //Avoid 2 digit strings
         sprintf(airspeed_str,"%01.0f",u+2-10);
     } else{
         sprintf(airspeed_str,"%01.0f",u+2);
     }
     draw_text(airspeed_str,5);
 
-    glColor3f(1,1,1);                   //t+20
+    glColor3f(1,1,1);                   //u+1
     glTranslatef(0,40,0);
-    if (u+1 >= 10){        //Avoid 2 digit strings
+    if(u+1 >= 10){        //Avoid 2 digit strings
         sprintf(airspeed_str,"%01.0f",u+1-10);
     } else{
         sprintf(airspeed_str,"%01.0f",u+1);
     }
     draw_text(airspeed_str,5);
 
-    glColor3f(1,1,1);                   //t-20
+    glColor3f(1,1,1);                   //u-1
     glTranslatef(0,80,0);
-    if (10+u-1 >= 10){        //Avoid 2 digit strings
+    if(10+u-1 >= 10){        //Avoid 2 digit strings
         sprintf(airspeed_str,"%01.0f",u-1);
     } else{
         sprintf(airspeed_str,"%01.0f",(10+u-1));
     }
-    draw_text(airspeed_str,5);
+    if(airspeed > 1){
+        draw_text(airspeed_str,5);
+    }
 
-    glColor3f(1,1,1);                   //t-20
+    glColor3f(1,1,1);                   //u-2
     glTranslatef(0,40,0);
-    if (10+u-2 >= 10){        //Avoid 2 digit strings
+    if(10+u-2 >= 10){        //Avoid 2 digit strings
         sprintf(airspeed_str,"%01.0f",u-2);
     } else{
         sprintf(airspeed_str,"%01.0f",(10+u-2));
     }
-    draw_text(airspeed_str,5);
+    if(airspeed > 1){
+        draw_text(airspeed_str,5);
+    }
     glDisable(GL_SCISSOR_TEST);
 
 
@@ -633,23 +637,23 @@ void draw_altitude_indicator(float altitude){
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
-    glEnable ( GL_SCISSOR_TEST ) ;
-    glScissor (675,100,110,600 ) ;
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(675,100,110,600);
     glTranslatef(675,400,-2.0); //Move reference to the middle left of the box
 
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0.470, 0.470, 0.470);
-    glVertex3f (110,350,0);
-    glVertex3f (-100 ,350,0);
-    glVertex3f (-100 ,-350,0) ;
-    glVertex3f (110,-350,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0.470, 0.470, 0.470);
+    glVertex3f(110,350,0);
+    glVertex3f(-100 ,350,0);
+    glVertex3f(-100 ,-350,0);
+    glVertex3f(110,-350,0);
+    glEnd();
 
 
     //Draw the indicator scale
     //Move the entire slider for the amount of pixels corresponding to current altitude
     glTranslatef(0,altitude_pixels + 110*altitude_scale_factor,0);
-    for (i=-1000;i<=50000;i=i+100){
+    for(i=-1000;i<=50000;i=i+100){
         glTranslatef(0,-10*altitude_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -658,7 +662,7 @@ void draw_altitude_indicator(float altitude){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
-        if (i%20 == 0 || i==0){
+        if(i%20 == 0 || i==0){
             glTranslatef(13,-9,0);
             sprintf(altitude_str,"%5d",i);
             draw_text(altitude_str,2);
@@ -696,19 +700,19 @@ void draw_altitude_indicator(float altitude){
     glEnd();
 
     //Determine altitude sign
-    if (altitude>=0){
+    if(altitude>=0){
         sign=1; //Y axis is upside down
     } else {
         sign=-1;
     }
 
-    //Divide the altitude into 3 separate groups (thousands, hundreds and tens)
+    //Divide the altitude into 3 separate groups(thousands, hundreds and tens)
     th=floorf(fabs(altitude)/1000);
     h=floorf((fabs(altitude)-th*1000)/100);
     t=floorf(fabs(altitude)-th*1000-h*100);
     t_precise=t;
 
-    if (fmodf(t,20) != 0 && t != 0){
+    if(fmodf(t,20) != 0 && t != 0){
         t=floor(t/20)*20;
     }
 
@@ -716,7 +720,7 @@ void draw_altitude_indicator(float altitude){
     glColor3f(1,1,1);
     glTranslatef(25,-15,1);
     sprintf(altitude_str,"%2.0f",th);
-    if (sign != -1){
+    if(sign != -1){
         draw_text(altitude_str,4);
     } else {
         draw_text("- ",4);
@@ -732,8 +736,8 @@ void draw_altitude_indicator(float altitude){
     //Draw the tens digits
     //Draw four numbers, two above and two below the current rounded altitude. Use a scisor box for croping the excess of the numbers
     glLoadIdentity();
-    glEnable ( GL_SCISSOR_TEST ) ;
-    glScissor (695,360,130,80) ;
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(695,360,130,80);
     glTranslatef(675+25+32,400-15,0); //Move reference to the middle left of the box
     glTranslatef(0,2*fmodf(t_precise,20),0);
 
@@ -744,7 +748,7 @@ void draw_altitude_indicator(float altitude){
 
     glColor3f(1,1,1);                   //t+40
     glTranslatef(0,-80,0);
-    if (t+40 >= 100){        //Avoid 3 digit strings
+    if(t+40 >= 100){        //Avoid 3 digit strings
         sprintf(altitude_str,"%02.0f",t+40-100);
     } else{
         sprintf(altitude_str,"%02.0f",t+40);
@@ -753,7 +757,7 @@ void draw_altitude_indicator(float altitude){
 
     glColor3f(1,1,1);                   //t+20
     glTranslatef(0,40,0);
-    if (t+20 >= 100){        //Avoid 3 digit strings
+    if(t+20 >= 100){        //Avoid 3 digit strings
         sprintf(altitude_str,"%02.0f",t+20-100);
     } else{
         sprintf(altitude_str,"%02.0f",t+20);
@@ -762,7 +766,7 @@ void draw_altitude_indicator(float altitude){
 
     glColor3f(1,1,1);                   //t-20
     glTranslatef(0,80,0);
-    if (100+t-20 >= 100){        //Avoid 3 digit strings
+    if(100+t-20 >= 100){        //Avoid 3 digit strings
         sprintf(altitude_str,"%02.0f",t-20);
     } else{
         sprintf(altitude_str,"%02.0f",(100+t-20));
@@ -771,7 +775,7 @@ void draw_altitude_indicator(float altitude){
 
     glColor3f(1,1,1);                   //t-20
     glTranslatef(0,40,0);
-    if (100+t-40 >= 100){        //Avoid 3 digit strings
+    if(100+t-40 >= 100){        //Avoid 3 digit strings
         sprintf(altitude_str,"%02.0f",t-40);
     } else{
         sprintf(altitude_str,"%02.0f",(100+t-40));
@@ -780,7 +784,7 @@ void draw_altitude_indicator(float altitude){
     glDisable(GL_SCISSOR_TEST);
 }
 
-void drawCircle (GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLint numberOfSides)
+void drawCircle(GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLint numberOfSides)
 {
     GLint numberOfVertices = numberOfSides + 2;
     GLfloat doublePi = 2.0f * PI;
@@ -793,10 +797,10 @@ void drawCircle (GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLint numberOf
     circleVerticesZ[0]=z;
 
 
-    for (int i = 1; i < numberOfVertices; i++)
+    for(int i = 1; i < numberOfVertices; i++)
     {
-        circleVerticesX[i] = x + (radius*cos(i + doublePi/numberOfSides));
-        circleVerticesY[i] = y + (radius*sin(i + doublePi/numberOfSides));
+        circleVerticesX[i] = x +(radius*cos(i + doublePi/numberOfSides));
+        circleVerticesY[i] = y +(radius*sin(i + doublePi/numberOfSides));
         circleVerticesZ[i] = z;
     }
 
@@ -824,7 +828,7 @@ void draw_heading_indicator(float heading)
     int i=0; //Auxiliary counter
     char string_aux[3];
 
-    float midX = (float) WINDOW_SIZE_X/2 - 50;
+    float midX =(float) WINDOW_SIZE_X/2 - 50;
 
     for(u=0;u<360;u=u+10)
     {
@@ -835,7 +839,7 @@ void draw_heading_indicator(float heading)
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
-    glColor3f (0 , 0 , 0.8);
+    glColor3f(0 , 0 , 0.8);
     drawCircle(400,850, 1, 200, 500);
 
 
@@ -858,7 +862,7 @@ void draw_heading_indicator(float heading)
     glEnd();
 
 
-    for (i=0;i<=359;i=i+10)
+    for(i=0;i<=359;i=i+10)
     {
         glLoadIdentity();
         glTranslatef(midX, 850,2);
@@ -917,7 +921,7 @@ void draw_heading_indicator(float heading)
     }
 
 
-    for (i=5;i<=359;i=i+10)
+    for(i=5;i<=359;i=i+10)
     {
         glLoadIdentity();
         glTranslatef(midX, 850,2);
@@ -950,25 +954,15 @@ void draw_vspeed_indicator(float vspeed){
     glTranslatef(WINDOW_SIZE_X-90, midY,-2.0); //Move reference to the middle of the screen
 
     // Draw the background section
-    /* WORKING
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0.470, 0.470, 0.470) ;
-    glVertex3f (0 ,150 ,0) ;
-    glVertex3f (0 ,-150,0) ;
-    glVertex3f (80 ,-150,0) ;
-    glVertex3f (80 ,150,0) ;
-    glEnd () ;
-    */
-
-    glBegin ( GL_POLYGON ) ;
-    glColor3f (0.470, 0.470, 0.470) ;
-    glVertex3f (60 ,100,0);
-    glVertex3f (40 ,150,0);
-    glVertex3f (0,150,0) ;
-    glVertex3f (0 ,-150,0);
-    glVertex3f (40 ,-150,0) ;
-    glVertex3f (60 ,-100,0) ;
-    glEnd () ;
+    glBegin(GL_POLYGON);
+    glColor3f(0.470, 0.470, 0.470);
+    glVertex3f(60 ,100,0);
+    glVertex3f(40 ,150,0);
+    glVertex3f(0,150,0);
+    glVertex3f(0 ,-150,0);
+    glVertex3f(40 ,-150,0);
+    glVertex3f(60 ,-100,0);
+    glEnd();
 
     //Display the indicator scale
     //Draw the 0 indicator
@@ -986,7 +980,7 @@ void draw_vspeed_indicator(float vspeed){
     draw_character('0',2);
 
     //Draw the +-6 indicator
-    for (i=-1;i<=1;i=i+2){
+    for(i=-1;i<=1;i=i+2){
         glLoadIdentity();
         glTranslatef(WINDOW_SIZE_X-60, midY+i*140,-1.5);
         glBegin(GL_POLYGON);
@@ -1002,7 +996,7 @@ void draw_vspeed_indicator(float vspeed){
     }
 
     //Draw the +-4 indicator
-    for (i=-1;i<=1;i=i+2){
+    for(i=-1;i<=1;i=i+2){
         glLoadIdentity();
         glTranslatef(WINDOW_SIZE_X-60, midY+i*125,-1.5);
         glBegin(GL_POLYGON);
@@ -1015,7 +1009,7 @@ void draw_vspeed_indicator(float vspeed){
     }
 
     //Draw the +-2 indicator
-    for (i=-1;i<=1;i=i+2){
+    for(i=-1;i<=1;i=i+2){
         glLoadIdentity();
         glTranslatef(WINDOW_SIZE_X-60, midY+i*110,-1.5);
         glBegin(GL_POLYGON);
@@ -1031,7 +1025,7 @@ void draw_vspeed_indicator(float vspeed){
     }
 
     //Draw the +-1.5 indicator
-    for (i=-1;i<=1;i=i+2){
+    for(i=-1;i<=1;i=i+2){
         glLoadIdentity();
         glTranslatef(WINDOW_SIZE_X-60, midY+i*90,-1.5);
         glBegin(GL_POLYGON);
@@ -1044,7 +1038,7 @@ void draw_vspeed_indicator(float vspeed){
     }
 
     //Draw the +-1 indicator
-    for (i=-1;i<=1;i=i+2){
+    for(i=-1;i<=1;i=i+2){
         glLoadIdentity();
         glTranslatef(WINDOW_SIZE_X-60, midY+i*70,-1.5);
         glBegin(GL_POLYGON);
@@ -1060,7 +1054,7 @@ void draw_vspeed_indicator(float vspeed){
     }
 
     //Draw the +-0.5 indicator
-    for (i=-1;i<=1;i=i+2){
+    for(i=-1;i<=1;i=i+2){
         glLoadIdentity();
         glTranslatef(WINDOW_SIZE_X-60, midY+i*35,-1.5);
         glBegin(GL_POLYGON);
@@ -1073,19 +1067,19 @@ void draw_vspeed_indicator(float vspeed){
     }
 
     //Determine vspeed sign
-    if (vspeed>=0){
+    if(vspeed>=0){
         sign=-1; //Y axis is upside down
     } else {
         sign=1;
     }
 
-    if (fabs(vspeed)<=1){
+    if(fabs(vspeed)<=1){
         vspeed_capped=vspeed_scale_factor[0]*fabs(vspeed);
         i=0;
-    } else if (fabs(vspeed)<=2){
+    } else if(fabs(vspeed)<=2){
         vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*(fabs(vspeed)-1);
         i=1;
-    } else if (fabs(vspeed)<=6.5){
+    } else if(fabs(vspeed)<=6.5){
         vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*1+vspeed_scale_factor[2]*(fabs(vspeed)-2);
         i=2;
     } else {
