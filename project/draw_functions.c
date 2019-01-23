@@ -259,7 +259,7 @@ void draw_artificial_horizon(float pitch, float roll)
     glDisable(GL_SCISSOR_TEST);
 
     //Draw the pitch angle lines and numbers
-    glEnable(GL_SCISSOR_TEST);  //WARNING: está a manter a cor do horizonte artificial mesmo quando este desaparece!
+    glEnable(GL_SCISSOR_TEST);
     glLoadIdentity();
     glTranslatef(midX-50, midY,1);
     glRotatef (roll , 0 , 0 , 1) ;
@@ -302,7 +302,6 @@ void draw_artificial_horizon(float pitch, float roll)
     }
     glEnd();
 
-    /**/
     //Print pitch numbers
     for (i=1; i<=9; i=i+1){
         //Positive pitch
@@ -329,9 +328,6 @@ void draw_artificial_horizon(float pitch, float roll)
         draw_text(pitch_str,2);
         glTranslatef(-60,-60*i-pitch_pixels+7,0);
     }
-    /**/
-
-
     glDisable(GL_SCISSOR_TEST);
 
 
@@ -341,7 +337,7 @@ void draw_artificial_horizon(float pitch, float roll)
     glScissor (200 , 200 , 400 , 400 ) ;
 
 
-    //Draw the fixed triangle
+    //Draw the roll indicator cursor
     glLoadIdentity();
     glTranslatef(midX-50, midY,1);
     glRotatef(roll,0,0,1);
@@ -356,6 +352,7 @@ void draw_artificial_horizon(float pitch, float roll)
     glLoadIdentity();
     glTranslatef(midX-50,midY,1);
     glTranslatef(0, -200,0); //Move the matrix to the arc center
+
     //Draw the 0 degrees triangle
     glBegin(GL_TRIANGLES);
     glColor3f(1,1,1);
@@ -364,26 +361,6 @@ void draw_artificial_horizon(float pitch, float roll)
     glVertex3f(0,10,0);
     glEnd();
 
-
-    //Draw the arc
-    /*
-    glLoadIdentity();
-    glTranslatef(midX, midY-30,1);
-    glRotatef(roll,0,0,1);
-    glBegin(GL_LINE_STRIP);
-    glColor3f(1,1,1);
-
-
-    for (i=-90;i<=90;i++){
-        x = cos(i*PI/180 - PI/2);    //Define X position
-        y = sin(i*PI/180 - PI/2);    //Define Y position
-        glVertex3f(150*x,150*y,0);
-        glVertex3f(150*x,150*y,0);
-
-        //printf("x=%f,y=%f\n",x,y);  //DEBUG
-    }
-    glEnd();
-    /**/
 
     //Draw the angle indicator lines
     //For angles of +-10 and +-20 degrees
@@ -461,7 +438,6 @@ void draw_artificial_horizon(float pitch, float roll)
 
     glLoadIdentity();
     glTranslatef(midX-50, midY,1);
-    //glRotatef(roll,0,0,1);
     glRotatef(-i,0,0,1);
     glTranslatef(0, -190,0); //Move the matrix to the arc center
     glBegin(GL_POLYGON);
@@ -820,36 +796,6 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     glDisable(GL_SCISSOR_TEST);
 }
 
-
-void draw_test(GLuint tex){
-    glLoadIdentity();
-    glClear(GL_COLOR_BUFFER_BIT);
-    glBindTexture(GL_TEXTURE_2D, tex);
-    glEnable(GL_TEXTURE_2D);
-    glTranslatef(1.0f,0.0f,0.0f);
-    glBegin ( GL_POLYGON ) ;
-    //glColor3f (1 ,0 ,0) ;
-    glVertex3f (100 ,100 ,0) ;
-    glVertex3f (100 ,200 ,0) ;
-    glVertex3f (200 ,200 ,0) ;
-    glVertex3f (200 ,100 ,0) ;
-    glEnd () ;
-
-    glBegin(GL_QUADS);
-    glTexCoord2i(0, 0); glVertex2i(100, 100);
-    glTexCoord2i(0, 1); glVertex2i(100, 500);
-    glTexCoord2i(1, 1); glVertex2i(500, 500);
-    glTexCoord2i(1, 0); glVertex2i(500, 100);
-    glEnd();
-
-    glDisable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-
-
-
-
 void drawCircle (GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLint numberOfSides)
 {
     GLint numberOfVertices = numberOfSides + 2;
@@ -887,8 +833,6 @@ void drawCircle (GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLint numberOf
 
 }
 
-
-
 void draw_heading_indicator(float heading)
 {
     int u;
@@ -900,22 +844,9 @@ void draw_heading_indicator(float heading)
 
     for(u=0;u<360;u=u+10)
     {
-        //printf("%d\n",u);
-        //sprintf(&numb[u][3],"%d", u);
         sprintf(string_aux,"%d", u);
         strcpy(numb[u],string_aux);
-        //printf("%3s\n",numb[u]);
-        //getchar();
     }
-
-    /*
-    for (i=0;i<=359;i++){
-        printf("%3s\n",numb[i]);
-        //getchar();
-    }
-    */
-    //getchar();
-
 
     glMatrixMode(GL_MODELVIEW);
 
@@ -1028,50 +959,20 @@ void draw_vspeed_indicator(float vspeed){
     float vspeed_scale_factor[3] = {70, 40, 7.5};
     float vspeed_capped;
     float sign;
-
-    //vspeed=2;
-
     float midY=(float) WINDOW_SIZE_Y/2;
 
-    //Auxiliary position variables
-    float x;
-    float y;
-    float z;
-
-    //roll=0;
-    //pitch=0;
-    //pitch_pixels = pitch * pitch_scale_factor;
-
-    //vspeed=-6;
-
-
-    //glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
-
-    //glTranslatef(0,0,1);
     glTranslatef(WINDOW_SIZE_X-90, midY,-2.0); //Move reference to the middle of the screen
 
-    // Draw the blue section
+    // Draw the background section
     glBegin ( GL_POLYGON ) ;
     glColor3f (0.470, 0.470, 0.470) ;
     glVertex3f (0 ,150 ,0) ;
     glVertex3f (0 ,-150,0) ;
     glVertex3f (80 ,-150,0) ;
     glVertex3f (80 ,150,0) ;
-    //glVertex3f (-500 ,500 ,0) ;
-    //glVertex3f (-500 ,-500,0) ;
-    //glVertex3f (500 ,-500,0) ;
-    //glVertex3f (500 ,500,0) ;
     glEnd () ;
-
-
-
-
-
-    //vspeed_scaled=vspeed*vspeed*sign*vspeed_scale_factor;
-    //vspeed_scaled=(vspeed/6.5)*(65);
-    //vspeed_scaled=(logf(fabs(vspeed_capped)+1)*sign)*35;
 
     //Display the indicator scale
     //Draw the 0 indicator
@@ -1144,9 +1045,6 @@ void draw_vspeed_indicator(float vspeed){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
-
-        //glTranslatef(-25,-7,0);
-        //draw_character('1',2);
     }
 
     //Draw the +-1 indicator
@@ -1176,9 +1074,6 @@ void draw_vspeed_indicator(float vspeed){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
-
-        //glTranslatef(-25,-7,0);
-        //draw_character('4',2);
     }
 
     //Determine vspeed sign
@@ -1202,15 +1097,10 @@ void draw_vspeed_indicator(float vspeed){
         i=2;
     }
 
-
-
-    //printf("vspeed=%f   vspeed_capped=%f    vspeed_scale=%f\n",vspeed, vspeed_capped,vspeed_scale_factor[i]);
     glLoadIdentity();
-    //glEnable (GL_SCISSOR_TEST) ;
-    //glScissor (WINDOW_SIZE_X-60 , midY-150, 70 , 300 );
     glTranslatef(WINDOW_SIZE_X-10, midY,-1.0);
-    //glTranslatef(80,0,0);
-    //glRotatef(vspeed_scaled,0,0,1);
+
+    //Draw the cursor
     glBegin(GL_POLYGON);
     glColor3f(1,1,1);
     glVertex3f(-50,vspeed_capped*sign+2,0);
@@ -1218,14 +1108,6 @@ void draw_vspeed_indicator(float vspeed){
     glVertex3f(0,-2,0);
     glVertex3f(0,2,0);
     glEnd();
-
-    /**/
-
-    //glDisable(GL_SCISSOR_TEST);
-
-
-
-
 }
 
 
