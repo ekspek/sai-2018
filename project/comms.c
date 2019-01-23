@@ -37,9 +37,15 @@ float float_swap(float value){
 	return val.f;
 }
 
-/* Function that contains the code run by the communications thread */
+/* Function that contains the code run by the communications thread
+ *
+ * The port is defined in the main program and passed into this function.
+ * Opens up a socket for receiving UDP data and listens to it in the main
+ * loop of the thread.
+ *
+ * Whenever data arrives, changes the shared main variable data_current,
+ * which is locked beforehand via a mutex. */
 void* thread_comms(void* ptr){
-	printf("Started communications thread\n");
 
 	/* Setting up sockets and communications */
 	struct sockaddr_in server_addr, client_addr;
@@ -88,7 +94,6 @@ void* thread_comms(void* ptr){
 			data_current.roll = float_swap((*(float*)(buffer + 4 * wordsize)));
 			data_current.heading = float_swap((*(float*)(buffer + 5 * wordsize)));
 			pthread_mutex_unlock(&mutex_main);
-			//printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
 		}
 	}
 }

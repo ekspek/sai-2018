@@ -28,3 +28,4 @@ project/main
 CMakeLists*
 build-project-Desktop-Default/
 comms
+.stub.py.swo
