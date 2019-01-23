@@ -158,9 +158,9 @@ int main ( int argc , char * argv [] ) {
 
         /* DEBUG ROUTINEs */
         data_current.altitude = data_current.altitude + 2*i;
-        if (1200 - data_current.altitude <= 0.1)
+        if (1000 - data_current.altitude <= 0.1)
             i = -1;
-        if (300 + data_current.altitude <= -0.1)
+        if (1000 + data_current.altitude <= -0.1)
             i = 1;
 
         data_current.pitch = data_current.pitch + j;

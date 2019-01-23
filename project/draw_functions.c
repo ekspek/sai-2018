@@ -648,8 +648,8 @@ void draw_altitude_indicator(float altitude){
 
     //Draw the indicator scale
     //Move the entire slider for the amount of pixels corresponding to current altitude
-    glTranslatef(0,altitude_pixels + 100*altitude_scale_factor,0);
-    for (i=-900;i<=50000;i=i+100){
+    glTranslatef(0,altitude_pixels + 110*altitude_scale_factor,0);
+    for (i=-1000;i<=50000;i=i+100){
         glTranslatef(0,-10*altitude_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -715,18 +715,18 @@ void draw_altitude_indicator(float altitude){
     //Draw the thousands digit
     glColor3f(1,1,1);
     glTranslatef(25,-15,1);
-    sprintf(altitude_str,"%1.0f",th);
+    sprintf(altitude_str,"%2.0f",th);
     if (sign != -1){
-        draw_text(altitude_str,5);
+        draw_text(altitude_str,4);
     } else {
-        draw_text("-",5);
+        draw_text("- ",4);
     }
 
     //Draw the hundreds digit
     glColor3f(1,1,1);
-    glTranslatef(32,0,0);
+    glTranslatef(48,0,0);
     sprintf(altitude_str,"%1.0f",h);
-    draw_text(altitude_str,5);
+    draw_text(altitude_str,4);
 
 
     //Draw the tens digits
@@ -738,9 +738,9 @@ void draw_altitude_indicator(float altitude){
     glTranslatef(0,2*fmodf(t_precise,20),0);
 
     glColor3f(1,1,1);                   //t
-    glTranslatef(32,0,0);
+    glTranslatef(42,0,0);
     sprintf(altitude_str,"%02.0f",t);
-    draw_text(altitude_str,5);
+    draw_text(altitude_str,4);
 
     glColor3f(1,1,1);                   //t+40
     glTranslatef(0,-80,0);
@@ -749,7 +749,7 @@ void draw_altitude_indicator(float altitude){
     } else{
         sprintf(altitude_str,"%02.0f",t+40);
     }
-    draw_text(altitude_str,5);
+    draw_text(altitude_str,4);
 
     glColor3f(1,1,1);                   //t+20
     glTranslatef(0,40,0);
@@ -758,7 +758,7 @@ void draw_altitude_indicator(float altitude){
     } else{
         sprintf(altitude_str,"%02.0f",t+20);
     }
-    draw_text(altitude_str,5);
+    draw_text(altitude_str,4);
 
     glColor3f(1,1,1);                   //t-20
     glTranslatef(0,80,0);
@@ -767,7 +767,7 @@ void draw_altitude_indicator(float altitude){
     } else{
         sprintf(altitude_str,"%02.0f",(100+t-20));
     }
-    draw_text(altitude_str,5);
+    draw_text(altitude_str,4);
 
     glColor3f(1,1,1);                   //t-20
     glTranslatef(0,40,0);
@@ -776,7 +776,7 @@ void draw_altitude_indicator(float altitude){
     } else{
         sprintf(altitude_str,"%02.0f",(100+t-40));
     }
-    draw_text(altitude_str,5);
+    draw_text(altitude_str,4);
     glDisable(GL_SCISSOR_TEST);
 }
 
