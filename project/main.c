@@ -156,7 +156,7 @@ int main ( int argc , char * argv [] ) {
         }
 
 
-        /* DEBUG ROUTINEs */
+        /* DEBUG ROUTINEs
         data_current.altitude = data_current.altitude + 2*i;
         if (1000 - data_current.altitude <= 0.1)
             i = -1;

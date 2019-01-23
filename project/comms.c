@@ -96,7 +96,7 @@ void* thread_comms(void* ptr){
 			data_current.heading = float_swap((*(float*)(buffer + 9 * wordsize)));
 			gs = float_swap((*(float*)(buffer + 5 * wordsize)));
 			vpath = float_swap((*(float*)(buffer + 3 * wordsize)));
-			data_current.vspeed = gs * sin(vpath);
+			data_current.vspeed = gs * tan(vpath * M_PI / 180);
 			pthread_mutex_unlock(&mutex_main);
 		}
 	}
