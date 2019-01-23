@@ -483,13 +483,13 @@ void draw_airspeed_indicator(float airspeed){
     float airspeed_scale_factor=5; //2 pixels per knot
     float airspeed_pixels;
     char airspeed_str[3];
+    float sign;
 
     //Auxiliary variables for the units, tens and hundreds
     float u;
     float t;
     float h;
 
-    //airspeed=0;
     airspeed_pixels = airspeed * airspeed_scale_factor;
     max_airspeed_pixels= max_airspeed * airspeed_scale_factor;
 
@@ -510,16 +510,11 @@ void draw_airspeed_indicator(float airspeed){
     glVertex3f (0,-350,0) ;
     glEnd () ;
 
-    // Draw the indicator scale
-    //Move the entire slider for the amount of pixels corresponding to current airspeed
-    //glTranslatef(0,airspeed_pixels,0);
-    //glTranslatef(75,0,1);
+    //Translate the entire scale according to current airspeed
+    glTranslatef(75,airspeed_pixels+10*airspeed_scale_factor,1);
 
-
-
-    glTranslatef(75,airspeed_pixels+50*airspeed_scale_factor,1);
-
-    for (i=-40;i<=max_airspeed;i=i+10){
+    //Draw the airspeed indicator scale
+    for (i=0;i<=max_airspeed;i=i+10){
         glTranslatef(0,-10*airspeed_scale_factor,0);
         glBegin(GL_POLYGON);
         glColor3f(1,1,1);
@@ -542,6 +537,7 @@ void draw_airspeed_indicator(float airspeed){
     //Draw the current airspeed meter
     glLoadIdentity();
     glTranslatef(50, 400,1.0); //Move reference to the middle left of the box
+
     //Draw the white outline
     glBegin(GL_POLYGON);
     glColor3f(1,1,1);
@@ -568,9 +564,9 @@ void draw_airspeed_indicator(float airspeed){
 
 
     //Divide the IAS into 3 separate, single digits
-    h=floorf(airspeed/100);
-    t=floorf((airspeed-h*100)/10);
-    u=floorf(airspeed-h*100-t*10);
+    h=(floorf(airspeed/100));
+    t=(floorf((airspeed-h*100)/10));
+    u=(floorf(airspeed-h*100-t*10));
 
     //Draw the hundreds digit
     glColor3f(1,1,1);
@@ -581,14 +577,65 @@ void draw_airspeed_indicator(float airspeed){
     //Draw the tens digit
     glColor3f(1,1,1);
     glTranslatef(32,0,0);
-    sprintf(airspeed_str,"%1.0f",t);
+    if (sign == -1){
+        sprintf(airspeed_str,"%1.0f",-t);
+    } else {
+        sprintf(airspeed_str,"%1.0f",t);
+    }
     draw_text(airspeed_str,5);
 
+
     //Draw the units digit
-    glColor3f(1,1,1);
+    //Draw four numbers, two above and two below the current rounded airspeed. Use a scissor box for croping the excess of the numbers
+    glLoadIdentity();
+    glEnable ( GL_SCISSOR_TEST ) ;
+    glScissor (47,360,100,80) ;
+    glTranslatef(50-35+32, 400-15,1); //Move reference to the middle left of the box
+    glTranslatef(0,u*0.2*sign,0);
+
+    glColor3f(1,1,1);                   //u
     glTranslatef(32,0,0);
     sprintf(airspeed_str,"%1.0f",u);
     draw_text(airspeed_str,5);
+
+    glColor3f(1,1,1);                   //u+2
+    glTranslatef(0,-80,0);
+    if (u+2 >= 10){        //Avoid 2 digit strings
+        sprintf(airspeed_str,"%01.0f",u+2-10);
+    } else{
+        sprintf(airspeed_str,"%01.0f",u+2);
+    }
+    draw_text(airspeed_str,5);
+
+    glColor3f(1,1,1);                   //t+20
+    glTranslatef(0,40,0);
+    if (u+1 >= 10){        //Avoid 2 digit strings
+        sprintf(airspeed_str,"%01.0f",u+1-10);
+    } else{
+        sprintf(airspeed_str,"%01.0f",u+1);
+    }
+    draw_text(airspeed_str,5);
+
+    glColor3f(1,1,1);                   //t-20
+    glTranslatef(0,80,0);
+    if (10+u-1 >= 10){        //Avoid 2 digit strings
+        sprintf(airspeed_str,"%01.0f",u-1);
+    } else{
+        sprintf(airspeed_str,"%01.0f",(10+u-1));
+    }
+    draw_text(airspeed_str,5);
+
+    glColor3f(1,1,1);                   //t-20
+    glTranslatef(0,40,0);
+    if (10+u-2 >= 10){        //Avoid 2 digit strings
+        sprintf(airspeed_str,"%01.0f",u-2);
+    } else{
+        sprintf(airspeed_str,"%01.0f",(10+u-2));
+    }
+    draw_text(airspeed_str,5);
+    glDisable(GL_SCISSOR_TEST);
+
+
 }
 
 void draw_altitude_indicator(float altitude, GLuint tex){
@@ -599,15 +646,16 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     float altitude_scale_factor=5; //5 pixels per 10 feet
     float altitude_pixels;
     char altitude_str[5];
-    char altitude_disp[2];
 
     //Auxiliary variables for the tens, hundreds and thousands
     float t;
+    float t_precise;
     float h;
     float th;
 
     //roll=0;
     //pitch=0;
+    //altitude = 0;
     altitude_pixels = altitude*0.1 * altitude_scale_factor;
     max_altitude_pixels= max_altitude*0.1 * altitude_scale_factor;
 
@@ -700,6 +748,7 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     th=floorf(altitude/1000);
     h=floorf((altitude-th*1000)/100);
     t=floorf(altitude-th*1000-h*100);
+    t_precise=t;
 
     if (fmodf(t,20) != 0 && t != 0){
         printf("t1=%f\n",t);
@@ -711,35 +760,64 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     //Draw the thousands digit
     glColor3f(1,1,1);
     glTranslatef(25,-15,1);
-    sprintf(altitude_disp,"%1.0f",th);
-    draw_text(altitude_disp,5);
+    sprintf(altitude_str,"%1.0f",th);
+    draw_text(altitude_str,5);
 
     //Draw the hundreds digit
     glColor3f(1,1,1);
     glTranslatef(32,0,0);
-    sprintf(altitude_disp,"%1.0f",h);
-    draw_text(altitude_disp,5);
+    sprintf(altitude_str,"%1.0f",h);
+    draw_text(altitude_str,5);
 
     //Draw the tens digits
-    //Draw two numbers, one above and one below the current rounded altitude
+    //Draw four numbers, two above and two below the current rounded altitude. Use a scisor box for croping the excess of the numbers
     glLoadIdentity();
+    glEnable ( GL_SCISSOR_TEST ) ;
+    glScissor (695,360,130,80) ;
     glTranslatef(675+25+32,400-15,0); //Move reference to the middle left of the box
+    glTranslatef(0,2*fmodf(t_precise,20),0);
+
     glColor3f(1,1,1);                   //t
     glTranslatef(32,0,0);
-    sprintf(altitude_disp,"%02.0f",t);
-    draw_text(altitude_disp,5);
+    sprintf(altitude_str,"%02.0f",t);
+    draw_text(altitude_str,5);
+
+    glColor3f(1,1,1);                   //t+40
+    glTranslatef(0,-80,0);
+    if (t+40 >= 100){        //Avoid 3 digit strings
+        sprintf(altitude_str,"%02.0f",t+40-100);
+    } else{
+        sprintf(altitude_str,"%02.0f",t+40);
+    }
+    draw_text(altitude_str,5);
 
     glColor3f(1,1,1);                   //t+20
-    glTranslatef(0,-40,0);
-    sprintf(altitude_disp,"%02.0f",t+20);
-    draw_text(altitude_disp,5);
+    glTranslatef(0,40,0);
+    if (t+20 >= 100){        //Avoid 3 digit strings
+        sprintf(altitude_str,"%02.0f",t+20-100);
+    } else{
+        sprintf(altitude_str,"%02.0f",t+20);
+    }
+    draw_text(altitude_str,5);
 
     glColor3f(1,1,1);                   //t-20
     glTranslatef(0,80,0);
-    sprintf(altitude_disp,"%02.0f",ceilf(100+t-20));
-    printf("Alt_disp=%s",altitude_disp);
-    draw_text(altitude_disp,5);
+    if (100+t-20 >= 100){        //Avoid 3 digit strings
+        sprintf(altitude_str,"%02.0f",t-20);
+    } else{
+        sprintf(altitude_str,"%02.0f",(100+t-20));
+    }
+    draw_text(altitude_str,5);
 
+    glColor3f(1,1,1);                   //t-20
+    glTranslatef(0,40,0);
+    if (100+t-40 >= 100){        //Avoid 3 digit strings
+        sprintf(altitude_str,"%02.0f",t-40);
+    } else{
+        sprintf(altitude_str,"%02.0f",(100+t-40));
+    }
+    draw_text(altitude_str,5);
+    glDisable(GL_SCISSOR_TEST);
 }
 
 
@@ -948,17 +1026,11 @@ void draw_vspeed_indicator(float vspeed){
 
     int i=0; //Auxiliary counter
     float vspeed_scale_factor[3] = {70, 40, 7.5};
-    float vspeed_scaled;
     float vspeed_capped;
-    //float pitch_pixels;
-    char pitch_str[2];
     float sign;
 
     //vspeed=2;
 
-
-
-    //float midX=(float) WINDOW_SIZE_X/2;
     float midY=(float) WINDOW_SIZE_Y/2;
 
     //Auxiliary position variables

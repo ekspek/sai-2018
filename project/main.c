@@ -173,7 +173,7 @@ int main ( int argc , char * argv [] ) {
                 break ;
         }
 
-        /* DEBUG PITCH AND ROLL ROUTINE */
+        /* DEBUG PITCH AND ROLL ROUTINE
         data_current.altitude = data_current.altitude + j;
         //printf("i=%f j=%f\n",i,j);
         if (40000 - data_current.pitch <= 0.1)
