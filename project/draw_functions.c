@@ -620,7 +620,7 @@ void draw_altitude_indicator(float altitude){
     float max_altitude_pixels;
     float altitude_scale_factor=5; //5 pixels per 10 feet
     float altitude_pixels;
-    char altitude_str[5];
+    char altitude_str[6];
     float sign;
 
     //Auxiliary variables for the tens, hundreds and thousands
