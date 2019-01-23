@@ -33,8 +33,19 @@ Data data_current;
 
 int main ( int argc , char * argv [] ) {
 
-    uint32_t port = 8500;
+    if(argc != 2){
+        fprintf(stderr, "Usage: %s <port>\n", argv[0]);
+        exit(1);
+    }
+
+    uint32_t port = atoi(argv[1]);
+    if(port <= 0 || port > 99999){
+        fprintf(stderr, "Error with port input.\n");
+        exit(1);
+    } 
+
     pthread_t thread_comms_id;
+    pthread_create(&thread_comms_id,NULL,thread_comms,&port);
 
     char test_string[20];
 
@@ -62,8 +73,6 @@ int main ( int argc , char * argv [] ) {
     //float m=1; //airspeed test variable
     float n=1; //airspeed test variable
     float m=1; //vspeed test variable
-
-    pthread_create(&thread_comms_id,NULL,thread_comms,&port);
 
     SDL_Init ( SDL_INIT_VIDEO ) ;
 
