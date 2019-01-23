@@ -950,12 +950,24 @@ void draw_vspeed_indicator(float vspeed){
     glTranslatef(WINDOW_SIZE_X-90, midY,-2.0); //Move reference to the middle of the screen
 
     // Draw the background section
+    /* WORKING
     glBegin ( GL_POLYGON ) ;
     glColor3f (0.470, 0.470, 0.470) ;
     glVertex3f (0 ,150 ,0) ;
     glVertex3f (0 ,-150,0) ;
     glVertex3f (80 ,-150,0) ;
     glVertex3f (80 ,150,0) ;
+    glEnd () ;
+    */
+
+    glBegin ( GL_POLYGON ) ;
+    glColor3f (0.470, 0.470, 0.470) ;
+    glVertex3f (60 ,100,0);
+    glVertex3f (40 ,150,0);
+    glVertex3f (0,150,0) ;
+    glVertex3f (0 ,-150,0);
+    glVertex3f (40 ,-150,0) ;
+    glVertex3f (60 ,-100,0) ;
     glEnd () ;
 
     //Display the indicator scale
@@ -1085,6 +1097,9 @@ void draw_vspeed_indicator(float vspeed){
     glTranslatef(WINDOW_SIZE_X-10, midY,-1.0);
 
     //Draw the cursor
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(WINDOW_SIZE_X-90,midY-150,60,300);
+
     glBegin(GL_POLYGON);
     glColor3f(1,1,1);
     glVertex3f(-50,vspeed_capped*sign+2,0);
@@ -1092,6 +1107,7 @@ void draw_vspeed_indicator(float vspeed){
     glVertex3f(0,-2,0);
     glVertex3f(0,2,0);
     glEnd();
+    glDisable(GL_SCISSOR_TEST);
 }
 
 
