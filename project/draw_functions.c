@@ -548,7 +548,7 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     int i=0; //Auxiliary counter
     float max_altitude = 50000; //Maximum altitude of the aircraft in feet
     float max_altitude_pixels;
-    float altitude_scale_factor=5; //2 pixels per knot
+    float altitude_scale_factor=5; //5 pixels per 10 feet
     float altitude_pixels;
     char altitude_str[5];
 
@@ -559,8 +559,8 @@ void draw_altitude_indicator(float altitude, GLuint tex){
 
     //roll=0;
     //pitch=0;
-    altitude_pixels = altitude * altitude_scale_factor;
-    max_altitude_pixels= max_altitude * altitude_scale_factor;
+    altitude_pixels = altitude*0.1 * altitude_scale_factor;
+    max_altitude_pixels= max_altitude*0.1 * altitude_scale_factor;
 
 
 
@@ -597,7 +597,7 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     //Move the entire slider for the amount of pixels corresponding to current airspeed
     //glTranslatef(0,altitude_pixels,0);
     //glTranslatef(0,0,1);
-    glTranslatef(0,altitude_pixels - 0.45*altitude_pixels,1);
+    glTranslatef(0,altitude_pixels + 110*altitude_scale_factor,1);
     for (i=-1000;i<=50000;i=i+100){
         glTranslatef(0,-10*altitude_scale_factor,0);
         glBegin(GL_POLYGON);
@@ -989,14 +989,21 @@ void draw_vspeed_indicator(float vspeed){
         //draw_character('4',2);
     }
 
+    //Determine vspeed sign
+    if (vspeed>=0){
+        sign=-1; //Y axis is upside down
+    } else {
+        sign=1;
+    }
+
     if (fabs(vspeed)<=1){
-        vspeed_capped=vspeed_scale_factor[0]*vspeed;
+        vspeed_capped=vspeed_scale_factor[0]*fabs(vspeed);
         i=0;
     } else if (fabs(vspeed)<=2){
-        vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*(vspeed-1);
+        vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*(fabs(vspeed)-1);
         i=1;
     } else if (fabs(vspeed)<=6.5){
-        vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*1+vspeed_scale_factor[2]*(vspeed-2);
+        vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*1+vspeed_scale_factor[2]*(fabs(vspeed)-2);
         i=2;
     } else {
         vspeed_capped=vspeed_scale_factor[0]*1+vspeed_scale_factor[1]*1+vspeed_scale_factor[2]*(6.5-2);
@@ -1014,8 +1021,8 @@ void draw_vspeed_indicator(float vspeed){
     //glRotatef(vspeed_scaled,0,0,1);
     glBegin(GL_POLYGON);
     glColor3f(1,1,1);
-    glVertex3f(-50,vspeed_capped+2,0);
-    glVertex3f(-50,vspeed_capped-2,0);
+    glVertex3f(-50,vspeed_capped*sign+2,0);
+    glVertex3f(-50,vspeed_capped*sign-2,0);
     glVertex3f(0,-2,0);
     glVertex3f(0,2,0);
     glEnd();

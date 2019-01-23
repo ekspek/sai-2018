@@ -50,12 +50,11 @@ int main ( int argc , char * argv [] ) {
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    data_current.altitude = 200;//3000;
+    data_current.altitude = 0;//3000;
     data_current.ias = 0;
     data_current.vspeed = 0;
     data_current.pitch = 0;
     data_current.roll = 0;
-    data_current.heading = 0;
     //float i=0; //pitch test variable
     float j=1; //pitch test variable
     //float k=0; //roll test variable
@@ -194,6 +193,8 @@ int main ( int argc , char * argv [] ) {
 
         if (9 + data_current.vspeed <= -0.1)
             m = 1;
+        */
+        printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
         /* END DEBUG PITCH ROUTINE*/
     }
     SDL_Quit () ;
