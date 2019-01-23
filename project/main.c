@@ -194,7 +194,7 @@ int main ( int argc , char * argv [] ) {
         if (9 + data_current.vspeed <= -0.1)
             m = 1;
         */
-        printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
+        //printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
         /* END DEBUG PITCH ROUTINE*/
     }
     SDL_Quit () ;
