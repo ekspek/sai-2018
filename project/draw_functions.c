@@ -614,7 +614,7 @@ void draw_airspeed_indicator(float airspeed){
 
 }
 
-void draw_altitude_indicator(float altitude, GLuint tex){
+void draw_altitude_indicator(float altitude){
 
     int i=0; //Auxiliary counter
     float max_altitude = 50000; //Maximum altitude of the aircraft in feet
@@ -644,32 +644,17 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     glScissor (675,100,110,600 ) ;
     glTranslatef(675,400,-2.0); //Move reference to the middle left of the box
 
-
-    // Draw the indicator background
-    //glClear(GL_COLOR_BUFFER_BIT);
-    //glBindTexture(GL_TEXTURE_2D, tex);
-    //glEnable(GL_TEXTURE_2D);
-
     glBegin ( GL_POLYGON ) ;
     glColor3f (0.470, 0.470, 0.470);
-    //glTexCoord2i(0, 0);
     glVertex3f (110,350,0);
-    //glTexCoord2i(0, 1);
     glVertex3f (-100 ,350,0);
-    //glTexCoord2i(1, 1);
     glVertex3f (-100 ,-350,0) ;
-    //glTexCoord2i(1, 0);
     glVertex3f (110,-350,0) ;
     glEnd () ;
 
-    //glDisable(GL_TEXTURE_2D);
-    //glBindTexture(GL_TEXTURE_2D, 0);
 
-    // Draw the indicator scale
-    /**/
-    //Move the entire slider for the amount of pixels corresponding to current airspeed
-    //glTranslatef(0,altitude_pixels,0);
-    //glTranslatef(0,0,1);
+    //Draw the indicator scale
+    //Move the entire slider for the amount of pixels corresponding to current altitude
     glTranslatef(0,altitude_pixels + 110*altitude_scale_factor,0);
     for (i=-1000;i<=50000;i=i+100){
         glTranslatef(0,-10*altitude_scale_factor,0);
@@ -680,8 +665,6 @@ void draw_altitude_indicator(float altitude, GLuint tex){
         glVertex3f(0,-1,0);
         glVertex3f(0,1,0);
         glEnd();
-        //draw_text("4",0,0,0,1);
-        //draw_character('1', 4);
         if (i%20 == 0 || i==0){
             glTranslatef(13,-9,0);
             sprintf(altitude_str,"%5d",i);
@@ -689,13 +672,12 @@ void draw_altitude_indicator(float altitude, GLuint tex){
             glTranslatef(-13,9,0);
         }
     }
-    /**/
-
     glDisable(GL_SCISSOR_TEST);
 
     //Draw the current altitude meter
     glLoadIdentity();
     glTranslatef(675,400,-1); //Move reference to the middle left of the box
+
     //Draw the white outline
     glBegin(GL_POLYGON);
     glColor3f(1,1,1);
@@ -727,10 +709,13 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     t_precise=t;
 
     if (fmodf(t,20) != 0 && t != 0){
+        //DEBUG
         printf("t1=%f\n",t);
-        //getchar();
+        //DEBUG
         t=floor(t/20)*20;
+        //DEBUG
         printf("t1=%f\n",t);
+        //DEBUG
     }
 
     //Draw the thousands digit

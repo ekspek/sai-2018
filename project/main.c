@@ -97,17 +97,6 @@ int main ( int argc , char * argv [] ) {
     glEnable ( GL_DEPTH_TEST ) ;
     glDepthFunc ( GL_LEQUAL ) ;
 
-    /* Draws until user orders to quit */
-
-    /* GENERATE TEXTURE TEST*/
-    //create test checker image
-    //    unsigned char texDat[64];
-    //    for (int i = 0; i < 64; ++i)
-    //        texDat[i] = ((i + (i / 8)) % 2) * 128 + 127;
-    GLuint tex;
-    //generate_altimeter_texture(&tex);
-
-
     /* Main graphics loop */
     while(1){
         SDL_Event event ;
@@ -122,7 +111,7 @@ int main ( int argc , char * argv [] ) {
         draw_artificial_horizon(data_current.pitch, data_current.roll);
         draw_airspeed_indicator(data_current.ias);
         draw_heading_indicator(data_current.heading);
-        draw_altitude_indicator(data_current.altitude, tex);
+        draw_altitude_indicator(data_current.altitude);
         draw_vspeed_indicator(data_current.vspeed);
         pthread_mutex_unlock(&mutex_main);
 
