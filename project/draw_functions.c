@@ -501,7 +501,6 @@ void draw_airspeed_indicator(float airspeed){
     glScissor (50,100,100,600 ) ;
     glTranslatef(50, 400,-2.0); //Move reference to the middle left of the box
 
-
     // Draw the indicator background
     glBegin ( GL_POLYGON ) ;
     glColor3f (0.470, 0.470, 0.470);
@@ -515,7 +514,11 @@ void draw_airspeed_indicator(float airspeed){
     //Move the entire slider for the amount of pixels corresponding to current airspeed
     //glTranslatef(0,airspeed_pixels,0);
     //glTranslatef(75,0,1);
-    glTranslatef(75,airspeed_pixels,1);
+
+
+
+    glTranslatef(75,airspeed_pixels+50*airspeed_scale_factor,1);
+
     for (i=-40;i<=max_airspeed;i=i+10){
         glTranslatef(0,-10*airspeed_scale_factor,0);
         glBegin(GL_POLYGON);
@@ -569,7 +572,6 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     glTranslatef(675,400,-2.0); //Move reference to the middle left of the box
 
 
-
     // Draw the indicator background
     //glClear(GL_COLOR_BUFFER_BIT);
     //glBindTexture(GL_TEXTURE_2D, tex);
@@ -595,7 +597,7 @@ void draw_altitude_indicator(float altitude, GLuint tex){
     //Move the entire slider for the amount of pixels corresponding to current airspeed
     //glTranslatef(0,altitude_pixels,0);
     //glTranslatef(0,0,1);
-    glTranslatef(0,altitude_pixels,1);
+    glTranslatef(0,altitude_pixels - 0.45*altitude_pixels,1);
     for (i=-1000;i<=50000;i=i+100){
         glTranslatef(0,-10*altitude_scale_factor,0);
         glBegin(GL_POLYGON);
@@ -1003,7 +1005,7 @@ void draw_vspeed_indicator(float vspeed){
 
 
 
-    printf("vspeed=%f   vspeed_capped=%f    vspeed_scale=%f\n",vspeed, vspeed_capped,vspeed_scale_factor[i]);
+    //printf("vspeed=%f   vspeed_capped=%f    vspeed_scale=%f\n",vspeed, vspeed_capped,vspeed_scale_factor[i]);
     glLoadIdentity();
     //glEnable (GL_SCISSOR_TEST) ;
     //glScissor (WINDOW_SIZE_X-60 , midY-150, 70 , 300 );
