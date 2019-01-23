@@ -27,3 +27,5 @@ project/main
 ## CMake aux files
 CMakeLists*
 build-project-Desktop-Default/
+comms
+.stub.py.swo

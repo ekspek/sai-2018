@@ -3,16 +3,18 @@
 +--------------------------------------------------------+
 |           Grupo 11 - Projecto E2                       |
 |                                                        |
-|Pedro Afonso                                            |
-|João Manito                                             |
-|Daniel Schiffart                                        |
+| Pedro Afonso                                           |
+| João Manito                                            |
+| Daniel de Schiffart                                    |
 +--------------------------------------------------------+
-|Protótipos das funções para gerar os diversos           |
-|indicadores da aeronave                                 |
+| Protótipos das funções para gerar os diversos          |
+| indicadores da aeronave                                |
 +-------------------------------------------------------*/
 
 #ifndef __GLOBAL_VARIABLES_H__
 #define __GLOBAL_VARIABLES_H__
+
+#include <pthread.h>
 
 #define WINDOW_SIZE_X 900
 #define WINDOW_SIZE_Y 800
@@ -27,7 +29,7 @@
  * IAS is defined in knots.
  * Vertical speed is feet per minute.
  * Pitch, roll and heading are defined in degrees. */
-typedef struct Data {
+typedef struct data {
 	double altitude;
 	double ias;
 	double vspeed;

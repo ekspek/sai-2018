@@ -7,13 +7,29 @@
 | João Manito                                            |
 | Daniel de Schiffart                                    |
 +--------------------------------------------------------+
-| Prototipos das funcoes do tipo de letra                |
+| Funcoes da thread de recepcao de dados                 |
 +-------------------------------------------------------*/
 
-#ifndef __DRAW_FUNCTIONS_H__
-#define __DRAW_FUNCTIONS_H__
+#ifndef __COMMS_H__
+#define __COMMS_H__
 
-void draw_square(int x, int y, int size);
-void draw_character(char n, int scale);
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <unistd.h>
+#include <string.h>
+#include <pthread.h>
+#include <math.h>
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <signal.h>
+
+#include "global_variables.h"
+
+float float_swap(float value);
+void* thread_comms(void *ptr);
 
 #endif
