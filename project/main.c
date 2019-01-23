@@ -33,12 +33,15 @@ Data data_current;
 
 int main ( int argc , char * argv [] ) {
 
+    /*DEBUG variables
     float i=1; //altitude test variable
     float j=1; //pitch test variable
     float k=1; //heading test variable
     float l=1; //roll test variable
     float n=1; //airspeed test variable
     float m=1; //vspeed test variable
+    /*END DEBUG variables
+    */
 
 
     if(argc != 2){
@@ -61,7 +64,7 @@ int main ( int argc , char * argv [] ) {
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    data_current.altitude = 2690;
+    data_current.altitude = 50000;
     data_current.pitch = 4.9;
     data_current.heading = 322;
     data_current.roll = 0;
@@ -121,7 +124,7 @@ int main ( int argc , char * argv [] ) {
         sprintf(test_string,"V %f",data_current.vspeed);
         draw_text(test_string,2);
         test_string[0] = '\0';
-        glTranslatef(150,-40,0);
+        glTranslatef(180,-40,0);
         sprintf(test_string,"P %f",data_current.pitch);
         draw_text(test_string,2);
         test_string[0] = '\0';
@@ -158,7 +161,7 @@ int main ( int argc , char * argv [] ) {
         }
 
 
-        /* DEBUG ROUTINEs */
+        /* DEBUG ROUTINES
         data_current.altitude = data_current.altitude + 2*i;
         if (1000 - data_current.altitude <= 0.1)
             i = -1;
@@ -197,9 +200,10 @@ int main ( int argc , char * argv [] ) {
 
         if (9 + data_current.vspeed <= -0.1)
             m = 1;
-        /**/
-        //printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
-        /* END DEBUG PITCH ROUTINE*/
+
+        printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
+        */
+        /* END DEBUG ROUTINES*/
     }
     SDL_Quit();
     pthread_cancel(thread_comms_id);
