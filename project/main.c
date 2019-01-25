@@ -32,8 +32,9 @@ pthread_mutex_t mutex_main = PTHREAD_MUTEX_INITIALIZER;
 Data data_current;
 
 int main ( int argc , char * argv [] ) {
+    Data data_display;
 
-    /*DEBUG variables
+    /* DEBUG variables
     float i=1; //altitude test variable
     float j=1; //pitch test variable
     float k=1; //heading test variable
@@ -103,37 +104,39 @@ int main ( int argc , char * argv [] ) {
          * while their values are being changed by the communications
          * thread */
         pthread_mutex_lock(&mutex_main);
-        draw_artificial_horizon(data_current.pitch, data_current.roll);
-        draw_airspeed_indicator(data_current.ias);
-        draw_heading_indicator(data_current.heading);
-        draw_altitude_indicator(data_current.altitude);
-        draw_vspeed_indicator(data_current.vspeed);
+        data_display = data_current;
         pthread_mutex_unlock(&mutex_main);
+
+        draw_artificial_horizon(data_display.pitch, data_display.roll);
+        draw_airspeed_indicator(data_display.ias);
+        draw_heading_indicator(data_display.heading);
+        draw_altitude_indicator(data_display.altitude);
+        draw_vspeed_indicator(data_display.vspeed);
 
         /* Debug value display */
         glLoadIdentity();
         glTranslatef(20,20,1.0);
-        sprintf(test_string,"A %f",data_current.altitude);
+        sprintf(test_string,"A %f",data_display.altitude);
         draw_text(test_string,2);
         test_string[0] = '\0';
         glTranslatef(0,20,0);
-        sprintf(test_string,"S %f",data_current.ias);
+        sprintf(test_string,"S %f",data_display.ias);
         draw_text(test_string,2);
         test_string[0] = '\0';
         glTranslatef(0,20,0);
-        sprintf(test_string,"V %f",data_current.vspeed);
+        sprintf(test_string,"V %f",data_display.vspeed);
         draw_text(test_string,2);
         test_string[0] = '\0';
         glTranslatef(180,-40,0);
-        sprintf(test_string,"P %f",data_current.pitch);
+        sprintf(test_string,"P %f",data_display.pitch);
         draw_text(test_string,2);
         test_string[0] = '\0';
         glTranslatef(0,20,0);
-        sprintf(test_string,"R %f",data_current.roll);
+        sprintf(test_string,"R %f",data_display.roll);
         draw_text(test_string,2);
         test_string[0] = '\0';
         glTranslatef(0,20,0);
-        sprintf(test_string,"H %f",data_current.heading);
+        sprintf(test_string,"H %f",data_display.heading);
         draw_text(test_string,2);
         test_string[0] = '\0';
         /* End debug value display */
