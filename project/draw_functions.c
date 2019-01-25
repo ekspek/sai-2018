@@ -705,7 +705,7 @@ void draw_altitude_indicator(float altitude){
     }
 
     //Draw the altitude below limit indicator
-    if (altitude > 46000) {
+    if (altitude > 49400) {
         glLoadIdentity();
         glTranslatef(675,100,-1.5); //Move the reference to the upper left corner of the box
         glBegin(GL_POLYGON); //Draw the red indicator, 1 pixel above the 50000ft scale mark
