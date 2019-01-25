@@ -467,6 +467,13 @@ void draw_airspeed_indicator(float airspeed){
     airspeed_pixels = airspeed * airspeed_scale_factor;
     max_airspeed_pixels= max_airspeed * airspeed_scale_factor;
 
+    //Airspeed sanity check
+    if (airspeed > max_airspeed){
+        airspeed = max_airspeed;
+    } else if (airspeed < 0) {
+        airspeed = 0;
+    }
+
 
     glMatrixMode(GL_MODELVIEW);
 
@@ -576,7 +583,9 @@ void draw_airspeed_indicator(float airspeed){
     } else{
         sprintf(airspeed_str,"%01.0f",u+2);
     }
-    draw_text(airspeed_str,5);
+    if(airspeed < max_airspeed){
+        draw_text(airspeed_str,5);
+    }
 
     glColor3f(1,1,1);                   //u+1
     glTranslatef(0,40,0);
@@ -585,7 +594,9 @@ void draw_airspeed_indicator(float airspeed){
     } else{
         sprintf(airspeed_str,"%01.0f",u+1);
     }
-    draw_text(airspeed_str,5);
+    if(airspeed < max_airspeed){
+        draw_text(airspeed_str,5);
+    }
 
     glColor3f(1,1,1);                   //u-1
     glTranslatef(0,80,0);
@@ -632,15 +643,24 @@ void draw_altitude_indicator(float altitude){
     altitude_pixels = altitude*0.1 * altitude_scale_factor;
     max_altitude_pixels= max_altitude*0.1 * altitude_scale_factor;
 
+    //Altitude sanity check
+    if (altitude > max_altitude){
+        altitude = max_altitude;
+    } else if (altitude < -1000) {
+        altitude = 0;
+    }
+
 
 
     glMatrixMode(GL_MODELVIEW);
 
+    //Define the altitude slider visible window
     glLoadIdentity();
     glEnable(GL_SCISSOR_TEST);
     glScissor(675,100,110,600);
     glTranslatef(675,400,-2.0); //Move reference to the middle left of the box
 
+    //Draw the altitude background
     glBegin(GL_POLYGON);
     glColor3f(0.470, 0.470, 0.470);
     glVertex3f(110,350,0);
@@ -663,13 +683,41 @@ void draw_altitude_indicator(float altitude){
         glVertex3f(0,1,0);
         glEnd();
         if(i%20 == 0 || i==0){
-            glTranslatef(13,-9,0);
+            glTranslatef(13,-7,0);
             sprintf(altitude_str,"%5d",i);
             draw_text(altitude_str,2);
-            glTranslatef(-13,9,0);
+            glTranslatef(-13,7,0);
         }
     }
     glDisable(GL_SCISSOR_TEST);
+
+    //Draw the altitude below limit indicator
+    if (altitude < -400) {
+        glLoadIdentity();
+        glTranslatef(675,700,-1.5); //Move the reference to the lower left corner of the box
+        glBegin(GL_POLYGON); //Draw the red indicator, 1 pixel below the -1000ft scale mark
+        glColor3f(1,0,0);
+        glVertex3f(0,(altitude+400)*0.1*altitude_scale_factor+1,0);
+        glVertex3f(10,(altitude+400)*0.1*altitude_scale_factor+1,0);
+        glVertex3f(10,0,0);
+        glVertex3f(0,0,0);
+        glEnd();
+    }
+
+    //Draw the altitude below limit indicator
+    if (altitude > 46000) {
+        glLoadIdentity();
+        glTranslatef(675,100,-1.5); //Move the reference to the upper left corner of the box
+        glBegin(GL_POLYGON); //Draw the red indicator, 1 pixel above the 50000ft scale mark
+        glColor3f(1,0,0);
+        glVertex3f(0,0,0);
+        glVertex3f(0,((altitude-49400)*0.1*altitude_scale_factor-1),0);
+        glVertex3f(10,((altitude-49400)*0.1*altitude_scale_factor-1),0);
+        glVertex3f(10,0,0);
+
+        glEnd();
+    }
+
 
     //Draw the current altitude meter
     glLoadIdentity();
@@ -723,7 +771,8 @@ void draw_altitude_indicator(float altitude){
     if(sign != -1){
         draw_text(altitude_str,4);
     } else {
-        draw_text("- ",4);
+        strncpy(altitude_str,"-",1);
+        draw_text(altitude_str,4);
     }
 
     //Draw the hundreds digit
@@ -753,7 +802,9 @@ void draw_altitude_indicator(float altitude){
     } else{
         sprintf(altitude_str,"%02.0f",t+40);
     }
-    draw_text(altitude_str,4);
+    if(altitude < max_altitude){
+        draw_text(altitude_str,4);
+    }
 
     glColor3f(1,1,1);                   //t+20
     glTranslatef(0,40,0);
@@ -762,7 +813,9 @@ void draw_altitude_indicator(float altitude){
     } else{
         sprintf(altitude_str,"%02.0f",t+20);
     }
-    draw_text(altitude_str,4);
+    if(altitude < max_altitude){
+        draw_text(altitude_str,4);
+    }
 
     glColor3f(1,1,1);                   //t-20
     glTranslatef(0,80,0);
@@ -771,7 +824,9 @@ void draw_altitude_indicator(float altitude){
     } else{
         sprintf(altitude_str,"%02.0f",(100+t-20));
     }
-    draw_text(altitude_str,4);
+    if(altitude > -1000){
+        draw_text(altitude_str,4);
+    }
 
     glColor3f(1,1,1);                   //t-20
     glTranslatef(0,40,0);
@@ -780,7 +835,10 @@ void draw_altitude_indicator(float altitude){
     } else{
         sprintf(altitude_str,"%02.0f",(100+t-40));
     }
-    draw_text(altitude_str,4);
+    if(altitude > -1000){
+        draw_text(altitude_str,4);
+    }
+
     glDisable(GL_SCISSOR_TEST);
 }
 
