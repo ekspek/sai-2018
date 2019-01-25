@@ -464,15 +464,15 @@ void draw_airspeed_indicator(float airspeed){
     float t;
     float h;
 
-    airspeed_pixels = airspeed * airspeed_scale_factor;
-    max_airspeed_pixels= max_airspeed * airspeed_scale_factor;
-
     //Airspeed sanity check
     if (airspeed > max_airspeed){
         airspeed = max_airspeed;
     } else if (airspeed < 0) {
         airspeed = 0;
     }
+
+    airspeed_pixels = airspeed * airspeed_scale_factor;
+    max_airspeed_pixels= max_airspeed * airspeed_scale_factor;
 
 
     glMatrixMode(GL_MODELVIEW);
@@ -513,6 +513,33 @@ void draw_airspeed_indicator(float airspeed){
         }
     }
     glDisable(GL_SCISSOR_TEST);
+
+    //Draw the airspeed below limit indicator
+    if (airspeed < 60) {
+        glLoadIdentity();
+        glTranslatef(125,700,-1.5); //Move the reference to the lower left corner of the box
+        glBegin(GL_POLYGON); //Draw the red indicator, 1 pixel below the -1000ft scale mark
+        glColor3f(1,0,0);
+        glVertex3f(0,(airspeed-60)*airspeed_scale_factor-1,0);
+        glVertex3f(-10,(airspeed-60)*airspeed_scale_factor-1,0);
+        glVertex3f(-10,0,0);
+        glVertex3f(0,0,0);
+        glEnd();
+    }
+
+    //Draw the airspeed below limit indicator
+    if (airspeed > 340) {
+        glLoadIdentity();
+        glTranslatef(125,100,-1.5); //Move the reference to the upper left corner of the box
+        glBegin(GL_POLYGON); //Draw the red indicator, 1 pixel above the 50000ft scale mark
+        glColor3f(1,0,0);
+        glVertex3f(0,0,0);
+        glVertex3f(0,((airspeed-340)*airspeed_scale_factor+1),0);
+        glVertex3f(-10,((airspeed-340)*airspeed_scale_factor+1),0);
+        glVertex3f(-10,0,0);
+
+        glEnd();
+    }
 
 
     //Draw the current airspeed meter
@@ -640,15 +667,16 @@ void draw_altitude_indicator(float altitude){
     float h;
     float th;
 
-    altitude_pixels = altitude*0.1 * altitude_scale_factor;
-    max_altitude_pixels= max_altitude*0.1 * altitude_scale_factor;
-
     //Altitude sanity check
     if (altitude > max_altitude){
         altitude = max_altitude;
     } else if (altitude < -1000) {
-        altitude = 0;
+        altitude = -1000;
     }
+
+    altitude_pixels = altitude*0.1 * altitude_scale_factor;
+    max_altitude_pixels= max_altitude*0.1 * altitude_scale_factor;
+
 
 
 
