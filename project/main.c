@@ -40,8 +40,8 @@ int main ( int argc , char * argv [] ) {
     float l=1; //roll test variable
     float n=1; //airspeed test variable
     float m=1; //vspeed test variable
-    /*END DEBUG variables
-    */
+    /**/
+    /*END DEBUG variables */
 
 
     if(argc != 2){
@@ -64,12 +64,12 @@ int main ( int argc , char * argv [] ) {
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    data_current.altitude = 50000;
-    data_current.pitch = 4.9;
-    data_current.heading = 322;
+    data_current.altitude = 0;
+    data_current.pitch = 0;
+    data_current.heading = 0;
     data_current.roll = 0;
-    data_current.ias = 174.8;
-    data_current.vspeed = -0.4;
+    data_current.ias = 0;
+    data_current.vspeed = 0;
 
     SDL_Init(SDL_INIT_VIDEO) ;
 
@@ -163,7 +163,7 @@ int main ( int argc , char * argv [] ) {
 
         /* DEBUG ROUTINES
         data_current.altitude = data_current.altitude + 2*i;
-        if (1000 - data_current.altitude <= 0.1)
+        if (50000 - data_current.altitude <= 0.1)
             i = -1;
         if (1000 + data_current.altitude <= -0.1)
             i = 1;
@@ -175,7 +175,7 @@ int main ( int argc , char * argv [] ) {
             j = 1;
 
         data_current.heading = data_current.heading + k;
-        if (359 - data_current.heading <= 0.1)
+        if (360 - data_current.heading <= 0.1)
             k = -1;
 
         if (359 + data_current.heading <= -0.1)
@@ -202,7 +202,7 @@ int main ( int argc , char * argv [] ) {
             m = 1;
 
         printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
-        */
+        /**/
         /* END DEBUG ROUTINES*/
     }
     SDL_Quit();
