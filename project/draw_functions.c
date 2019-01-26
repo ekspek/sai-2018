@@ -54,11 +54,6 @@ void draw_artificial_horizon(float pitch, float roll)
     float midX=(float) WINDOW_SIZE_X/2;
     float midY=(float) WINDOW_SIZE_Y/2;
 
-    //Auxiliary position variables
-    float x;
-    float y;
-    float z;
-
     pitch_pixels = pitch * pitch_scale_factor;
 
 
@@ -453,7 +448,6 @@ void draw_airspeed_indicator(float airspeed){
 
     int i=0; //Auxiliary counter
     float max_airspeed = 400; //Maximum airspeed of the aircraft in knots
-    float max_airspeed_pixels;
     float airspeed_scale_factor=5; //2 pixels per knot
     float airspeed_pixels;
     char airspeed_str[9];
@@ -472,7 +466,6 @@ void draw_airspeed_indicator(float airspeed){
     }
 
     airspeed_pixels = airspeed * airspeed_scale_factor;
-    max_airspeed_pixels= max_airspeed * airspeed_scale_factor;
 
 
     glMatrixMode(GL_MODELVIEW);
@@ -655,7 +648,6 @@ void draw_altitude_indicator(float altitude){
 
     int i=0; //Auxiliary counter
     float max_altitude = 50000; //Maximum altitude of the aircraft in feet
-    float max_altitude_pixels;
     float altitude_scale_factor=5; //5 pixels per 10 feet
     float altitude_pixels;
     char altitude_str[6];
@@ -675,7 +667,6 @@ void draw_altitude_indicator(float altitude){
     }
 
     altitude_pixels = altitude*0.1 * altitude_scale_factor;
-    max_altitude_pixels= max_altitude*0.1 * altitude_scale_factor;
 
 
 
@@ -878,12 +869,14 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLint numberOfS
     GLfloat circleVerticesY[numberOfVertices];
     GLfloat circleVerticesZ[numberOfVertices];
 
+    int i;
+
     circleVerticesX[0]=x;
     circleVerticesY[0]=y;
     circleVerticesZ[0]=z;
 
 
-    for(int i = 1; i < numberOfVertices; i++)
+    for(i = 1; i < numberOfVertices; i++)
     {
         circleVerticesX[i] = x +(radius*cos(i + doublePi/numberOfSides));
         circleVerticesY[i] = y +(radius*sin(i + doublePi/numberOfSides));
@@ -892,7 +885,7 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat z, GLfloat radius, GLint numberOfS
 
     GLfloat allCircleVertices[numberOfVertices * 3];
 
-    for(int i = 0; i< numberOfVertices; i++)
+    for(i = 0; i< numberOfVertices; i++)
     {
         allCircleVertices[i*3] = circleVerticesX[i];
         allCircleVertices[(i*3)+1] = circleVerticesY[i];

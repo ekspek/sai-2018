@@ -13,6 +13,7 @@
 #include <signal.h>
 
 #include "comms.h"
+#include "global_variables.h"
 
 #define BUFFER_SIZE 1024
 
@@ -92,12 +93,13 @@ void* thread_comms(void* ptr){
 			data_current.altitude = float_swap(*(float*)(buffer + 2 * wordsize));
 			data_current.ias = float_swap(*(float*)(buffer + 6 * wordsize));
 			data_current.pitch = float_swap((*(float*)(buffer + 7 * wordsize)));
-			data_current.roll = float_swap((*(float*)(buffer + 8 * wordsize)));
+            data_current.roll = -float_swap((*(float*)(buffer + 8 * wordsize)));
 			data_current.heading = float_swap((*(float*)(buffer + 9 * wordsize)));
 			gs = float_swap((*(float*)(buffer + 5 * wordsize)));
 			vpath = float_swap((*(float*)(buffer + 3 * wordsize)));
-            vspeed_kts = gs * tan(vpath * M_PI / 180);
-            data_current.vspeed = vspeed_kts*101.2685914252;
+            vspeed_kts = gs * tanf(vpath * PI / 180);
+            data_current.vspeed = vspeed_kts*101.2685914252/1000;
+            printf("GS=%f   vpath=%f    vspeed=%f   vspeed_kts=%f\n",gs,vpath,data_current.vspeed,vspeed_kts);
 			pthread_mutex_unlock(&mutex_main);
 		}
 	}

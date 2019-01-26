@@ -27,8 +27,6 @@
 #include <arpa/inet.h>
 #include <signal.h>
 
-#include "global_variables.h"
-
 float float_swap(float value);
 void* thread_comms(void *ptr);
 
