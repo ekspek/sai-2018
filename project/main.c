@@ -34,17 +34,6 @@ Data data_current;
 int main ( int argc , char * argv [] ) {
     Data data_display;
 
-    /* DEBUG variables
-    float i=1; //altitude test variable
-    float j=1; //pitch test variable
-    float k=1; //heading test variable
-    float l=1; //roll test variable
-    float n=1; //airspeed test variable
-    float m=1; //vspeed test variable
-    /**/
-    /*END DEBUG variables */
-
-
     if(argc != 2){
         fprintf(stderr, "Usage: %s <port>\n", argv[0]);
         exit(1);
@@ -163,50 +152,6 @@ int main ( int argc , char * argv [] ) {
             }
         }
 
-
-        /* DEBUG ROUTINES
-        data_current.altitude = data_current.altitude + 2*i;
-        if (50000 - data_current.altitude <= 0.1)
-            i = -1;
-        if (1000 + data_current.altitude <= -0.1)
-            i = 1;
-
-        data_current.pitch = data_current.pitch + j;
-        if (90 - data_current.pitch <= 0.1)
-            j = -1;
-        if (90 + data_current.pitch <= -0.1)
-            j = 1;
-
-        data_current.heading = data_current.heading + k;
-        if (360 - data_current.heading <= 0.1)
-            k = -1;
-
-        if (359 + data_current.heading <= -0.1)
-            k = 1;
-
-        data_current.roll = data_current.roll + l;
-        if (60 - data_current.roll <= 0.1)
-            l = -1;
-        if (60 + data_current.roll <= -0.1)
-            l = 1;
-
-        data_current.ias=data_current.ias+n*0.1;
-        if (400 - data_current.ias <= 0.1)
-            n = -1;
-
-        if (400 + data_current.ias <= -0.1)
-            n = 1;
-
-        data_current.vspeed=data_current.vspeed+m*0.1;
-        if (9 - data_current.vspeed <= 0.1)
-            m = -1;
-
-        if (9 + data_current.vspeed <= -0.1)
-            m = 1;
-
-        printf("Altitude is %f, IAS is %f, vertical speed is %f, pitch is %f, roll is %f, heading is %f\n", data_current.altitude, data_current.ias, data_current.vspeed, data_current.pitch, data_current.roll, data_current.heading);
-        /**/
-        /* END DEBUG ROUTINES*/
     }
     SDL_Quit();
     pthread_cancel(thread_comms_id);
