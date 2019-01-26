@@ -65,6 +65,9 @@
 
 \newrobustcmd*{\jamming}{\textit{jamming}}
 
+%\geometry{hmargin = 1cm, vmargin = 2cm}
+%\renewcommand\baselinestretch{1}
+
 % ================= END PREAMBLE =================
 
 \begin{document}
@@ -72,12 +75,10 @@
 \makecover{}
 
 \begin{abstract}
-	In this research report we will present a general discussion on the topic of electric and electronic aeronautical systems and their presence within the context of war and warfare, beginning with an historical overview of the presence of these systems in aeronautics, their growth and expansion, the detection and exploitation of their vulnerabilities and subsequent and ongoing battle between exploitation and protection of these systems. Following it will be a presentation of the most notable weapons and systems within this topic, both historical and modern, which will culminate in a discussion on the future of electronic aeronautical systems and how relevant their overall protection can be to modern safety in the aeronautical and aerospace industry.
+	In this research report we will present a general discussion on the topic of electric and electronic aeronautical systems and their presence within the context of war and warfare, beginning with an historical overview of the presence of these systems in aeronautics, their growth and expansion, the detection and exploitation of their vulnerabilities and subsequent and ongoing battle between exploitation and protection of these systems. Following it will be a presentation of some of the currently used systems for aerial electronic warfare, as well as a simple explanation of their functionality and inner workings.
 \end{abstract}
 
 {\hypersetup{linkcolor={black}} \tableofcontents}
-
-\pagebreak
 
 \section{Introduction}\label{sec:introduction}
 Electronic Warfare is defined as a set of measures and actions
@@ -183,7 +184,7 @@ The British forces were forced to implement counter-measures to the German radar
 The first used radar technology, \textit{Knickebein}, relied on the German-developed Lorentz \cite{pentagonknickebein}. This radar, used for approach and landing procedures in German soil, used two radio beams transmitting Morse dots and dashes respectively, to allow for a pilot to centre their trajectory with the two emitters by measuring the proportion of either signal, as seen in figure \ref{fig:lorenz}.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width = 0.8\textwidth,trim = {0 8mm 0 0}, clip]{lorenz}
+    \includegraphics[width = 0.9\textwidth,trim = {0 8mm 0 0}, clip]{lorenz}
     \caption{The functioning of the German \textit{Lorenz} radar.}
     \label{fig:lorenz}
 \end{figure}
@@ -191,7 +192,7 @@ The first used radar technology, \textit{Knickebein}, relied on the German-devel
 This radar was adapted to orient the bombers towards targets in the United Kingdom by separating the beams far from each other to define the latitude and longitude of the dropping point, as can be seen in figure \ref{fig:botb_map}. This allowed the pilots to fly blind and accurately find the bombing point in a pre-radio navigation era.
 \begin{figure}[ht]
     \centering
-    {\tiny \includesvg[width = 0.5\textwidth]{Knickebein}}
+    {\tiny \includesvg[width = 0.4\textwidth]{Knickebein}}
     \caption{Map of the German \textit{Knickebein} radar beams used for the night bombings of the \textit{Battle Of The Beams.}}
     \label{fig:botb_map}
 \end{figure}
@@ -211,7 +212,7 @@ The British had learned lessons within the field and moved on from defence to of
 Later on, both sides of the war would see widespread use of \textit{chaff}, called \textit{window} by the British and \textit{düppel} by the Germans, which consisted of materials dispersed in the air to create false radar positives to conceal real threats.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width = 0.5\textwidth]{chaff}
+    \includegraphics[width = 0.4\textwidth]{chaff}
     \caption{Effect of \textit{chaff} in a radar display. On the right, the display is clear and a target is visible, while on the left the \textit{chaff} scattered around distorts the input signal.}
     \label{fig:chaff}
 \end{figure}
@@ -249,7 +250,7 @@ At the time, the \textit{Lockheed U-2} was at the forefront of these development
 \end{itemize}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width = 0.7\textwidth]{lockheedu2}
+    \includegraphics[width = 0.5\textwidth]{lockheedu2}
     \caption{The \textit{Lockheed U-2} aircraft, used by the United States of America for ELINT missions during the Cold War.}
     \label{fig:u-2}
 \end{figure}
@@ -263,7 +264,7 @@ The late 50s and early 60s saw the United States joining the war in Vietnam. Fig
 This saw the development of counter-measures to fight this type of tracking and detection, and new models of codenamed \textit{Wild Weasel} aircraft were shipping out equipped with Radar Homing and Warning systems, developed to shut down the aforementioned threats. These aircraft carried numbers of radar-seeking missiles, which would hone in on radar signals emitted by enemy forces to destroy them and provide cover for more ground-oriented bombers and other aircraft.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{wildweasel}
+    \includegraphics[width=0.4\textwidth]{wildweasel}
     \caption{An F-16 \textit{Wild Weasel} aircraft.}
     \label{fig:wildweasel}
 \end{figure}
@@ -277,7 +278,7 @@ The Vietnam War very much highlighted the importance of correct knowledge and us
 The first Gulf War at the beginning of the 1990s once again put the current status of electronic warfare and its importance to the test. Both sides and their arsenal were put to the test, and as proven time and time again, intelligence would play a major role in the final outcome.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width = 0.7\textwidth]{f117}
+    \includegraphics[width = 0.5\textwidth]{f117}
     \caption{A \textit{Lockheed F-117 Nighthawk} aircraft taking off during \textit{Operation Desert Storm}, one of the first aircraft to be designed with stealth technology in mind.}
     \label{fig:gulfwar}
 \end{figure}
@@ -294,7 +295,6 @@ A host of targets in Iraq were also destroyed by stealth aircraft, which possess
 
 Combined with a host of other technology unavailable to the Iraqi forces meant that the war quickly and swiftly swung in favour of the coalition forces. The first Gulf War marked the turning point of modern warfare, with electronic warfare securing its central position as deciding factor in the outcome of modern warfare.
 
-\pagebreak
 \part{Electronic Attack}
 
 \section{Introduction}
@@ -358,18 +358,22 @@ We can include methods of concealing airplanes (helicopters) and other targets f
 using electronic jamming systems; the self-screening of airplanes (helicopters) using electronic jamming systems; and the combination of electronic jamming with the destruction of electronic targets using firepower. 
 
 \begin{figure}[ht]
-\centering
-\includegraphics[width=70mm]{jam2.png}
-\caption{Methods of concealing airplanes (helicopters) and other targets from fixed areas using jamming.}
-\label{jam2}
-\end{figure} 
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=70mm]{jam3.png}
-\caption{Methods of screening airplanes in battle formation using jamming.}
-\label{jam3}
-\end{figure} 
+    \begin{minipage}[c]{0.49\textwidth}
+        \captionsetup{width = 0.9\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{jam2.png}
+        \caption{Methods of concealing airplanes (helicopters) and other targets from fixed areas using jamming.}
+        \label{jam2}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.49\textwidth}
+        \captionsetup{width = 0.9\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{jam3.png}
+        \caption{Methods of screening airplanes in battle formation using jamming.}
+        \label{jam3}
+    \end{minipage}
+\end{figure}
 
 \subsection{Destructive Jamming}
 Destructive jamming signals are implemented using deliberate high-energy electromagnetic radiation. The effect of destructive jamming signals is to cause irreversible damage to input components in the receivers of the targets being jammed. This damage remains even after the jamming operation has finished. In order to restore the receiver or other device, it is necessary to replace (or repair) the damaged component. 
@@ -433,7 +437,6 @@ On the operations level, the thesis we have mentioned about jamming
 is borne out by the example of military actions taken during a defensive operation to fend off strikes by an enemy who is conducting offensive air and ground operations. In this case, jamming systems may be given the task of thwarting a massive strike using high-precision weapons. By delivering information damage to synthetic aperture radar, \textit{ELINT} stations within intelligence and strike systems, and high-precision radio navigation systems, jamming significantly decreases the probability that groups of aircraft and
 missiles, \textit{AAD} systems, and other targets belonging to the defending side will be hit. Thus, their average combat life becomes significantly longer. In this instance, jamming prevents potential material damage by delivering information damage to the enemy's electronic systems for control of forces and weapons, thereby creating conditions for a counter-strike. 
 
-\pagebreak
 \part{Electronic Protection}
 \section{Introduction}
 
@@ -462,7 +465,18 @@ $$
 $$
 
 One method to avoid these problems and increase SNR at the radar receiver is by modulating the pulse using linear frequency modulation, also called chirping. By modulating the transmitted signal linearly across a frequency band $\Delta f$ centered on the carrier frequency, we obtain a signal whose correlation between transmitted and received signal is centered at $t = 0$, which behaves as a \textit{sinc} function at that point. The -3dB temporal width of that function gives us the pulse duration of the modulation signal, which is
-
+\begin{figure}[ht]
+\centering
+\includegraphics[width=90mm]{modulacao_chirp.jpg}
+\caption{Modulation of the transmitted pulse}
+\label{modulacao_chirp}
+\end{figure} 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=90mm]{graphics/chirped_result.PNG}
+\caption{Demodulated echo signal}
+\label{modulacao_chirp}
+\end{figure} 
 $$
 T' = \frac{1}{\Delta f}
 $$
@@ -542,21 +556,24 @@ When transmitted, an electromagnetic signal presents some kind of polarization. 
 
 \section{Chaff}
 
-One of the earliest airborne methods of radar countermeasures, chaff is a radar countermeasure that consists in the spreading of a large number of small, thin pieces of metal or metalized material, as seen on Figure \ref{chaff_photo}. These pieces of metal are cut to sizes that are equal to half the wavelength of the signal that is intended to counter, creating a cloud of half-dipole antennas. These tunned half-dipole antennas resonate with the radar signals, creating a cloud of radar echoes designed to mask the presence of the aircraft, diverting radar-guided missiles, ground-based anti-air artillery and rendering useless radar detection from enemy aircraft. Examples of the usage of chaff can be seen in Figures \ref{fig:chaff} and \ref{chaff_cloud_echo}.
+One of the earliest airborne methods of radar countermeasures, chaff is a radar countermeasure that consists in the spreading of a large number of small, thin pieces of metal or metalized material, as seen on Figure \ref{chaff_photo}. These pieces of metal are cut to sizes that are equal to half the wavelength of the signal that is intended to counter, creating a cloud of half-dipole antennas. These tunned half-dipole antennas resonate with the radar signals, creating a cloud of radar echoes designed to mask the presence of the aircraft, diverting radar-guided missiles. When used in large clouds, they can also suppress the radar of ground-based anti-air artillery and render radar detection from enemy aircraft useless for a short time. Examples of the usage of chaff can be seen in Figures \ref{fig:chaff} and \ref{chaff_cloud_echo}.
 
 \begin{figure}[ht]
-\centering
-\includegraphics[width=70mm]{Usnchaff.jpg}
-\caption{Modern chaff, in use with the United States Navy}
-\label{chaff_photo}
-\end{figure} 
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=70mm]{chaff_radarjpg.jpg}
-\caption{Radar echoes of a chaff cloud}
-\label{chaff_cloud_echo}
-\end{figure} 
+    \begin{minipage}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[height=5.5cm]{Usnchaff.jpg}
+            \subcaption{Modern chaff, in use with the United States Navy}
+            \label{chaff_photo}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\linewidth}
+            \centering
+            \includegraphics[height=5.5cm]{chaff_radarjpg.jpg}
+            \subcaption{Radar echoes of a chaff cloud}
+            \label{chaff_cloud_echo}
+    \end{minipage}
+    \caption{Overview of radar \textit{chaff}.}
+\end{figure}
 
 
 \section{Radiation homing}
@@ -572,7 +589,6 @@ There are several ways to implement such a weapon. However, one of them makes us
 \label{arm_missile}
 \end{figure}
 
-\pagebreak
 \part{Electronic Warfare Support}
 
 One of the main functions of communication electronic warfare (EW) systems is determining the location of an emmitting target. 
@@ -587,46 +603,42 @@ It is useful to know the location of targets by three different reasons:
 A frequently used parameter for point fixed computation is the azimuth angle of arrival (\textit{AOA}) of a signal, or its line of bearing (\textit{LOB}). Two or more \textit{LOBs}, assumed to be measured from sensors at known locations on the same target at more or less the same time, may intersect as in figure \ref{target1}. The technique name is triangulation and it is used for point fix determination. 
 Noise, measurement errors, and multipath reflections typically limit the point fix accuracy. 
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=70mm]{target1.png}
-\caption{Intersection of measured LOBs}
-\label{target1}
-\end{figure} 
-
 Triangulation can be implemented on all varieties of platforms, including aircraft, ships and ground vehicles. Triangulation requires an array of antennas, if signal phase is used as the parameter for computing the \textit{LOBs} with a baseline shorter than half a wavelength to avoid ambiguities in phase angle measurement.
 Impinging on the antenna array at an intercept site provide us several methods to estimate the azimuth angle of arrival of signals, based on measuring the time difference of arrival or phase difference of the signals at two antennas that are spaced half a wavelength or less apart. Relative amplitude and other parameters, can also be used as the angle indicator. Most methods require the antenna array. 
 
 \begin{figure}[ht]
-\centering
-\includegraphics[width=70mm]{target4.png}
-\caption{Geometric relationships for Point Fixed by triangulation}
-\label{target4}
-\end{figure} 
+    \begin{minipage}[b]{0.49\textwidth}
+        \captionsetup{width = 0.9\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{target1.png}
+        \caption{Intersection of measured LOBs}
+        \label{target1}
+    \end{minipage}
+    \begin{minipage}[b]{0.49\textwidth}
+        \captionsetup{width = 0.9\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{target4.png}
+        \caption{Geometric relationships for Point Fixed by triangulation}
+        \label{target4}
+    \end{minipage}
+\end{figure}
 
 
 Available algorithms for optimum point fixed calculation are based on the least-square error \textit{(LSE)} estimation technique.
 
-Considering just two dimensions, there are two sensors, $S_1$ and $S_2$, separated by distance $d$ and a single target, illustrated inf figure \ref{target4}. Instead of using two sensors it could be used the same sensor moved distance $d$. Each of the sensors computes an \textit{LOB} relative to some reference, which is the same for both sensors. Using trigonometry: 
+Considering just two dimensions, there are two sensors, $S_1$ and $S_2$, separated by distance $d$ and a single target, illustrated in figure \ref{target4}. Instead of using two sensors it could be used the same sensor moved distance $d$. Each of the sensors computes an \textit{LOB} relative to some reference, which is the same for both sensors. Using trigonometry: 
 
-\begin{equation*}
+\begin{gather*}
     \sin{\phi_1} = \frac{d_1}{d} \Rightarrow 
-    d_1 = d \sin{\phi_1}
-\end{equation*}
-
-\begin{equation*}
+    d_1 = d \sin{\phi_1} \\
 \sin{\phi_2 - \phi_1} = \frac{d_1}{d_2} \Rightarrow d_2 = \frac{d_1}{\sin{\phi_2 - \phi_1}} \Rightarrow d_2 = \frac{d \sin{\phi_1}}{\sin{\phi_2 - \phi_1}}     
-\end{equation*}
+\end{gather*}
 
 The distances to the target from $S_2$, $x$ and $y$, can be computed as:
-
-\begin{equation*}
-x = d_2 \cos{\phi_2}     
-\end{equation*}
-
-\begin{equation*}
-y = d_2 \sin{\phi_2}     
-\end{equation*}
+\begin{gather*}
+    x = d_2 \cos{\phi_2} \\
+    y = d_2 \sin{\phi_2}
+\end{gather*}
 
 These principles can be extended to three dimensions and to the use of more than two sensors. The resulting coordinates can be averaged taking two sensors at a time and computing the coordinates of the target.
 
@@ -634,20 +646,22 @@ Plotting the measured \textit{LOBs} and see where they cross is another techniqu
 
 In general, the \textit{LOBs} are corrupted with measurement error and noise. Zero mean additive white Gaussian \textit{AWGN} frequently characterises the noise. The \textit{LOBs} would all cross at a single point in the absence of errors in the measurement process. 
 
-
 \begin{figure}[ht]
-\centering
-\includegraphics[width=70mm]{target5.png}
-\caption{Triangulation}
-\label{target5}
-\end{figure} 
- 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=70mm]{target6.png}
-\caption{Random error effects on computing the PF}
-\label{target6}
-\end{figure} 
+    \begin{minipage}[b]{0.49\textwidth}
+        \captionsetup{width = 0.9\linewidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{target5.png}
+        \caption{Triangulation}
+        \label{target5}
+    \end{minipage}
+    \begin{minipage}[b]{0.49\textwidth}
+        \captionsetup{width = 0.9\linewidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{target6.png}
+        \caption{Random error effects on computing the PF}
+        \label{target6}
+    \end{minipage}
+\end{figure}
 
 However, the result on the Point Fixed computation is to cause the \textit{LOBs} to move away from crossing at a single point. As illustrated in figure \ref{target6}, if the noise is random, the measured \textit{LOB} could be larger than or smaller than the actual \textit{LOB} resulting in an error ellipse. 
 
@@ -687,16 +701,13 @@ Can be taken three \textit{LOBs} at time, figure \ref{target8} (b-e), if there a
 \label{target9}
 \end{figure} 
 
+Some optimisation methods that rely on finding an estimate, based on minimizing the error between the estimate and the actual value of the Point Fixed are enumerated here. It was decided to dodge the calculus behind these methods because of their big extension and complexity. We only mention some of them, remembering that are generalisations of Least Square Estimation Algorithm:
 
-
-
-Some optimization methods that rely on finding an estimate, based on minimizing the error between the estimate and the actual value of the Point Fixed are enumerated here. It was decided to dodge the calculus behind these methods because of their big extension and complexity. We only mention some of them, remembering that are generalisations of Leasts Square Estimation Algortihm:
-
-\begin{itemize}
-    \item Total Least-Squares Estimation - allows for the existence of noise in not only the measurements but also for errors in the observation matrix;
-    \item Weighted Least-Squares Estimation - Weighting Matrix  $\mathbf{W_k}\neq I $ ;
-    \item Brown’s Least-Squares Triangulation Algorithm - is based on minimising the square of the miss distance of the Point Fixed from the measured \textit{LOBs}, figure \ref{target10} from page \pageref{target10};
-    \item Hemispheric Least-Squares Error Estimation Algorithm -
+\begin{description}
+    \item [Total Least-Squares Estimation] Allows for the existence of noise in not only the measurements but also for errors in the observation matrix;
+    \item [Weighted Least-Squares Estimation] Weighting Matrix  $\mathbf{W_k}\neq I $ ;
+    \item [Brown’s Least-Squares Triangulation Algorithm] Is based on minimising the square of the miss distance of the Point Fixed from the measured \textit{LOBs}, figure \ref{target10} from page \pageref{target10};
+\item [Hemispheric Least-Squares Error Estimation Algorithm]
     
 The measured bearing from a sensor, $\phi_i$ , projected onto
 the surface of the Earth in the northern hemisphere (the other hemisphere will work as well with appropriate change of variables), illustrated in figure \ref{target11} from page \pageref{target11};
@@ -714,7 +725,7 @@ $\Delta \phi_i$ is the error in the ith measured bearing;
 $x_i$ is the error in the calculation of the longitude in the ith observation interval;
 $\Delta y_i$ is the error in the calculation of the latitude in the ith observation interval; 
 
-\item Pages-Zamora Least-Squares - LSE algorithm based on the
+\item [Pages-Zamora Least-Squares] LSE algorithm based on the
 cellular phone requirements imposed by the Federal Communications Committee in the United States. Illustrated in figure \ref{target12} from page \pageref{target12}.  
 
 \begin{equation*}
@@ -728,14 +739,14 @@ cellular phone requirements imposed by the Federal Communications Committee in t
 \end{equation*}
 
 
-\item Total least-squares estimation \textit{(TLSE)} method - starts with squaring the equantion from \textit{Hemispheric Least-Squares Error Estimation Algorithm}:
+\item [Total least-squares estimation \textit{(TLSE)} method] Starts with squaring the equantion from \textit{Hemispheric Least-Squares Error Estimation Algorithm}:
 
 \begin{equation*}
     \cos{\phi_i}^2= \frac{(x_t - x_i)^2}{(y_T - y_i)^2+(x_T - x_i)^2}
 \end{equation*}
 
 
-\end{itemize}
+\end{description}
 
 
 Measuring the time of arrival of the signal is another possibility at
@@ -751,10 +762,10 @@ Using reflections off the Earth’s ionosphere, high frequency signals can propa
 
 \begin{quote} \itshape
     
-Knowing the azimuth angle of arrival of the signal, as well as its elevation angle, combined with an estimate of the equivalent height of the ionosphere where the signals are reflected allows estimation of the point fix of a target with a single sensor. Such point fix techniques are known as single-site location (SSL)...
-... Perhaps the most used form of AOA estimation is amplitude comparison since that is the popular technique used in aircraft survivability equipment (ASE), in particular, in radar warning receivers (RWRs). Every combat aircraft in the Air
-Force and Navy has this equipment employed on it. The downfall of the method is that it is fairly inaccurate.
-\end{quote} \cite{poiseltarget}.
+Knowing the azimuth angle of arrival of the signal, as well as its elevation angle, combined with an estimate of the equivalent height of the ionosphere where the signals are reflected allows estimation of the point fix of a target with a single sensor. Such point fix techniques are known as single-site location \textit{(SSL)}...
+... Perhaps the most used form of \textit{AOA} estimation is amplitude comparison since that is the popular technique used in aircraft survivability equipment \textit{(ASE)}, in particular, in radar warning receivers \textit{(RWRs)}. Every combat aircraft in the Air
+Force and Navy has this equipment employed on it. The downfall of the method is that it is fairly inaccurate. \cite{poiseltarget}
+\end{quote}
  
 \begin{figure}[ht]
 \centering
