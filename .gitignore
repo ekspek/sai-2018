@@ -13,7 +13,6 @@ arara.xml
 *.bbl
 *.bcf
 *.blg
-presentation/report/main.pdf
 *.run.xml
 
 ## Vim aux files
